@@ -166,9 +166,10 @@ const sendEmailWithProvider = async (options) => {
     return info;
   }
 
-  throw new Error(
-    "No email provider configured. Set BREVO_API_KEY or SMTP_HOST + SMTP_PASSWORD + SMTP_MAIL.",
+  console.warn(
+    "⚠️ No email provider configured (BREVO_API_KEY or SMTP_HOST missing). Email sending is bypassed."
   );
+  return { success: true, bypassed: true };
 };
 
 export default sendEmailWithProvider;
