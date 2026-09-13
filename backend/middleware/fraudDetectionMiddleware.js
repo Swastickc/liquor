@@ -1,6 +1,5 @@
 import Order from "../models/orderModel.js";
 import User from "../models/userModel.js";
-import CouponUsage from "../models/couponUsageModel.js";
 
 /**
  * FEAT-24: Simple heuristic-based fraud detection
@@ -41,17 +40,6 @@ export const fraudDetection = async (req, res, next) => {
     });
     if (cancelledOrders >= 3) {
       flags.push("frequent_cancellation_pattern");
-    }
-
-    // 4. Coupon abuse: suspicious repeated coupon usage by same user
-    if (couponCode) {
-      const sameUserCouponCount = await CouponUsage.countDocuments({
-        user: userId,
-        createdAt: { $gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
-      });
-      if (sameUserCouponCount >= 5) {
-        flags.push("suspicious_coupon_usage");
-      }
     }
 
     // 5. Total price manipulation (frontend total ≠ server recalculation caught later)
