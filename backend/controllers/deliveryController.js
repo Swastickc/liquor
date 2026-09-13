@@ -9,10 +9,10 @@ import {
 } from "../utils/emailTemplates.js";
 import { sanitizeObjectId } from "../utils/sanitize.js";
 import Emergency from "../models/emergencyModel.js";
-import { processReferralReward } from "./referralController.js";
+// import { processReferralReward } from "./referralController.js";
 import { createNotification } from "./notificationController.js";
 import { recalculateETA } from "./etaController.js";
-import { updateOrderStreak } from "./gamificationController.js";
+// import { updateOrderStreak } from "./gamificationController.js";
 
 // ============================================================
 // 🛵 1. GET MY ASSIGNED DELIVERIES
@@ -257,20 +257,10 @@ export const updateOrderToDelivered = async (req, res) => {
 
     const updatedOrder = await order.save();
 
-    // 🏆 FEAT-7: Update gamification streak (non-blocking)
-    updateOrderStreak(order.user.toString()).catch(() => {});
-
     // 🛸 FIX: Free up delivery partner for the next order
     await User.findByIdAndUpdate(req.user._id, {
       isAvailable: true,
     });
-
-    // 🪙 NON-BLOCKING: Process referral rewards on first delivered order
-    try {
-      await processReferralReward(order.user, order._id);
-    } catch (refErr) {
-      console.error("🔗 Referral processing error (non-blocking):", refErr.message);
-    }
 
     // 🔔 Notify Everyone — strip OTP from customer-facing emits
     if (req.io) {

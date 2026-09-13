@@ -2,7 +2,7 @@ import crypto from "crypto";
 import Razorpay from "razorpay";
 import Order from "../models/orderModel.js";
 import Restaurant from "../models/restaurantModel.js";
-import Coupon from "../models/couponModel.js";
+// import Coupon from "../models/couponModel.js";
 import dotenv from "dotenv";
 import sendEmail from "../utils/sendEmail.js";
 import {
@@ -11,7 +11,7 @@ import {
   getRestaurantOrderAlertTemplate,
 } from "../utils/emailTemplates.js";
 import getAdminEmail from "../utils/getAdminEmail.js";
-import CouponUsage from "../models/couponUsageModel.js";
+// import CouponUsage from "../models/couponUsageModel.js";
 import { sanitizeObjectId } from "../utils/sanitize.js";
 
 dotenv.config();
@@ -165,21 +165,7 @@ export const verifyPayment = async (req, res) => {
         email_address: payment.email || (order.user && order.user.email) || "",
       };
 
-      // BUG-08 FIX: Atomic CouponUsage via upsert — prevents race condition
-      if (order.couponCode && order.user && order.user._id) {
-        const coupon = await Coupon.findOne({ code: order.couponCode.toUpperCase() });
-        if (coupon) {
-          try {
-            await CouponUsage.findOneAndUpdate(
-              { user: order.user._id, coupon: coupon._id },
-              { $setOnInsert: { user: order.user._id, coupon: coupon._id, order: order._id } },
-              { upsert: true }
-            );
-          } catch (upsertErr) {
-            if (upsertErr.code !== 11000) throw upsertErr;
-          }
-        }
-      }
+      // Coupon tracking removed for compliance
 
       const updatedOrder = await order.save();
 
@@ -336,23 +322,7 @@ export const razorpayWebhook = async (req, res) => {
             return res.status(200).json({ status: "ok" });
           }
 
-            // NEW-07 FIX: Atomic CouponUsage via upsert on webhook
-            if (updated.couponCode) {
-              try {
-                const coupon = await Coupon.findOne({ code: updated.couponCode.toUpperCase() });
-                if (coupon) {
-                  await CouponUsage.findOneAndUpdate(
-                    { user: updated.user, coupon: coupon._id },
-                    { $setOnInsert: { user: updated.user, coupon: coupon._id, order: updated._id } },
-                    { upsert: true }
-                  );
-                }
-              } catch (couponErr) {
-                if (couponErr.code !== 11000) {
-                  console.error('Webhook CouponUsage creation failed:', couponErr.message);
-                }
-              }
-            }
+            // Coupon tracking removed for compliance
 
             // Notifications (non-blocking)
             const populatedOrder = await Order.findById(updated._id).populate("user");

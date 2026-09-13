@@ -115,7 +115,8 @@ const DeliveryCard = ({ order, onAction }) => {
   <CheckCircle size={12} className="sm:size-[14] animate-pulse shrink-0" /> At Location
   </p>
   <p className="text-[8px] sm:text-[9px] text-gray-500 font-bold text-center uppercase tracking-widest">
-  Collect OTP from customer
+  <span className="text-red-400 font-black">LEGAL REQUIREMENT: Verify ID (21+)</span><br />
+  Then collect OTP from customer to deliver.
   </p>
   </div>
   )}

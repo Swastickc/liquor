@@ -3,7 +3,7 @@ import Restaurant from "../models/restaurantModel.js";
 import Notification from "../models/notificationModel.js";
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
-import CouponUsage from "../models/couponUsageModel.js";
+// import CouponUsage from "../models/couponUsageModel.js";
 import generateToken from "../utils/generateToken.js";
 import sendEmail from "../utils/sendEmail.js";
 import { getPhoneConfirmationTemplate } from "../utils/emailTemplates.js";
@@ -249,7 +249,7 @@ export const deleteUserByAdmin = async (req, res, next) => {
       await Order.deleteMany({ user: user._id });
       await Product.deleteMany({ user: user._id });
       await Notification.deleteMany({ user: user._id });
-      await CouponUsage.deleteMany({ user: user._id });
+      // await CouponUsage.deleteMany({ user: user._id });
       await user.deleteOne();
 
       return res.json({ message: "User identity and associated data removed" });

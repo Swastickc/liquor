@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import Order from "../models/orderModel.js";
-import CouponUsage from "../models/couponUsageModel.js";
+// import CouponUsage from "../models/couponUsageModel.js";
 import Reservation from "../models/reservationModel.js";
 
 // @desc    Export all user data (Right to Access)
@@ -51,8 +51,7 @@ export const deleteUserAccount = asyncHandler(async (req, res) => {
   );
 
   // Delete personal data from other collections
-  await CouponUsage.deleteMany({ user: userId });
-  await Reservation.deleteMany({ user: userId });
+  // await Reservation.deleteMany({ user: userId });
 
   // Delete user account
   await User.findByIdAndDelete(userId);

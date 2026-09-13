@@ -18,7 +18,6 @@ import OverviewTab from "../components/admin/OverviewTab";
 import OrdersTab from "../components/admin/OrdersTab";
 import ShopsTab from "../components/admin/ShopsTab";
 import MenuTab from "../components/admin/MenuTab";
-import CouponsTab from "../components/admin/CouponsTab";
 import UsersTab from "../components/admin/UsersTab";
 import HeatmapTab from "../components/admin/HeatmapTab";
 
@@ -131,8 +130,7 @@ const AdminDashboard = () => {
         { id: "orders", label: "Orders", icon: ShoppingBag },
         { id: "users", label: "Users", icon: UsersIcon },
         { id: "shops", label: "Shops", icon: Store },
-        { id: "menu", label: "Menu Lab", icon: UtensilsCrossed },
-        { id: "coupons", label: "Marketing", icon: Tag },
+        { id: "menu", label: "Product Lab", icon: UtensilsCrossed },
       ].map((tab) => (
         <button
           key={tab.id}
@@ -158,8 +156,7 @@ const AdminDashboard = () => {
       { id: "orders", label: "Orders", icon: ShoppingBag },
       { id: "users", label: "Users", icon: UsersIcon },
       { id: "shops", label: "Shops", icon: Store },
-      { id: "menu", label: "Menu Lab", icon: UtensilsCrossed },
-      { id: "coupons", label: "Marketing", icon: Tag },
+      { id: "menu", label: "Product Lab", icon: UtensilsCrossed },
     ].map((tab) => (
       <button
         key={tab.id}
@@ -206,13 +203,6 @@ const AdminDashboard = () => {
 
  {activeTab === "menu" && (
  <MenuTab restaurants={restaurants} userInfo={userInfo} />
- )}
-
- {activeTab === "coupons" && (
- <CouponsTab
- userInfo={userInfo}
- fetchAllData={fetchAllData}
- />
  )}
  </div>
  </div>

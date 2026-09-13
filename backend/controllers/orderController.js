@@ -2,8 +2,8 @@ import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
 import Restaurant from "../models/restaurantModel.js";
 import User from "../models/userModel.js";
-import Coupon from "../models/couponModel.js";
-import CouponUsage from "../models/couponUsageModel.js";
+// import Coupon from "../models/couponModel.js";
+// import CouponUsage from "../models/couponUsageModel.js";
 import mongoose from "mongoose";
 import asyncHandler from "express-async-handler";
 import { sanitizeObjectId } from "../utils/sanitize.js";
@@ -18,10 +18,11 @@ import {
   getOrderCancelledTemplate,
 } from "../utils/emailTemplates.js";
 import getAdminEmail from "../utils/getAdminEmail.js";
-import { awardCoinsToUser } from "./loyaltyController.js";
+// import { awardCoinsToUser } from "./loyaltyController.js";
 import { createNotification } from "./notificationController.js";
 import { calculateOrderETA, recalculateETA } from "./etaController.js";
 import { calculateSurgeMultiplier } from "./surgePricingController.js";
+import { isOfLegalAge, LEGAL_MINIMUM_AGE, isWithinLegalOrderingHours, LEGAL_OPENING_HOUR, LEGAL_CLOSING_HOUR } from "../utils/policy.js";
 // ==========================================
 // 🛒 1. CREATE NEW ORDER
 // ==========================================
@@ -51,6 +52,23 @@ export const addOrderItems = asyncHandler(async (req, res) => {
   if (orderItems.some(item => item.qty <= 0 || !Number.isInteger(item.qty))) {
     res.status(400);
     throw new Error("Invalid item quantity");
+  }
+
+  // ==========================================
+  // 🛡️ SECURITY FIX: Operating Hours Policy
+  // ==========================================
+  if (!isWithinLegalOrderingHours()) {
+    res.status(403);
+    throw new Error(`Orders can only be placed between ${LEGAL_OPENING_HOUR}:00 and ${LEGAL_CLOSING_HOUR}:00 as per state laws.`);
+  }
+
+  // ==========================================
+  // 🛡️ SECURITY FIX: Age Verification Policy
+  // ==========================================
+  const userDoc = await User.findById(req.user._id);
+  if (!userDoc.dateOfBirth || !isOfLegalAge(userDoc.dateOfBirth)) {
+    res.status(403);
+    throw new Error(`You must be at least ${LEGAL_MINIMUM_AGE} years old to order.`);
   }
 
   // ==========================================

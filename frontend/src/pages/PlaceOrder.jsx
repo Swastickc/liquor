@@ -394,6 +394,21 @@ const PlaceOrder = () => {
  </div>
  </PlaceOrderSection>
 
+  {/* 🛑 AGE VERIFICATION WARNING */}
+  <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-4 md:p-6 shadow-xl mb-8 flex items-start gap-4">
+    <div className="p-3 bg-red-500/20 rounded-xl text-red-500 shrink-0">
+      <ShieldCheck size={24} />
+    </div>
+    <div>
+      <h3 className="text-sm font-black text-red-500 uppercase tracking-widest mb-1">
+        Mandatory ID Verification
+      </h3>
+      <p className="text-xs text-red-400/80 font-medium leading-relaxed">
+        By placing this order, you confirm you are at least 21 years of age. You MUST present a valid government-issued photo ID to the delivery partner. If you fail to produce a valid ID or appear intoxicated, the delivery will be cancelled without refund.
+      </p>
+    </div>
+  </div>
+
  {/* Review Section */}
  <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-2xl relative">
  <div className="flex items-center gap-4 mb-8">

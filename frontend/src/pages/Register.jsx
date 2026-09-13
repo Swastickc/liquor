@@ -27,6 +27,7 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [referralCode, setReferralCode] = useState("");
 
   const [otpSent, setOtpSent] = useState(false);
@@ -71,7 +72,7 @@ const Register = () => {
       const res = await fetch(`${BASEURL}/api/v1/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, password, referralCode: referralCode || undefined }),
+        body: JSON.stringify({ name, email, phone, password, dateOfBirth, referralCode: referralCode || undefined }),
       });
       const data = await res.json();
 
@@ -182,6 +183,13 @@ const Register = () => {
                   placeholder: "Confirm Password",
                   val: confirmPassword,
                   set: setConfirmPassword,
+                },
+                {
+                  icon: User, // Using User icon for DOB
+                  type: "date",
+                  placeholder: "Date of Birth",
+                  val: dateOfBirth,
+                  set: setDateOfBirth,
                 },
                 {
                   icon: Gift,

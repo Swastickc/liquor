@@ -8,16 +8,22 @@ import {
   getResetPasswordTemplate,
   getWelcomeTemplate,
 } from "../utils/emailTemplates.js";
-import { applyReferralOnRegister } from "../controllers/referralController.js";
+// import { applyReferralOnRegister } from "../controllers/referralController.js";
+import { isOfLegalAge, LEGAL_MINIMUM_AGE } from "../utils/policy.js";
 
 // @desc    Register user (Sends OTP via Email Only)
 export const registerUser = async (req, res, next) => {
   try {
-    const { name, email: rawEmail, password, phone: rawPhone, role, referralCode } = req.body;
+    const { name, email: rawEmail, password, phone: rawPhone, role, dateOfBirth, referralCode } = req.body;
 
-    if (!name || !rawEmail || !password || !rawPhone) {
+    if (!name || !rawEmail || !password || !rawPhone || !dateOfBirth) {
       res.status(400);
-      throw new Error("🚫 All fields are mandatory!");
+      throw new Error("🚫 All fields are mandatory, including date of birth!");
+    }
+
+    if (!isOfLegalAge(dateOfBirth)) {
+      res.status(403);
+      throw new Error(`You must be at least ${LEGAL_MINIMUM_AGE} years old to register.`);
     }
 
     const email = sanitizeEmail(rawEmail);
@@ -57,6 +63,7 @@ export const registerUser = async (req, res, next) => {
         userExists.name = name;
         userExists.phone = phone; // Using sanitized phone input
         userExists.password = password;
+        userExists.dateOfBirth = dateOfBirth;
 
         await userExists.save();
 
@@ -88,6 +95,7 @@ export const registerUser = async (req, res, next) => {
       email,
       password,
       phone, // Using raw phone input
+      dateOfBirth,
       // 🛡️ SECURITY FIX (SEC-3): Never trust client-provided role — always hardcode to "user"
       role: "user",
       isVerified: false,
@@ -161,16 +169,6 @@ export const verifyEmailAPI = async (req, res, next) => {
     }
 
     const token = generateToken(res, user._id, user.tokenVersion);
-
-    try {
-      if (user.pendingReferralCode) {
-        await applyReferralOnRegister(user._id, user.pendingReferralCode);
-        user.pendingReferralCode = undefined;
-        await user.save();
-      }
-    } catch (refErr) {
-      console.error("🔗 Referral processing error (non-blocking):", refErr.message);
-    }
 
     const safeUser = user.toObject();
     delete safeUser.password;

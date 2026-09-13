@@ -19,6 +19,7 @@ const userSchema = mongoose.Schema(
     },
     phone: { type: String, default: null },
     phoneVerified: { type: Boolean, default: false },
+    dateOfBirth: { type: Date },
     role: {
       type: String,
       required: true,
