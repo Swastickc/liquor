@@ -90,33 +90,35 @@ const DeliveryCard = ({ order, onAction }) => {
  </div>
  </div>
 
- {/* ⚡ ACTION ZONE — Only Accept/Reject for Assigned status */}
- {/* OTP verification is handled by the parent OTPSection component */}
- {order.deliveryStatus === "Assigned" ? (
- <div className="flex gap-2">
- <button
- onClick={() => onAction(order._id, "reject")}
- className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-red-500/10 text-red-500 rounded-xl font-black text-[9px] sm:text-[10px] uppercase hover:bg-red-500 hover:text-white transition-all"
- >
- Reject
- </button>
- <button
- onClick={() => onAction(order._id, "accept")}
- className="flex-[2] px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-white rounded-xl font-black text-[9px] sm:text-[10px] uppercase flex items-center justify-center gap-1 sm:gap-2 hover:bg-red-600 transition-all shadow-lg shadow-primary/20"
- >
- Accept <span className="hidden sm:inline">Mission</span> <ArrowRight size={12} className="sm:size-[14]" />
- </button>
- </div>
- ) : (
- <div className="space-y-2 sm:space-y-3 bg-green-500/5 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-green-500/20">
- <p className="text-[9px] sm:text-[10px] text-green-400 font-black uppercase tracking-widest text-center flex items-center justify-center gap-1 sm:gap-2">
- <Navigation size={12} className="sm:size-[14] animate-pulse shrink-0" /> En Route
- </p>
- <p className="text-[8px] sm:text-[9px] text-gray-500 font-bold text-center uppercase tracking-widest">
- Collect OTP from customer upon arrival
- </p>
- </div>
- )}
+  {order.deliveryStatus === "Assigned" && (
+  <div className="flex gap-2">
+  <button onClick={() => onAction(order._id, "reject")} className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-red-500/10 text-red-500 rounded-xl font-black text-[9px] sm:text-[10px] uppercase hover:bg-red-500 hover:text-white transition-all">Reject</button>
+  <button onClick={() => onAction(order._id, "accept")} className="flex-[2] px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-white rounded-xl font-black text-[9px] sm:text-[10px] uppercase flex items-center justify-center gap-1 sm:gap-2 hover:bg-red-600 transition-all shadow-lg shadow-primary/20">Accept <ArrowRight size={12} className="sm:size-[14]" /></button>
+  </div>
+  )}
+
+  {order.deliveryStatus === "Accepted" && (
+  <button onClick={() => onAction(order._id, "arrived_at_shop")} className="w-full px-4 sm:px-6 py-2.5 sm:py-3 bg-yellow-600 text-white rounded-xl font-black text-[9px] sm:text-[10px] uppercase flex items-center justify-center gap-1 sm:gap-2 hover:bg-yellow-500 transition-all shadow-lg">Arrived at Shop <ArrowRight size={12} className="sm:size-[14]" /></button>
+  )}
+
+  {order.deliveryStatus === "At Shop" && (
+  <button onClick={() => onAction(order._id, "picked_up")} className="w-full px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 text-white rounded-xl font-black text-[9px] sm:text-[10px] uppercase flex items-center justify-center gap-1 sm:gap-2 hover:bg-blue-500 transition-all shadow-lg">Mark Picked Up <ArrowRight size={12} className="sm:size-[14]" /></button>
+  )}
+
+  {order.deliveryStatus === "Picked Up" && (
+  <button onClick={() => onAction(order._id, "arrived_at_customer")} className="w-full px-4 sm:px-6 py-2.5 sm:py-3 bg-indigo-600 text-white rounded-xl font-black text-[9px] sm:text-[10px] uppercase flex items-center justify-center gap-1 sm:gap-2 hover:bg-indigo-500 transition-all shadow-lg">Arrived at Customer <ArrowRight size={12} className="sm:size-[14]" /></button>
+  )}
+
+  {order.deliveryStatus === "Arrived at Customer" && (
+  <div className="space-y-2 sm:space-y-3 bg-green-500/5 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-green-500/20">
+  <p className="text-[9px] sm:text-[10px] text-green-400 font-black uppercase tracking-widest text-center flex items-center justify-center gap-1 sm:gap-2">
+  <CheckCircle size={12} className="sm:size-[14] animate-pulse shrink-0" /> At Location
+  </p>
+  <p className="text-[8px] sm:text-[9px] text-gray-500 font-bold text-center uppercase tracking-widest">
+  Collect OTP from customer
+  </p>
+  </div>
+  )}
  </div>
  </div>
  );

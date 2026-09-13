@@ -265,7 +265,7 @@ const DeliveryPartnerDashboard = () => {
  order={task}
  onAction={handleDeliveryAction}
  />
- {task.orderStatus === "Out for Delivery" && (
+ {task.deliveryStatus === "Arrived at Customer" && (
  <div className="px-3 pb-3">
  <OTPSection
  orderId={task._id}

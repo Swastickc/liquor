@@ -155,15 +155,23 @@ const LiveOrders = ({
 
  {/* ⚡ ACTION BUTTONS */}
  <div className="flex flex-col gap-3">
- {/* Step 1: Accept/Prepare */}
- {order.orderStatus === "Placed" && (
- <button
- onClick={() => handleStatusUpdate(order._id, "Preparing")}
- className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all"
- >
- <CookingPot size={18} /> Start Preparing
- </button>
- )}
+  {/* Step 1: Accept/Prepare */}
+  {order.orderStatus === "Placed" && (
+  <div className="flex gap-2">
+  <button
+  onClick={() => handleStatusUpdate(order._id, "Cancelled")}
+  className="w-1/3 bg-gray-800 hover:bg-gray-700 text-red-500 font-bold py-3 rounded-xl flex items-center justify-center transition-all"
+  >
+  Reject
+  </button>
+  <button
+  onClick={() => handleStatusUpdate(order._id, "Preparing")}
+  className="w-2/3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all"
+  >
+  <CookingPot size={18} /> Accept & Prepare
+  </button>
+  </div>
+  )}
 
  {/* Step 2: Mark Ready */}
  {order.orderStatus === "Preparing" && (
@@ -213,6 +221,51 @@ const LiveOrders = ({
  </div>
  ))
  )}
+ </div>
+
+ {/* 📦 ORDER HISTORY */}
+ <div className="mt-12 border-t border-gray-800 pt-8">
+ <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+ <Clock className="text-primary" /> Past Orders (
+ {safeOrders.filter((o) => o.orderStatus === "Delivered" || o.orderStatus === "Cancelled").length})
+ </h2>
+ 
+ <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 opacity-80">
+ {safeOrders.filter((o) => o.orderStatus === "Delivered" || o.orderStatus === "Cancelled").map((order) => (
+ <div
+ key={order._id}
+ className="bg-gray-900 border border-gray-800 rounded-2xl md:rounded-3xl p-4 sm:p-6 shadow-md relative"
+ >
+ <div className={`absolute top-0 right-0 px-4 py-2 rounded-bl-2xl text-xs font-black uppercase tracking-widest border-l border-b border-gray-700 ${order.orderStatus === "Cancelled" ? "bg-red-900/30 text-red-500" : "bg-green-900/30 text-green-500"}`}>
+ {order.orderStatus}
+ </div>
+ 
+ <div className="flex justify-between items-start mb-2">
+ <div>
+ <h3 className="text-lg font-black">
+ #{order._id ? order._id.substring(0, 6).toUpperCase() : "------"}
+ </h3>
+ <div className="flex flex-wrap gap-2 mt-1">
+ <span className="text-[10px] font-bold text-gray-500">
+ ₹{order.totalPrice}
+ </span>
+ <span className="text-[10px] font-bold text-gray-500">
+ • {new Date(order.createdAt).toLocaleDateString()}
+ </span>
+ </div>
+ </div>
+ </div>
+
+ <div className="mt-2 text-xs text-gray-400 border-t border-gray-800/50 pt-2">
+ {(order.orderItems || []).map((item) => (
+ <span key={item._id} className="mr-2">
+ {item.qty}x {item.name}
+ </span>
+ ))}
+ </div>
+ </div>
+ ))}
+ </div>
  </div>
  </>
  );

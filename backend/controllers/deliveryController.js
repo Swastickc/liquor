@@ -146,14 +146,17 @@ export const updateDeliveryAction = async (req, res) => {
 
     if (action === "accept") {
       order.deliveryStatus = "Accepted";
-      order.orderStatus = "Out for Delivery";
+      // Removed orderStatus = "Out for Delivery" here, it happens at picked_up
 
-      // ⏰ FEAT-12: Recalculate ETA on driver accept
       const { estimatedDeliveryAt, estimatedMinutes, reason } = recalculateETA(order, "driver_assigned");
       order.estimatedDeliveryAt = estimatedDeliveryAt;
       order.etaUpdates.push({ estimatedMinutes, reason });
+    } else if (action === "arrived_at_shop") {
+      order.deliveryStatus = "At Shop";
+    } else if (action === "picked_up") {
+      order.deliveryStatus = "Picked Up";
+      order.orderStatus = "Out for Delivery";
 
-      // 📧 Notify Customer that driver is on the way
       const user = await User.findById(order.user);
       if (user && user.email) {
         try {
@@ -170,7 +173,9 @@ export const updateDeliveryAction = async (req, res) => {
           console.error("Customer notification email failed.");
         }
       }
-    } else {
+    } else if (action === "arrived_at_customer") {
+      order.deliveryStatus = "Arrived at Customer";
+    } else if (action === "reject") {
       if (order.orderStatus === "Preparing" || order.orderStatus === "Placed") {
         order.orderStatus = "Placed";
       } else {
