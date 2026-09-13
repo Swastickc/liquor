@@ -4,8 +4,6 @@ const OrderSummary = ({
  itemsPrice,
  taxPrice,
  shippingPrice,
- couponDiscount,
- appliedCouponCode,
  totalPrice,
  isProcessing,
  placeOrderHandler,
@@ -98,17 +96,6 @@ const OrderSummary = ({
  />
  </div>
  </div>
-
- {couponDiscount > 0 && (
- <div className="flex justify-between items-center bg-green-500/5 border border-green-500/10 p-3 rounded-xl animate-pulse">
- <span className="text-[10px] font-black text-green-500 uppercase tracking-tighter">
- Discount ({appliedCouponCode})
- </span>
- <span className="text-sm font-black text-green-500 ">
- -₹{couponDiscount}
- </span>
- </div>
- )}
  </div>
 
  {/* Total Amount Section */}

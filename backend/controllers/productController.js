@@ -3,6 +3,8 @@ import Restaurant from "../models/restaurantModel.js"; // Required import
 import { getCache, setCache, clearCache, invalidateByTag } from "../utils/cache.js";
 import asyncHandler from "express-async-handler";
 import { sanitizeObjectId, sanitizeString } from "../utils/sanitize.js";
+import fs from "fs";
+import csv from "csv-parser";
 
 // ============================================================
 // PUBLIC ROUTES
@@ -407,3 +409,79 @@ export const createProductReview = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// @desc    Import Products via CSV
+// @route   POST /api/v1/products/import
+// @access  Private/Admin/RestaurantOwner
+export const importProductsCSV = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    res.status(400);
+    throw new Error("Please upload a CSV file");
+  }
+
+  const results = [];
+  const errors = [];
+  const productsToInsert = [];
+
+  // Assuming file is saved locally by multer
+  fs.createReadStream(req.file.path)
+    .pipe(csv())
+    .on('data', (data) => results.push(data))
+    .on('end', async () => {
+      try {
+        // Validation and processing
+        let index = 1;
+        for (const row of results) {
+          index++;
+          const { shop, name, brand, category, size, price, mrp, image, availability } = row;
+
+          if (!shop || !name || !price) {
+            errors.push(`Row ${index}: Missing required fields (shop, name, price)`);
+            continue;
+          }
+
+          // If restaurant_owner, ensure they only import for their own shop
+          if (req.user.role === 'restaurant_owner' && String(req.user.restaurant) !== String(shop)) {
+             errors.push(`Row ${index}: Unauthorized shop ID`);
+             continue;
+          }
+
+          productsToInsert.push({
+            user: req.user._id,
+            restaurant: shop,
+            name,
+            brand: brand || "",
+            category: category || "General",
+            bottleSize: size || "",
+            price: Number(price),
+            mrp: mrp ? Number(mrp) : Number(price),
+            image: image || "/images/sample.jpg",
+            isAvailable: availability === 'true' || availability === '1' || availability === 'yes',
+          });
+        }
+
+        if (errors.length > 0 && productsToInsert.length === 0) {
+           fs.unlinkSync(req.file.path);
+           return res.status(400).json({ success: false, errors, message: "Import failed due to errors" });
+        }
+
+        // Check duplicates? We'll just insert for MVP to not partially destroy existing catalog
+        const imported = await Product.insertMany(productsToInsert);
+        fs.unlinkSync(req.file.path);
+        
+        await invalidateByTag("products:list");
+        await invalidateByTag("products:restaurant");
+
+        res.status(201).json({
+          success: true,
+          importedCount: imported.length,
+          errors,
+          message: "Import completed",
+        });
+
+      } catch (err) {
+        fs.unlinkSync(req.file.path);
+        res.status(500).json({ success: false, message: err.message });
+      }
+    });
+});

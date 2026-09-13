@@ -46,12 +46,9 @@ import surgeRoutes from "./routes/surgeRoutes.js";
 import reorderRoutes from "./routes/reorderRoutes.js";
 // import gamificationRoutes from "./routes/gamificationRoutes.js";
 // import costCalculatorRoutes from "./routes/costCalculatorRoutes.js";
-import pricingCalculatorRoutes from "./routes/pricingCalculatorRoutes.js";
-import deliveryCalculatorRoutes from "./routes/deliveryCalculatorRoutes.js";
 // import rewardCalculatorRoutes from "./routes/rewardCalculatorRoutes.js";
 import analyticsForecastRoutes from "./routes/analyticsForecastRoutes.js";
 import inventoryForecastRoutes from "./routes/inventoryForecastRoutes.js";
-import driverEarningsRoutes from "./routes/driverEarningsRoutes.js";
 import reservationRoutes from "./routes/reservationRoutes.js";
 import gdprRoutes from "./routes/gdprRoutes.js";
 
@@ -320,9 +317,6 @@ const csrfExemptPaths = [
   "/api/v1/users/google-check",
   "/api/v1/users/google-register",
   "/api/v1/orders",
-  "/api/v1/cost-calculator",
-  "/api/v1/delivery-calculator",
-  "/api/v1/driver-earnings",
   "/ping",
 ];
 
@@ -491,12 +485,10 @@ app.use("/api/v1/surge", surgeRoutes);
 app.use("/api/v1/reorder", reorderRoutes);
 // app.use("/api/v1/gamification", gamificationRoutes);
 // app.use("/api/v1/cost-calculator", costCalculatorRoutes);
-app.use("/api/v1/pricing-calculator", pricingCalculatorRoutes);
-app.use("/api/v1/delivery-calculator", deliveryCalculatorRoutes);
 // app.use("/api/v1/rewards-calculator", rewardCalculatorRoutes);
 app.use("/api/v1/analytics-forecast", analyticsForecastRoutes);
 app.use("/api/v1/inventory-forecast", inventoryForecastRoutes);
-app.use("/api/v1/driver-earnings", driverEarningsRoutes);
+
 // app.use("/api/v1/reservations", reservationRoutes);
 app.use("/api/v1/user/gdpr", gdprRoutes);
 // --- 📂 Static Files ---

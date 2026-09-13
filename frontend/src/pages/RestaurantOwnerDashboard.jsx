@@ -18,10 +18,6 @@ import AnalyticsSection from "../components/restaurant/AnalyticsSection";
 import LiveOrders from "../components/restaurant/LiveOrders";
 import MenuManagement from "../components/restaurant/MenuManagement";
 import ItemModal from "../components/restaurant/ItemModal";
-import CostCalculator from "../components/restaurant/CostCalculator";
-import PricingCalculator from "../components/restaurant/PricingCalculator";
-import DeliveryCalculator from "../components/restaurant/DeliveryCalculator";
-import RewardCalculator from "../components/restaurant/RewardCalculator";
 import AnalyticsForecast from "../components/restaurant/AnalyticsForecast";
 import InventoryForecast from "../components/restaurant/InventoryForecast";
 
@@ -394,7 +390,6 @@ const RestaurantOwnerDashboard = () => {
     {[
       { id: "overview", label: "Analytics", icon: LayoutDashboard },
       { id: "menu", label: "Menu Lab", icon: Utensils },
-      { id: "calculators", label: "Calculators", icon: Calculator },
     ].map((tab) => (
       <button
         key={tab.id}
@@ -417,65 +412,6 @@ const RestaurantOwnerDashboard = () => {
  <p className="text-gray-500 font-bold uppercase tracking-[0.3em] text-[10px] mt-6 animate-pulse">
  Heating up the stoves...
  </p>
- </div>
- ) : activeTab === "calculators" ? (
- <div className="animate-in fade-in slide-in-from-bottom-6 duration-700">
-  {/* MOBILE: grid box layout (md:hidden) */}
-  <div className="md:hidden bg-gray-900/60 rounded-2xl p-3 mb-6">
-    <div className="grid grid-cols-3 gap-2">
-      {[
-        { id: "cost", label: "Cost" },
-        { id: "pricing", label: "Pricing" },
-        { id: "delivery", label: "Delivery" },
-        { id: "rewards", label: "Your Coins" },
-        { id: "forecast", label: "Forecast" },
-        { id: "inventory", label: "Inventory" },
-      ].map((tab) => (
-        <button
-          key={tab.id}
-          onClick={() => setActiveCalcTab(tab.id)}
-          className={`px-3 py-3 rounded-xl font-black text-[9px] uppercase md:tracking-[0.2em] tracking-[0.05em] transition-all ${
-            activeCalcTab === tab.id
-              ? "bg-primary text-white shadow-lg shadow-primary/20"
-              : "bg-black/40 text-gray-500 hover:text-white hover:bg-gray-800"
-          }`}
-        >
-          {tab.label}
-        </button>
-      ))}
-    </div>
-  </div>
-  {/* DESKTOP: horizontal bar (hidden on mobile) */}
-  <div className="hidden md:flex gap-2 mb-8 no-scrollbar">
-    {[
-      { id: "cost", label: "Cost" },
-      { id: "pricing", label: "Pricing" },
-      { id: "delivery", label: "Delivery" },
-      { id: "rewards", label: "Your Coins" },
-      { id: "forecast", label: "Forecast" },
-      { id: "inventory", label: "Inventory" },
-    ].map((tab) => (
-      <button
-        key={tab.id}
-        onClick={() => setActiveCalcTab(tab.id)}
-        className={`px-4 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all whitespace-nowrap border shrink-0 ${
-          activeCalcTab === tab.id
-            ? "bg-primary border-primary text-white shadow-lg shadow-primary/20"
-            : "bg-gray-900 border-gray-800 text-gray-500 hover:text-white hover:border-gray-700"
-        }`}
-      >
-        {tab.label}
-      </button>
-    ))}
-  </div>
- <div className="mb-6">
- {activeCalcTab === "cost" && <CostCalculator />}
- {activeCalcTab === "pricing" && <PricingCalculator />}
- {activeCalcTab === "delivery" && <DeliveryCalculator />}
- {activeCalcTab === "rewards" && <RewardCalculator />}
- {activeCalcTab === "forecast" && <AnalyticsForecast />}
- {activeCalcTab === "inventory" && <InventoryForecast />}
- </div>
  </div>
  ) : activeTab === "overview" ? (
  <div className="animate-in fade-in slide-in-from-bottom-6 duration-700 space-y-12">

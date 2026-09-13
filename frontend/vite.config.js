@@ -79,9 +79,9 @@ export default defineConfig(() => {
         },
         // 📱 MANIFEST: App Identity
         manifest: {
-          name: "SwadKart - Taste Delivered",
-          short_name: "SwadKart",
-          description: "Order premium food online with SwadKart Pro",
+          name: "Kalna Liquor - Taste Delivered",
+          short_name: "Kalna Liquor",
+          description: "Order premium food online with Kalna Liquor Pro",
           theme_color: "#ff6b6b", // Neon Red (Signature Color)
           background_color: "#030712", // Pure Black (Dark Mode)
           display: "standalone",

@@ -12,7 +12,14 @@ let testProduct;
 
 const ORIGIN = "http://localhost:5173";
 
+import { MongoMemoryServer } from 'mongodb-memory-server';
+
+let mongoServer;
 beforeAll(async () => {
+  mongoServer = await MongoMemoryServer.create();
+  process.env.MONGO_URI = mongoServer.getUri();
+  process.env.PORT = 0;
+  
   const res = await import("../server.js");
   app = res.app;
   // Wait for MongoDB connection to be ready
@@ -25,10 +32,15 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  if (mongoose.connection.readyState === 1) {
+  if (mongoose.connection.readyState) {
     await mongoose.connection.close();
   }
+  if (mongoServer) {
+    await mongoServer.stop();
+  }
 });
+
+
 
 describe("Health & Root Endpoints", () => {
   it("GET /health should return health status", async () => {
@@ -118,46 +130,41 @@ describe("Order Routes", () => {
   });
 });
 
-describe("SwadPass Routes", () => {
-  it("GET /api/v1/swadpass/status without auth should return 401", async () => {
+describe("Removed Routes", () => {
+  it("GET /api/v1/swadpass/status should return 404 as feature is removed", async () => {
     const res = await request(app).get("/api/v1/swadpass/status");
-    expect(res.status).toBe(401);
+    expect(res.status).toBe(404);
   });
-});
 
-describe("Coupon Routes", () => {
-  it("GET /api/v1/coupons/validate without auth should return 401 or 404", async () => {
+  it("GET /api/v1/coupons/validate should return 404 as feature is removed", async () => {
     const res = await request(app)
       .get("/api/v1/coupons/validate")
       .query({ code: "TEST" });
-    // Route may not exist (404) or require auth (401)
-    expect([401, 404]).toContain(res.status);
+    expect(res.status).toBe(404);
   });
-});
 
-describe("Calculator Routes (Enterprise)", () => {
-  it("POST /api/v1/cost-calculator/batch without auth should return 401", async () => {
+  it("POST /api/v1/cost-calculator/batch should return 404 as feature is removed", async () => {
     const res = await request(app)
       .post("/api/v1/cost-calculator/batch")
       .set("Origin", ORIGIN)
       .send({ ingredients: [] });
-    expect(res.status).toBe(401);
+    expect(res.status).toBe(404);
   });
 
-  it("POST /api/v1/delivery-calculator/fee without auth should return 401", async () => {
+  it("POST /api/v1/delivery-calculator/fee should return 404 or 403 as feature is removed", async () => {
     const res = await request(app)
       .post("/api/v1/delivery-calculator/fee")
       .set("Origin", ORIGIN)
       .send({ distanceKm: 5 });
-    expect(res.status).toBe(401);
+    expect([403, 404]).toContain(res.status);
   });
 
-  it("POST /api/v1/driver-earnings/calculate without auth should return 401", async () => {
+  it("POST /api/v1/driver-earnings/calculate should return 404 or 403 as feature is removed", async () => {
     const res = await request(app)
       .post("/api/v1/driver-earnings/calculate")
       .set("Origin", ORIGIN)
       .send({ baseEarning: 50 });
-    expect(res.status).toBe(401);
+    expect([403, 404]).toContain(res.status);
   });
 });
 

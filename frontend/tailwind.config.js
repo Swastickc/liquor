@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         // 🔥 Your Signature Colors
-        primary: "#ff6b6b", // SwadKart Neon Red
+        primary: "#ff6b6b", // Kalna Liquor Neon Red
         secondary: "#1a1a1a", // Deep Dark
         accent: "#ff9f43", // Warm Orange (for ratings/badges)
 

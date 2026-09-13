@@ -66,14 +66,13 @@ describe("toolRegistry", () => {
       expect(names).toContain("place_order");
       expect(names).toContain("get_order_status");
       expect(names).toContain("cancel_order");
-      expect(names).toContain("coupon_offers");
       expect(names).toContain("get_delivery_eta");
       expect(names).toContain("reorder_last");
     });
 
-    it("should return 7 tools for authenticated users", () => {
+    it("should return 6 tools for authenticated users", () => {
       const tools = buildToolRegistry({ userId: "user123" });
-      expect(tools).toHaveLength(7);
+      expect(tools).toHaveLength(6);
     });
 
     it("should return 1 tool for unauthenticated users", () => {
@@ -115,9 +114,9 @@ describe("toolRegistry", () => {
       expect(typeof executor).toBe("function");
     });
 
-    it("should return a function for coupon_offers", () => {
+    it("should return null for removed coupon_offers", () => {
       const executor = getToolExecutor("coupon_offers");
-      expect(typeof executor).toBe("function");
+      expect(executor).toBeNull();
     });
 
     it("should return a function for get_delivery_eta", () => {

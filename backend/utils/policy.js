@@ -12,13 +12,11 @@ export const isOfLegalAge = (dateOfBirth) => {
   return age >= LEGAL_MINIMUM_AGE;
 };
 
+export const TIMEZONE = "Asia/Kolkata";
 export const LEGAL_OPENING_HOUR = 10;
 export const LEGAL_CLOSING_HOUR = 22;
-export const TIMEZONE = "Asia/Kolkata";
 
 export const isWithinLegalOrderingHours = () => {
-  const options = { timeZone: TIMEZONE, hour: 'numeric', hour12: false };
-  const formatter = new Intl.DateTimeFormat([], options);
-  const hour = parseInt(formatter.format(new Date()), 10);
-  return hour >= LEGAL_OPENING_HOUR && hour < LEGAL_CLOSING_HOUR;
+  const currentHour = new Date().toLocaleString("en-US", { timeZone: TIMEZONE, hour: "numeric", hour12: false });
+  return parseInt(currentHour) >= LEGAL_OPENING_HOUR && parseInt(currentHour) < LEGAL_CLOSING_HOUR;
 };

@@ -31,8 +31,8 @@ const InfoPage = lazy(() => import("./pages/InfoPage"));
 const Contact = lazy(() => import("./pages/Contact"));
 
 const About = lazy(() => import("./pages/About"));
-const SwadPass = lazy(() => import("./pages/SwadPass"));
-const Gamification = lazy(() => import("./pages/Gamification"));
+
+
 const Reservations = lazy(() => import("./pages/Reservations"));
 const GroupOrders = lazy(() => import("./pages/GroupOrders"));
 const GDPRSettings = lazy(() => import("./pages/GDPRSettings"));
@@ -291,8 +291,8 @@ function App() {
  <Route path="/myorders" element={<MyOrders />} />
  <Route path="/order/:id" element={<OrderDetails />} />
  <Route path="/subscriptions" element={<MySubscriptions />} />
- <Route path="/swadpass" element={<SwadPass />} />
- <Route path="/rewards" element={<Gamification />} />
+
+
  <Route path="/reservations" element={<Reservations />} />
  <Route path="/group-orders" element={<GroupOrders />} />
  <Route path="/privacy" element={<GDPRSettings />} />

@@ -11,6 +11,7 @@ import {
   getProductsByRestaurant,
   toggleProductStock,
   reorderProducts,
+  importProductsCSV,
 } from "../controllers/productController.js";
 
 // 👇 Review Controller function import (New File)
@@ -32,9 +33,15 @@ router
 
 router.route("/restaurant/:id").get(cacheResponse("products:restaurant", 300), getProductsByRestaurant);
 
+import multer from "multer";
+const upload = multer({ dest: "uploads/csv/" });
+
 // 2️⃣ REVIEW ROUTE (New Addition)
 // User logged in hona chahiye tabhi review de payega
 router.route("/:id/reviews").post(protect, createProductReview);
+
+// CSV Import Route
+router.route("/import/csv").post(protect, authorizeRoles("admin", "restaurant_owner"), upload.single("file"), importProductsCSV);
 
 // 3️⃣ STOCK TOGGLE ROUTE
 // Controller handles the ownership check

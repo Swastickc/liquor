@@ -7,6 +7,7 @@ import {
   Power,
   GripVertical,
   Loader2,
+  Upload,
 } from "lucide-react";
 import {
   DragDropContext,
@@ -59,12 +60,33 @@ const MenuManagement = ({
             </span>
           )}
         </div>
-        <button
-          onClick={openAddModal}
-          className="w-full sm:w-auto bg-primary hover:bg-red-600 text-white font-bold py-2.5 sm:py-2 px-6 rounded-full flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95"
-        >
-          <PlusCircle size={20} /> Add Item
-        </button>
+
+        <div className="flex gap-2">
+          <button
+            onClick={() => document.getElementById('csv-upload').click()}
+            className="flex items-center gap-2 bg-gray-800 text-gray-300 hover:text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-bold transition-all text-xs sm:text-sm shadow-md hover:bg-gray-700 w-full sm:w-auto justify-center group"
+          >
+            <Upload size={16} className="group-hover:-translate-y-0.5 transition-transform" />
+            Import CSV
+          </button>
+          <input
+            type="file"
+            id="csv-upload"
+            className="hidden"
+            accept=".csv"
+            onChange={(e) => {
+              if(window.handleCSVImport) window.handleCSVImport(e.target.files[0]);
+              e.target.value = null; // reset
+            }}
+          />
+          <button
+            onClick={openAddModal}
+            className="flex items-center gap-2 bg-primary text-black px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-black transition-all text-xs sm:text-sm hover:scale-105 shadow-lg shadow-primary/25 w-full sm:w-auto justify-center group"
+          >
+            <PlusCircle size={16} className="group-hover:rotate-90 transition-transform" />
+            Add Item
+          </button>
+        </div>
       </div>
 
       {/* Drag-and-Drop List / Grid */}

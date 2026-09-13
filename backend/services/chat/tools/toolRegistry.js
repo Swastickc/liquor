@@ -17,7 +17,7 @@
 import { toolSchema as orderPlacementSchema, executeOrderPlacement } from "../orderPlacementTool.js";
 import { toolSchema as orderStatusSchema, execute as executeOrderStatus } from "./orderStatusTool.js";
 import { toolSchema as orderCancelSchema, execute as executeOrderCancel } from "./orderCancelTool.js";
-import { toolSchema as couponSchema, execute as executeCoupon } from "./couponTool.js";
+// import { toolSchema as couponSchema, execute as executeCoupon } from "./couponTool.js";
 import { toolSchema as deliveryEtaSchema, execute as executeDeliveryEta } from "./deliveryEtaTool.js";
 import { toolSchema as faqSchema, execute as executeFaq } from "./faqTool.js";
 import { toolSchema as reorderSchema, execute as executeReorder } from "./reorderTool.js";
@@ -36,7 +36,6 @@ const AUTH_TOOLS = [
   { schema: orderPlacementSchema, executor: executeOrderPlacement },
   { schema: orderStatusSchema, executor: executeOrderStatus },
   { schema: orderCancelSchema, executor: executeOrderCancel },
-  { schema: couponSchema, executor: executeCoupon },
   { schema: deliveryEtaSchema, executor: executeDeliveryEta },
   { schema: reorderSchema, executor: executeReorder },
 ];
