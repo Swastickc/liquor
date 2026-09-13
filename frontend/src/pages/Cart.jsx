@@ -14,7 +14,6 @@ import { toast } from "react-hot-toast";
 
 // Config & Components
 import { BASEURL } from "../config";
-import { fetchAvailableCoupons } from "../redux/slices/offerSlice";
 import PhoneVerificationModal from "../components/order/PhoneVerificationModal";
 import axios from "axios";
 
