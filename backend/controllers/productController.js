@@ -100,11 +100,15 @@ export const createProduct = asyncHandler(async (req, res) => {
     const {
       name,
       price,
+      mrp,
       description,
       image,
       category,
+      brand,
+      bottleSize,
+      type,
+      abv,
       countInStock,
-      isVeg,
       orderIndex,
       variants,
       addons,
@@ -139,10 +143,14 @@ export const createProduct = asyncHandler(async (req, res) => {
     const product = new Product({
       name,
       price,
+      mrp: mrp || 0,
+      brand: brand || "Unknown",
+      bottleSize: bottleSize || "750ml",
+      type: type || "Other",
+      abv: abv || 0,
       description,
       image: image || "https://placehold.co/400",
       category,
-      isVeg: isVeg === undefined ? true : isVeg,
       orderIndex: orderIndex || 0,
 
       restaurant: restaurant._id, // Actual Restaurant ID from Database
@@ -187,6 +195,11 @@ export const updateProduct = asyncHandler(async (req, res) => {
       // Update fields — use !== undefined to allow falsy values like 0 or ""
       product.name = req.body.name !== undefined ? sanitizeString(req.body.name) : product.name;
       product.price = req.body.price !== undefined ? req.body.price : product.price;
+      product.mrp = req.body.mrp !== undefined ? req.body.mrp : product.mrp;
+      product.brand = req.body.brand !== undefined ? sanitizeString(req.body.brand) : product.brand;
+      product.bottleSize = req.body.bottleSize !== undefined ? sanitizeString(req.body.bottleSize) : product.bottleSize;
+      product.type = req.body.type !== undefined ? sanitizeString(req.body.type) : product.type;
+      product.abv = req.body.abv !== undefined ? req.body.abv : product.abv;
       product.description = req.body.description !== undefined ? sanitizeString(req.body.description) : product.description;
       product.image = req.body.image || product.image;
       product.category = req.body.category || product.category;
@@ -195,8 +208,6 @@ export const updateProduct = asyncHandler(async (req, res) => {
         req.body.countInStock !== undefined
           ? req.body.countInStock
           : product.countInStock;
-      product.isVeg =
-        req.body.isVeg !== undefined ? req.body.isVeg : product.isVeg;
 
       // ⏰ FEAT-7: Availability Scheduling
       if (req.body.scheduleEnabled !== undefined) {

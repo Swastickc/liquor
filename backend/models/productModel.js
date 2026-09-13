@@ -40,10 +40,15 @@ const productSchema = mongoose.Schema(
     // 🍕 2. BASIC DETAILS
     // =================================================
     name: { type: String, required: true },
+    brand: { type: String, required: true, default: "Unknown" },
+    bottleSize: { type: String, required: true, default: "750ml" },
+    type: { type: String, enum: ["Beer", "Wine", "Spirit", "Mixer", "Other"], default: "Other" },
+    abv: { type: Number, default: 0 },
     image: { type: String, required: true },
     description: { type: String, required: true },
     category: { type: String, required: true },
     price: { type: Number, required: true },
+    mrp: { type: Number, default: 0 },
 
     // =================================================
     // 🛠️ 3. CUSTOMIZATION (Core of Phase 2)
@@ -64,25 +69,9 @@ const productSchema = mongoose.Schema(
     // =================================================
     // ⚙️ 4. SETTINGS & STOCK
     // =================================================
-    isVeg: { type: Boolean, default: true },
     isRecommended: { type: Boolean, default: false },
     countInStock: { type: Number, required: true, default: 0 },
     orderIndex: { type: Number, default: 0 },
-
-    // 📊 COST & PROFIT CALCULATOR (Enterprise)
-    ingredients: [
-      {
-        name: { type: String, required: true },
-        quantity: { type: Number, required: true },
-        unit: { type: String, required: true }, // kg, g, ml, L, piece, etc.
-        unitCost: { type: Number, required: true }, // cost per unit in INR
-      },
-    ],
-    foodCostPercentage: { type: Number, default: 30 }, // target food cost %
-    preparationCost: { type: Number, default: 0 }, // labor cost per unit
-    packagingCost: { type: Number, default: 5 }, // packaging cost per unit
-    marginTarget: { type: Number, default: 25 }, // target margin %
-    lastCostUpdated: { type: Date, default: null },
 
     // 📦 SMART INVENTORY (FEAT-14)
     isAvailable: { type: Boolean, default: true },
@@ -126,7 +115,7 @@ const productSchema = mongoose.Schema(
 // 🚀 PERFORMANCE FIX (STEP 1): Indexing
 productSchema.index({ restaurant: 1 });
 productSchema.index({ category: 1 });
-productSchema.index({ restaurant: 1, isVeg: 1 });
+productSchema.index({ restaurant: 1, type: 1 });
 productSchema.index({ restaurant: 1, isAvailable: 1 });
 // 🔍 Weighted text index for chatbot RAG retrieval
 productSchema.index(
