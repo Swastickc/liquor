@@ -162,30 +162,97 @@ const ItemModal = ({
 
   <div className="space-y-1 sm:space-y-1.5 lg:space-y-2">
   <label className="text-[10px] sm:text-[11px] lg:text-xs font-black text-gray-500 uppercase tracking-widest pl-1">
-  Food Type
+  Drink Type
   </label>
   <select
   className="w-full bg-black border border-gray-800 rounded-xl sm:rounded-2xl p-3.5 sm:p-4 lg:p-5 text-xs sm:text-sm text-white focus:border-primary outline-none focus:ring-2 focus:ring-primary/30 transition-all font-bold uppercase"
-  value={newItem.isVeg}
+  value={newItem.type}
   onChange={(e) =>
-  setNewItem({ ...newItem, isVeg: e.target.value })
+  setNewItem({ ...newItem, type: e.target.value })
   }
   >
-  <option value="true">🟢 Pure Veg</option>
-  <option value="false">🔴 Non-Veg</option>
+  <option value="Beer">🍺 Beer</option>
+  <option value="Wine">🍷 Wine</option>
+  <option value="Spirit">🥃 Spirit</option>
+  <option value="Mixer">🥤 Mixer</option>
+  <option value="Other">🍸 Other</option>
   </select>
   </div>
   </div>
 
-  {/* Menu Category */}
+  <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 mt-4">
+  {/* MRP */}
   <div className="space-y-1 sm:space-y-1.5 lg:space-y-2">
+  <label className="text-[10px] sm:text-[11px] lg:text-xs font-black text-gray-500 uppercase tracking-widest pl-1">
+  MRP
+  </label>
+  <div className="relative">
+  <span className="absolute left-3 sm:left-3.5 md:left-4 lg:left-5 top-1/2 -translate-y-1/2 text-gray-500 font-bold text-sm sm:text-base">₹</span>
+  <input
+  type="number"
+  className="w-full bg-black border border-gray-800 rounded-xl sm:rounded-2xl p-3.5 sm:p-4 lg:p-5 pl-7 sm:pl-9 md:pl-10 lg:pl-12 text-sm sm:text-base text-white focus:border-primary outline-none focus:ring-2 focus:ring-primary/30 transition-all font-black placeholder-gray-700"
+  placeholder="e.g. 350"
+  value={newItem.mrp}
+  onChange={(e) => setNewItem({ ...newItem, mrp: e.target.value })}
+  />
+  </div>
+  </div>
+
+  {/* Brand */}
+  <div className="space-y-1 sm:space-y-1.5 lg:space-y-2">
+  <label className="text-[10px] sm:text-[11px] lg:text-xs font-black text-gray-500 uppercase tracking-widest pl-1">
+  Brand
+  </label>
+  <input
+  type="text"
+  className="w-full bg-black border border-gray-800 rounded-xl sm:rounded-2xl p-3.5 sm:p-4 lg:p-5 text-sm sm:text-base text-white focus:border-primary outline-none focus:ring-2 focus:ring-primary/30 transition-all uppercase font-bold placeholder-gray-700"
+  placeholder="e.g. Kingfisher"
+  value={newItem.brand}
+  onChange={(e) => setNewItem({ ...newItem, brand: e.target.value })}
+  required
+  />
+  </div>
+
+  {/* Bottle Size */}
+  <div className="space-y-1 sm:space-y-1.5 lg:space-y-2">
+  <label className="text-[10px] sm:text-[11px] lg:text-xs font-black text-gray-500 uppercase tracking-widest pl-1">
+  Bottle Size
+  </label>
+  <input
+  type="text"
+  className="w-full bg-black border border-gray-800 rounded-xl sm:rounded-2xl p-3.5 sm:p-4 lg:p-5 text-sm sm:text-base text-white focus:border-primary outline-none focus:ring-2 focus:ring-primary/30 transition-all uppercase font-bold placeholder-gray-700"
+  placeholder="e.g. 750ml"
+  value={newItem.bottleSize}
+  onChange={(e) => setNewItem({ ...newItem, bottleSize: e.target.value })}
+  required
+  />
+  </div>
+
+  {/* ABV */}
+  <div className="space-y-1 sm:space-y-1.5 lg:space-y-2">
+  <label className="text-[10px] sm:text-[11px] lg:text-xs font-black text-gray-500 uppercase tracking-widest pl-1">
+  ABV (%)
+  </label>
+  <input
+  type="number"
+  className="w-full bg-black border border-gray-800 rounded-xl sm:rounded-2xl p-3.5 sm:p-4 lg:p-5 text-sm sm:text-base text-white focus:border-primary outline-none focus:ring-2 focus:ring-primary/30 transition-all uppercase font-bold placeholder-gray-700"
+  placeholder="e.g. 42.8"
+  step="0.1"
+  value={newItem.abv}
+  onChange={(e) => setNewItem({ ...newItem, abv: e.target.value })}
+  />
+  </div>
+  </div>
+
+  {/* Menu Category */}
+  <div className="space-y-1 sm:space-y-1.5 lg:space-y-2 mt-4">
   <label className="text-[10px] sm:text-[11px] lg:text-xs font-black text-gray-500 uppercase tracking-widest pl-1">
   Menu Category
   </label>
   <input
   type="text"
   className="w-full bg-black border border-gray-800 rounded-xl sm:rounded-2xl p-3.5 sm:p-4 lg:p-5 text-sm sm:text-base text-white focus:border-primary outline-none focus:ring-2 focus:ring-primary/30 transition-all uppercase font-bold placeholder-gray-700"
-  placeholder="e.g. Starters, Main Course, Beverages"
+  placeholder="e.g. Whiskey, Beers, Mixers"
   value={newItem.category}
   onChange={(e) =>
   setNewItem({ ...newItem, category: e.target.value })

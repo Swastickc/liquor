@@ -50,10 +50,14 @@ const RestaurantOwnerDashboard = () => {
   const [newItem, setNewItem] = useState({
   name: "",
   price: "",
+  mrp: "",
+  brand: "",
+  bottleSize: "",
+  type: "Other",
+  abv: "",
   description: "",
   category: "",
   image: "",
-  isVeg: "true",
   countInStock: 0,
   variants: [],
   addons: [],
@@ -274,20 +278,21 @@ const RestaurantOwnerDashboard = () => {
   return isNaN(n) || n < 0 ? 0 : n;
  };
 
- const payload = {
- ...newItem,
- price: safePrice(newItem.price),
- isVeg: newItem.isVeg === "true",
- restaurantId: userInfo._id,
- variants: (newItem.variants || []).map((v) => ({
- ...v,
- price: safePrice(v.price),
- })),
- addons: (newItem.addons || []).map((a) => ({
- ...a,
- price: safePrice(a.price),
- })),
- };
+  const payload = {
+  ...newItem,
+  price: safePrice(newItem.price),
+  mrp: safePrice(newItem.mrp),
+  abv: parseFloat(newItem.abv) || 0,
+  restaurantId: userInfo._id,
+  variants: (newItem.variants || []).map((v) => ({
+  ...v,
+  price: safePrice(v.price),
+  })),
+  addons: (newItem.addons || []).map((a) => ({
+  ...a,
+  price: safePrice(a.price),
+  })),
+  };
 
  const res = await fetch(url, getFetchOptions(method, payload));
  if (res.ok) {
@@ -521,10 +526,14 @@ const RestaurantOwnerDashboard = () => {
   setNewItem({
   name: "",
   price: "",
+  mrp: "",
+  brand: "",
+  bottleSize: "",
+  type: "Other",
+  abv: "",
   description: "",
   category: "",
   image: "",
-  isVeg: "true",
   countInStock: 0,
   variants: [],
   addons: [],
@@ -538,12 +547,16 @@ const RestaurantOwnerDashboard = () => {
   _id: item._id,
   name: item.name,
   price: item.price,
+  mrp: item.mrp || "",
+  brand: item.brand || "",
+  bottleSize: item.bottleSize || "",
+  type: item.type || "Other",
+  abv: item.abv || "",
   description: item.description,
   category: item.category,
   image: item.image,
   countInStock: item.countInStock,
   isAvailable: item.isAvailable,
-  isVeg: item.isVeg === true ? "true" : "false",
   variants: item.variants || [],
   addons: item.addons || [],
   scheduleEnabled: item.scheduleEnabled,
