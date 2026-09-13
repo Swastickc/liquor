@@ -14,7 +14,7 @@ import { toast } from "react-hot-toast";
 
 // Config & Components
 import { BASEURL } from "../config";
-import CouponSection from "../components/order/CouponSection";
+import { fetchAvailableCoupons } from "../redux/slices/offerSlice";
 import PhoneVerificationModal from "../components/order/PhoneVerificationModal";
 import axios from "axios";
 
@@ -373,18 +373,6 @@ const Cart = () => {
  </span>
  </div>
  </div>
-
- {/* 🎟️ Coupon Component */}
- <CouponSection
- couponCode={couponCode}
- setCouponCode={setCouponCode}
- applyHandler={applyCouponHandler}
- removeHandler={removeCouponHandler}
- availableCoupons={availableCoupons}
- appliedCoupon={appliedCoupon}
- loading={loading}
- discount={discount}
- />
 
  {/* Checkout Button */}
  <button
