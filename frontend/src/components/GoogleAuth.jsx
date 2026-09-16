@@ -45,6 +45,10 @@ const GoogleAuth = () => {
 
  // 1. Google Popup Handle
  const handleGoogleClick = async () => {
+ if (!isFirebaseReady || !auth || !googleProvider) {
+ toast.error("Google Sign-In is not available right now. Please use email login.");
+ return;
+ }
  try {
  setLoading(true);
  const result = await signInWithPopup(auth, googleProvider);

@@ -11,6 +11,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast"; // Notifications ke liye
 import { Analytics } from "@vercel/analytics/react";
 import { HelmetProvider } from "react-helmet-async";
+import ErrorBoundary from "./components/ErrorBoundary";
 import axios from "axios";
 
 // Google Client ID Load
@@ -70,7 +71,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         <HelmetProvider>
           <BrowserRouter>
-            <App />
+            <ErrorBoundary>
+              <App />
+            </ErrorBoundary>
             <Analytics />
             <Toaster
               position="top-center"
