@@ -66,9 +66,9 @@ const Contact = () => {
  return (
  <div className="min-h-screen bg-black text-white pt-24 pb-20 px-6 font-sans">
  <PageSEO
- title="Contact SwadKart Support | 24/7 Customer Care"
- description="Need help? Contact SwadKart's 24/7 customer support team. Email, phone, or fill our form for quick assistance with orders, deliveries, and more."
- keywords="SwadKart contact, customer support, food delivery help, order issue, 24/7 support"
+ title="Contact Kalna Liquor Support | 24/7 Customer Care"
+ description="Need help? Contact Kalna Liquor's 24/7 customer support team. Email, phone, or fill our form for quick assistance with orders, deliveries, and more."
+ keywords="Kalna Liquor contact, customer support, liquor delivery help, order issue, 24/7 support"
  canonicalPath="/contact"
  jsonLdScripts={[toJsonLd(contactSchema), toJsonLd(contactBreadcrumb)]}
  />

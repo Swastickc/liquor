@@ -125,7 +125,7 @@ function App() {
  handleOrderUpdate = (order) => {
  import("./components/notificationHelper").then(
  ({ sendNotification }) => {
- sendNotification(`SwadKart: Order Update! 🛵`, {
+ sendNotification(`Kalna Liquor: Order Update! 🛵`, {
  body: `Your Order #${order._id?.slice(-6).toUpperCase()} is now "${order.orderStatus}".`,
  });
  },

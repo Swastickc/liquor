@@ -107,7 +107,7 @@ const GoogleAuth = () => {
  if (res.ok) {
  const data = await res.json();
  dispatch(setCredentials(data));
- toast.success(`Welcome to SwadKart, ${data.name}! 🎉`);
+ toast.success(`Welcome to Kalna Liquor, ${data.name}! 🎉`);
  setShowPhoneModal(false);
  navigate("/");
  } else {

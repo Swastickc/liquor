@@ -79,7 +79,7 @@ const LiveTrackingMap = ({ orderId, restaurantCoords, userCoords }) => {
  >
  <TileLayer
  url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" // 🌑 Pro Dark Theme Map
- attribution="&copy; SwadKart Intelligence"
+ attribution="&copy; Kalna Liquor"
  />
 
  <ChangeView center={driverPos} />

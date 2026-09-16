@@ -93,7 +93,7 @@ const Shipping = () => {
  try {
  const res = await fetch(
  `https://nominatim.openstreetmap.org/search?format=json&q=${searchQuery}&countrycodes=in`,
- { headers: { "User-Agent": "SwadKart/1.0" }, signal: controller.signal },
+ { headers: { "User-Agent": "KalnaLiquor/1.0" }, signal: controller.signal },
  );
  if (!res.ok) {
  console.error("Search Error: non-200 response");

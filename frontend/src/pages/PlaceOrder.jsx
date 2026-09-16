@@ -287,7 +287,7 @@ const PlaceOrder = () => {
  key,
  amount: razorpayOrder.amount,
  currency: razorpayOrder.currency,
- name: "SwadKart",
+ name: "Kalna Liquor",
  description: "Food Delivery Mission",
  order_id: razorpayOrder.id,
  handler: (res) => verifyPayment(res, dbData?._id),

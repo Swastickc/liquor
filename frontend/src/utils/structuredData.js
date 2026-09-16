@@ -233,7 +233,7 @@ export const aboutPageSchema = ({ headline, description, datePublished, dateModi
 export const contactPageSchema = () => ({
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  name: "Contact SwadKart Support",
+  name: "Contact Kalna Liquor Support",
   url: `${SITE.url}/contact`,
   mainEntity: {
     "@type": "Organization",

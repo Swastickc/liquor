@@ -22,7 +22,7 @@ const values = [
  {
  title: "AI-Powered Innovation",
  description:
- "Groq LLM chatbot and voice search technology make finding your favorite food faster and more intuitive than ever before.",
+ "Groq LLM chatbot and voice search technology make finding your favorite liquor faster and more intuitive than ever before.",
  icon: Zap,
  },
  {
@@ -34,13 +34,13 @@ const values = [
  {
  title: "Lightning Fast Delivery",
  description:
- "Real-time GPS tracking via Socket.IO and dynamic ETA prediction ensure your food arrives hot, fresh, and on time.",
+ "Real-time GPS tracking via Socket.IO and dynamic ETA prediction ensure your liquor arrives quickly, fresh, and on time.",
  icon: Smartphone,
  },
  {
  title: "Community Driven",
  description:
- "Built as a solo project by Gautam Kumar, SwadKart is a community-first platform supporting local restaurants and delivery partners.",
+ "Built as a solo project by Gautam Kumar, Kalna Liquor is a community-first platform supporting local liquor vendors and delivery partners.",
  icon: Globe,
  },
 ];
@@ -62,16 +62,16 @@ const socialLinks = [
 
 export default function About() {
  const aboutSchema = aboutPageSchema({
- headline: "About SwadKart — AI-Powered Food Delivery Platform",
+ headline: "About Kalna Liquor — AI-Powered Liquor Delivery Platform",
  description:
- "Learn about SwadKart, an AI-powered food delivery platform built by Gautam Kumar. Features include Groq LLM chatbot, voice search, GPS tracking, and biometric authentication.",
+ "Learn about Kalna Liquor, an AI-powered liquor delivery platform built by Gautam Kumar. Features include Groq LLM chatbot, voice search, GPS tracking, and biometric authentication.",
  datePublished: "2025-01-01",
  dateModified: "2026-07-17",
  });
 
  const breadcrumb = breadcrumbSchema([
  { name: "Home", url: "/" },
- { name: "About SwadKart", url: "/about" },
+ { name: "About Kalna Liquor", url: "/about" },
  ]);
 
  const jsonLdScripts = [
@@ -82,9 +82,9 @@ export default function About() {
  return (
  <div className="min-h-screen bg-black text-white">
  <PageSEO
- title="About SwadKart — AI-Powered Food Delivery Platform"
- description="Discover SwadKart, an AI-powered food delivery platform with Groq LLM chatbot, voice search, real-time GPS tracking & secure payments. Built by Gautam Kumar."
- keywords="about SwadKart, food delivery Jaipur, AI food app, SwadKart project, Gautam Kumar, full-stack developer, Groq LLM chatbot"
+ title="About Kalna Liquor — AI-Powered Liquor Delivery Platform"
+ description="Discover Kalna Liquor, an AI-powered liquor delivery platform with Groq LLM chatbot, voice search, real-time GPS tracking & secure payments. Built by Gautam Kumar."
+ keywords="about Kalna Liquor, liquor delivery Kalna, AI liquor app, Kalna Liquor project, Gautam Kumar, full-stack developer, Groq LLM chatbot"
  canonicalPath="/about"
  jsonLdScripts={jsonLdScripts}
  />
@@ -98,10 +98,10 @@ export default function About() {
  AI-Powered Multi-Vendor Platform
  </div>
  <h1 className="text-4xl sm:text-6xl font-black tracking-tighter mb-6">
- About <span className="text-primary">SwadKart</span>
+ About <span className="text-primary">Kalna Liquor</span>
  </h1>
  <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
- SwadKart is a production-grade, AI-powered multi-vendor food
+ Kalna Liquor is a production-grade, AI-powered multi-vendor liquor
  delivery platform featuring a Groq LLM chatbot, voice search in
  English & Hindi, real-time GPS tracking, biometric authentication,
  and secure Razorpay payments — all wrapped in a PWA with offline
@@ -118,7 +118,7 @@ export default function About() {
  Mission & <span className="text-primary">Values</span>
  </h2>
  <p className="text-gray-400 max-w-2xl mx-auto text-lg">
- Combining cutting-edge AI with practical food delivery solutions
+ Combining cutting-edge AI with practical liquor delivery solutions
  for Indian consumers.
  </p>
  </div>
@@ -173,8 +173,8 @@ export default function About() {
  From Sitamarhi, Bihar — currently based in Jaipur, Rajasthan.
  A B.Tech Computer Science student at Jagannath University,
  Jaipur, with expertise in React, Node.js, AI/ML (Groq LLM),
- and cloud-native infrastructure. SwadKart is his flagship
- project, combining cutting-edge AI with practical food
+ and cloud-native infrastructure. Kalna Liquor is his flagship
+ project, combining cutting-edge AI with practical liquor
  delivery solutions for Indian consumers.
  </p>
  <div className="flex flex-wrap gap-3 justify-center md:justify-start">

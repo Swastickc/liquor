@@ -35,7 +35,7 @@ const GDPRSettings = () => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `swadkart-data-export-${Date.now()}.json`;
+      a.download = `kalna-liquor-data-export-${Date.now()}.json`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -155,7 +155,7 @@ const GDPRSettings = () => {
         </div>
 
         <div className="mt-6 text-center text-gray-500 text-sm">
-          SwadKart complies with GDPR. You have full control over your data.
+          Kalna Liquor complies with GDPR. You have full control over your data.
         </div>
       </div>
     </div>

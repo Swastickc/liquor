@@ -56,7 +56,7 @@ const ChatBot = () => {
     {
       text: `Namaste${
         userInfo ? " " + userInfo.name : ""
-      }! 🙏 I am SwadKart Genie 🧞‍♂️. Looking for a spicy recommendation or need help with an order?`,
+      }! 🙏 I am Kalna Liquor Genie 🧞‍♂️. Looking for a drink recommendation or need help with an order?`,
       sender: "bot",
     },
   ]);
@@ -232,7 +232,7 @@ const ChatBot = () => {
       {
         text: `Namaste${
           userInfo ? " " + userInfo.name : ""
-        }! 🙏 I am SwadKart Genie 🧞‍♂️. Looking for a spicy recommendation or need help with an order?`,
+        }! 🙏 I am Kalna Liquor Genie 🧞‍♂️. Looking for a drink recommendation or need help with an order?`,
         sender: "bot",
       },
     ]);
@@ -310,7 +310,7 @@ const ChatBot = () => {
           }`}
           style={isMaximized ? undefined : widgetStyle}
           role="dialog"
-          aria-label="SwadKart Genie Chat"
+          aria-label="Kalna Liquor Genie Chat"
           aria-modal="false"
         >
           {/* Header */}

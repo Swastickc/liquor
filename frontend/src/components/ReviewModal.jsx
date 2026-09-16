@@ -183,7 +183,7 @@ const ReviewModal = ({ isOpen, onClose, orderItems }) => {
  Awesome!
  </h2>
  <p className="text-gray-500 font-bold text-sm uppercase tracking-widest px-6 leading-relaxed">
- Your feedback helps SwadKart improve every single day.
+ Your feedback helps Kalna Liquor improve every single day.
  </p>
  <button
  onClick={onClose}

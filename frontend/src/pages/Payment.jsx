@@ -136,7 +136,7 @@ const Payment = () => {
  </div>
  <div className="flex-1">
  <span className="block font-extrabold uppercase tracking-tight text-lg">Swad Wallet</span>
- <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Use your SwadKart wallet balance</span>
+ <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Use your Kalna Liquor wallet balance</span>
  </div>
  </label>
 

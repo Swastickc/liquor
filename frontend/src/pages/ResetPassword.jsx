@@ -73,7 +73,7 @@ const ResetPassword = () => {
           Reset <span className="text-primary">Password</span> 🔐
         </h2>
         <p className="text-gray-500 text-center text-xs font-bold uppercase tracking-[0.2em] mb-8">
-          Secure your access to SwadKart
+          Secure your access to Kalna Liquor
         </p>
 
         <form onSubmit={submitHandler} className="space-y-6">
@@ -121,7 +121,7 @@ const ResetPassword = () => {
 
         {/* Info Text */}
         <p className="text-gray-600 text-center mt-8 text-[10px] font-bold uppercase tracking-widest">
-          SwadKart Security Protocol v2.0
+          Kalna Liquor Security Protocol v2.0
         </p>
       </div>
     </div>

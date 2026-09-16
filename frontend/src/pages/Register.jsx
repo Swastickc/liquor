@@ -110,7 +110,7 @@ const Register = () => {
         setIsLoading(false);
         return;
       }
-      toast.success("🎉 Welcome to SwadKart!");
+      toast.success("🎉 Welcome to Kalna Liquor!");
       dispatch(setCredentials(data));
       navigate("/");
     } catch {

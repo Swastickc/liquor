@@ -14,16 +14,16 @@ const InfoPage = () => {
  text: "Got questions? We have answers!",
  questions: [
  {
- q: "How does SwadKart work?",
- a: "SwadKart is an AI-powered multi-vendor food delivery platform. Browse restaurants in Jaipur, add items to your cart, choose from secure payment methods (UPI, cards, net banking, COD), and track your order live on the map via GPS. Our Groq LLM chatbot helps you discover dishes through natural language or voice search in English and Hindi.",
+ q: "How does Kalna Liquor work?",
+ a: "Kalna Liquor is an AI-powered multi-vendor liquor delivery platform. Browse shops in Kalna, add items to your cart, choose from secure payment methods (UPI, cards, net banking, COD), and track your order live on the map via GPS. Our AI chatbot helps you find drinks through voice search in English and Hindi.",
  },
  {
  q: "How long does delivery take?",
- a: "Standard delivery takes 30-45 minutes within Jaipur city limits. Exact time depends on your location relative to the restaurant, traffic conditions, and order volume. You can track your delivery partner's real-time location on the map once your order is out for delivery.",
+ a: "Standard delivery takes 30-45 minutes within Jaipur city limits. Exact time depends on your location relative to the shop, traffic conditions, and order volume. You can track your delivery partner's real-time location on the map once your order is out for delivery.",
  },
  {
  q: "Can I cancel my order?",
- a: "Yes — cancellations are allowed while the order status is 'Placed' or 'Preparing'. Once the restaurant marks it as 'Ready' or the delivery partner picks it up ('Out for Delivery'), cancellation is no longer possible. To cancel, go to My Orders and tap the Cancel button if available.",
+ a: "Yes — cancellations are allowed while the order status is 'Placed' or 'Preparing'. Once the shop marks it as 'Ready' or the delivery partner picks it up ('Out for Delivery'), cancellation is no longer possible. To cancel, go to My Orders and tap the Cancel button if available.",
  },
  {
  q: "What is your refund and return policy?",
@@ -34,55 +34,55 @@ const InfoPage = () => {
  a: "We accept UPI (GPay, PhonePe, Paytm), Credit/Debit Cards (Visa, Mastercard, RuPay), Net Banking (all major banks), and Cash on Delivery (COD). All online transactions are processed through Razorpay with industry-standard encryption. Your payment details are never stored on our servers.",
  },
  {
- q: "Does SwadKart have an AI chatbot?",
- a: "Yes — our chatbot is powered by Groq's Llama 3.3 LLM. It understands natural language queries like 'Show me biryani under ₹200', 'Best pizza near me', or 'What's good for a party of 4?'. The chatbot remembers your preferences across sessions and provides personalized restaurant and dish recommendations.",
+ q: "Does Kalna Liquor have an AI chatbot?",
+ a: "Yes — our chatbot is powered by Groq's Llama 3.3 LLM. It understands natural language queries like 'Show me biryani under ₹200', 'Best pizza near me', or 'What's good for a party of 4?'. The chatbot remembers your preferences across sessions and provides personalized shop and dish recommendations.",
  },
  {
- q: "Can I search for food using my voice?",
+ q: "Can I search for liquor using my voice?",
  a: "Absolutely. Tap the microphone icon in the search bar and speak your craving in English or Hindi. Voice search uses the Web Speech API and works in real-time — say 'mujhe pizza chahiye' or 'find me healthy options under ₹300' and the AI will match you instantly.",
  },
  {
  q: "How does real-time order tracking work?",
- a: "Once your order is accepted by the restaurant and a delivery partner is assigned, you can see their live GPS location on an interactive map. Tracking is powered by Socket.IO for real-time bidirectional communication — you see the exact ETA updated every few seconds as the driver moves.",
+ a: "Once your order is accepted by the shop and a delivery partner is assigned, you can see their live GPS location on an interactive map. Tracking is powered by Socket.IO for real-time bidirectional communication — you see the exact ETA updated every few seconds as the driver moves.",
  },
  {
- q: "What is SwadPass and how do I get it?",
- a: "SwadPass is our premium subscription tier offering unlimited free delivery, an extra 10% discount on every order, priority customer support, and exclusive deals. You can subscribe monthly or yearly from the SwadPass page. SwadPass pays for itself in just 3-4 orders if you order frequently.",
+ q: "What is Premium and how do I get it?",
+ a: "Premium is our premium subscription tier offering unlimited free delivery, an extra 10% discount on every order, priority customer support, and exclusive deals. You can subscribe monthly or yearly from the Premium page. Premium pays for itself in just 3-4 orders if you order frequently.",
  },
  {
- q: "What are SwadCoins and how do I earn them?",
- a: "SwadCoins are loyalty points earned on every order — typically 5% of your order value. They can be redeemed for discounts on future orders. You also earn bonus SwadCoins through daily streaks (ordering multiple days in a row), achievement badges, and referring friends to SwadKart.",
+ q: "What are Reward Points and how do I earn them?",
+ a: "Reward Points are loyalty points earned on every order — typically reward points on every order. They can be redeemed for discounts on future orders. You also earn bonus Reward Points through loyalty rewards (ordering multiple days in a row), achievement badges, and referring friends to Kalna Liquor.",
  },
  {
- q: "Does SwadKart support group ordering?",
+ q: "Does Kalna Liquor support group ordering?",
  a: "Yes! Create a group order, share the invite link with friends or colleagues, and everyone can add their items to a shared cart. You can split the bill equally or item-wise. Group orders are perfect for office lunches, parties, or ordering together with roommates.",
  },
  {
  q: "Can I schedule a delivery in advance?",
- a: "Currently SwadKart supports on-demand ordering. Scheduled / pre-order delivery is in development and will be available soon. You can subscribe to notifications to get updates when this feature launches.",
+ a: "Currently Kalna Liquor supports on-demand ordering. Scheduled / pre-order delivery is in development and will be available soon. You can subscribe to notifications to get updates when this feature launches.",
  },
  {
- q: "Is SwadKart available outside Jaipur?",
- a: "SwadKart currently serves Jaipur, Rajasthan. We are actively expanding to additional cities across India. If you are a restaurant owner outside Jaipur interested in partnering with us, reach out via the Contact page.",
+ q: "Is Kalna Liquor available outside Jaipur?",
+ a: "Kalna Liquor currently serves Jaipur, Rajasthan. We are actively expanding to additional cities across India. If you are a shop owner outside Jaipur interested in partnering with us, reach out via the Contact page.",
  },
  {
  q: "How do I become a delivery partner?",
  a: "Delivery partners can register through the app. Requirements include a valid government ID, bank account, and a smartphone with GPS. You earn per-delivery commissions plus incentives during peak hours. Flexible timing — work when you want.",
  },
  {
- q: "How do I register my restaurant on SwadKart?",
- a: "Restaurant owners can sign up from the Restaurant Owner Dashboard. After registration, your menu is reviewed and published within 24-48 hours. You get access to order management, analytics, payout tracking, and promotional tools to boost visibility on the platform.",
+ q: "How do I register my shop on Kalna Liquor?",
+ a: "Shop owners can sign up from the Shop Owner Dashboard. After registration, your menu is reviewed and published within 24-48 hours. You get access to order management, analytics, payout tracking, and promotional tools to boost visibility on the platform.",
  },
  {
  q: "How do I contact customer support?",
- a: "Our support team is available 24/7. You can email us, use the Contact page form, or reach out via in-app chat. SwadPass members get priority support with faster response times.",
+ a: "Our support team is available 24/7. You can email us, use the Contact page form, or reach out via in-app chat. Premium members get priority support with faster response times.",
  },
  ],
  },
  terms: {
  title: "Terms of Service",
  icon: <FileText size={40} className="text-primary" />,
- text: "By using SwadKart, you agree to the following terms. We ensure fair usage and transparent policies for all our users.",
+ text: "By using Kalna Liquor, you agree to the following terms. We ensure fair usage and transparent policies for all our users.",
  details: [
  "✅ User must be 18+",
  "✅ Payments are secure",
@@ -102,7 +102,7 @@ const InfoPage = () => {
  cookie: {
  title: "Cookie Policy",
  icon: <Cookie size={40} className="text-primary" />,
- text: "SwadKart uses cookies and similar technologies to enhance your browsing experience, analyze traffic, and personalize content.",
+ text: "Kalna Liquor uses cookies and similar technologies to enhance your browsing experience, analyze traffic, and personalize content.",
  details: [
  "🍪 Essential Cookies: Required for authentication, session management, and secure checkout. These cannot be disabled.",
  "📊 Analytics Cookies: Help us understand how you use the platform to improve features and performance.",
@@ -172,7 +172,7 @@ const InfoPage = () => {
  {data.title}
  </h1>
  <p className="text-gray-500 mt-2 text-sm font-bold uppercase tracking-widest">
- SwadKart Official Information
+ Kalna Liquor Official Information
  </p>
  </div>
  </div>
@@ -247,7 +247,7 @@ const InfoPage = () => {
 
  {/* Footer info inside InfoPage */}
  <p className="text-center mt-12 text-[10px] text-gray-600 font-bold uppercase tracking-[0.4em]">
- Last updated: Jan 2025 • SwadKart Technologies
+ Last updated: Jan 2025 • Kalna Liquor Technologies
  </p>
  </div>
  </div>
