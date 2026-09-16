@@ -23,19 +23,19 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-surface border-t border-border mt-auto">
+    <footer className="bg-gray-50 border-t border-gray-200 mt-auto">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
         {/* ── Grid ────────────────────────────────────── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Column 1: Brand */}
           <div className="space-y-4">
             <Link to="/" className="inline-flex items-center gap-1">
-              <span className="text-2xl font-display font-extrabold tracking-tight text-foreground">
-                Kalna<span className="text-accent">Liquor</span>
+              <span className="text-2xl font-bold tracking-tight text-gray-800">
+                Kalna<span className="text-orange-500">Liquor</span>
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5 animate-pulse" />
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-sm text-gray-500 leading-relaxed">
               Licensed liquor delivery in Kalna, West Bengal. Order premium spirits, wine, and beer from verified shops near you — delivered discreetly to your doorstep.
             </p>
             <div className="flex gap-2 pt-1">
@@ -45,7 +45,7 @@ const Footer = () => {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-surface-raised border border-border flex items-center justify-center text-muted-foreground hover:text-accent hover:border-accent/40 transition-all"
+                  className="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-orange-500 hover:border-orange-200 transition-all"
                   aria-label={item.label}
                 >
                   <item.Icon size={16} />
@@ -56,7 +56,7 @@ const Footer = () => {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h3 className="text-xs font-bold text-foreground uppercase tracking-widest mb-5">Quick Links</h3>
+            <h3 className="text-xs font-bold text-gray-800 uppercase tracking-widest mb-5">Quick Links</h3>
             <ul className="space-y-3">
               {[
                 { name: "Home", path: "/" },
@@ -66,7 +66,7 @@ const Footer = () => {
                 { name: "FAQ", path: "/page/faq" },
               ].map((item) => (
                 <li key={item.name}>
-                  <Link to={item.path} className="text-sm text-muted-foreground hover:text-accent transition-colors">
+                  <Link to={item.path} className="text-sm text-gray-500 hover:text-orange-500 transition-colors">
                     {item.name}
                   </Link>
                 </li>
@@ -76,7 +76,7 @@ const Footer = () => {
 
           {/* Column 3: Policies */}
           <div>
-            <h3 className="text-xs font-bold text-foreground uppercase tracking-widest mb-5">Policies</h3>
+            <h3 className="text-xs font-bold text-gray-800 uppercase tracking-widest mb-5">Policies</h3>
             <ul className="space-y-3">
               {[
                 { name: "Terms of Service", path: "/page/terms" },
@@ -86,7 +86,7 @@ const Footer = () => {
                 { name: "Return Policy", path: "/page/returns" },
               ].map((item) => (
                 <li key={item.name}>
-                  <Link to={item.path} className="text-sm text-muted-foreground hover:text-accent transition-colors">
+                  <Link to={item.path} className="text-sm text-gray-500 hover:text-orange-500 transition-colors">
                     {item.name}
                   </Link>
                 </li>
@@ -96,21 +96,21 @@ const Footer = () => {
 
           {/* Column 4: Contact */}
           <div>
-            <h3 className="text-xs font-bold text-foreground uppercase tracking-widest mb-5">Contact Us</h3>
+            <h3 className="text-xs font-bold text-gray-800 uppercase tracking-widest mb-5">Contact Us</h3>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-sm text-muted-foreground">
-                <MapPin size={16} className="text-accent shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3 text-sm text-gray-500">
+                <MapPin size={16} className="text-orange-500 shrink-0 mt-0.5" />
                 <span>Kalna, Purba Bardhaman,<br />West Bengal, India</span>
               </li>
               <li>
-                <a href={`tel:${SUPPORT_PHONE}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-accent transition-colors">
-                  <Phone size={16} className="text-accent shrink-0" />
+                <a href={`tel:${SUPPORT_PHONE}`} className="flex items-center gap-3 text-sm text-gray-500 hover:text-orange-500 transition-colors">
+                  <Phone size={16} className="text-orange-500 shrink-0" />
                   {SUPPORT_PHONE}
                 </a>
               </li>
               <li>
-                <a href={`mailto:${SUPPORT_EMAIL}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-accent transition-colors">
-                  <Mail size={16} className="text-accent shrink-0" />
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="flex items-center gap-3 text-sm text-gray-500 hover:text-orange-500 transition-colors">
+                  <Mail size={16} className="text-orange-500 shrink-0" />
                   {SUPPORT_EMAIL}
                 </a>
               </li>
@@ -119,19 +119,19 @@ const Footer = () => {
         </div>
 
         {/* ── Age notice ──────────────────────────────── */}
-        <div className="mt-10 p-4 rounded-xl bg-surface-raised border border-border flex items-center gap-3 text-sm text-muted-foreground">
-          <Shield size={20} className="text-accent shrink-0" />
+        <div className="mt-10 p-4 rounded-xl bg-white border border-gray-200 flex items-center gap-3 text-sm text-gray-500">
+          <Shield size={20} className="text-orange-500 shrink-0" />
           <p>
-            <strong className="text-foreground">21+ Only.</strong> All orders require valid age verification upon delivery. 
+            <strong className="text-gray-800">21+ Only.</strong> All orders require valid age verification upon delivery. 
             By using this website, you confirm that you are of legal drinking age in India.
           </p>
         </div>
 
         {/* ── Bottom bar ──────────────────────────────── */}
-        <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-muted-foreground">
+        <div className="mt-8 pt-6 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
           <p>© {new Date().getFullYear()} Kalna Liquor. All rights reserved.</p>
           <p className="flex items-center gap-1">
-            Secured by <Shield size={11} className="text-accent" /> Razorpay
+            Secured by <Shield size={11} className="text-orange-500" /> Razorpay
           </p>
         </div>
       </div>
