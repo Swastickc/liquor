@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Suspense, lazy } from "react";
 import { Routes, Route, Navigate, Outlet, useLocation } from "react-router-dom";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import { Fingerprint, LogOut, Lock, Loader } from "lucide-react"; // Icons
@@ -261,6 +262,7 @@ function App() {
  <Navbar />
 
  <main className="flex-grow">
+ <ErrorBoundary>
  <Suspense fallback={<PageLoader />}>
  <Routes>
  {/* Public Routes */}
@@ -333,6 +335,7 @@ function App() {
  <Route path="*" element={<Navigate to="/" replace />} />
  </Routes>
  </Suspense>
+ </ErrorBoundary>
  </main>
 
  {/* ✅ FIXED: Footer aur Chatbot ab Admin Panel me bhi dikhenge */}

@@ -24,6 +24,22 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID || "",
 };
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
+// 🛡️ CRASH FIX: initializeApp/getAuth throw synchronously when keys are
+// missing or invalid (e.g. Vercel env vars not set). Previously this threw
+// uncaught inside the lazy-loaded GoogleAuth chunk with no Error Boundary
+// anywhere in the tree, which unmounted the ENTIRE React app to a blank
+// white page on /login and /register. Fail soft instead: export null auth
+// and a readiness flag so callers can disable Google Sign-In gracefully.
+export let auth = null;
+export let googleProvider = null;
+export const isFirebaseReady = missing.length === 0;
+
+try {
+  const app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  googleProvider = new GoogleAuthProvider();
+} catch (err) {
+  console.warn("Firebase initialization failed. Google Sign-In disabled.", err);
+  auth = null;
+  googleProvider = null;
+}

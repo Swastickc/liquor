@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth, googleProvider } from "../utils/firebaseConfig";
+import { auth, googleProvider, isFirebaseReady } from "../utils/firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -45,6 +45,10 @@ const GoogleAuth = () => {
 
  // 1. Google Popup Handle
  const handleGoogleClick = async () => {
+ if (!isFirebaseReady || !auth || !googleProvider) {
+ toast.error("Google Sign-In is not available right now. Please use email login.");
+ return;
+ }
  try {
  setLoading(true);
  const result = await signInWithPopup(auth, googleProvider);
@@ -135,7 +139,9 @@ const GoogleAuth = () => {
  <button
  type="button"
  onClick={handleGoogleClick}
- className="w-full flex items-center justify-center gap-3 bg-white text-black font-bold py-4 rounded-2xl hover:bg-gray-200 transition-all border border-gray-300 shadow-lg active:scale-95"
+ disabled={loading}
+ title={!isFirebaseReady ? "Google Sign-In is not configured" : undefined}
+ className="w-full flex items-center justify-center gap-3 bg-white text-black font-bold py-4 rounded-2xl hover:bg-gray-200 transition-all border border-gray-300 shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
  >
  {/* Yahan ab hum direct Component use kar rahe hain */}
  <GoogleIcon />

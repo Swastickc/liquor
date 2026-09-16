@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import "./index.css";
 import "./i18n.js";
 // Leaflet CSS is now imported only in components that use maps (e.g., OrderDetails)
@@ -70,7 +71,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         <HelmetProvider>
           <BrowserRouter>
-            <App />
+            <ErrorBoundary>
+              <App />
+            </ErrorBoundary>
             <Analytics />
             <Toaster
               position="top-center"
