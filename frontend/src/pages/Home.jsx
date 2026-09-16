@@ -78,19 +78,6 @@ function ShopCard({ shop, t }) {
     </Link>
   );
 }
-iv className="flex items-center justify-between pt-4 border-t border-border">
-          <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
-            <Clock size={13} />
-            <span>{shop.isOpenNow ? t("deliveryTime") : t("currentlyClosed")}</span>
-          </div>
-          <span className="flex items-center gap-1 text-accent text-sm font-semibold group-hover:translate-x-1 transition-transform">
-            {t("viewMenu")} <ArrowRight size={14} />
-          </span>
-        </div>
-      </div>
-    </Link>
-  );
-}
 
 const Home = () => {
   const { t } = useTranslation("common");
@@ -167,49 +154,6 @@ const Home = () => {
     { label: "Delivery Hours",  value: "10AM–10PM" },
     { label: "Min. Age",        value: "21 Years" },
   ];
-
-
-  useEffect(() => {
-    fetchRestaurants();
-    const abortRecs = new AbortController();
-    if (userInfo) {
-      fetch(`${BASEURL}/api/v1/analytics/recommendations?limit=6`, {
-        credentials: "include",
-        signal: abortRecs.signal,
-      })
-        .then((r) => (r.ok ? r.json() : null))
-        .then((data) => { if (data && data.recommendations) setRecommendations(data.recommendations); })
-        .catch(() => {});
-    }
-    let socket = null;
-    let handleRestaurantUpdate;
-    if (userInfo) {
-      socket = getSocket();
-      socketRef.current = socket;
-      handleRestaurantUpdate = (updatedShop) => {
-        setRestaurants((prev) => {
-          let updated = prev.map((s) => (s._id === updatedShop._id ? updatedShop : s));
-          if (!prev.find((s) => s._id === updatedShop._id)) updated.push(updatedShop);
-          return [...updated].sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0));
-        });
-      };
-      socket.on("restaurantUpdated", handleRestaurantUpdate);
-    }
-    return () => {
-      abortRecs.abort();
-      if (socket && handleRestaurantUpdate) socket.off("restaurantUpdated", handleRestaurantUpdate);
-    };
-  }, [userInfo]);
-
-  useEffect(() => {
-    if (!searchTerm.trim()) {
-      setFilteredRestaurants(restaurants);
-    } else {
-      setFilteredRestaurants(
-        restaurants.filter((s) => s.name && s.name.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
-    }
-  }, [searchTerm, restaurants]);
 
   return (
     <>
@@ -364,15 +308,3 @@ const Home = () => {
 };
 
 export default Home;
-
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-    </>
-  );
-};
