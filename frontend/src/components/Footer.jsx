@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-hot-toast";
 import {
   Facebook,
   Twitter,
@@ -9,146 +8,47 @@ import {
   Mail,
   Phone,
   MapPin,
-  ArrowRight,
-  Heart,
+  Shield,
 } from "lucide-react";
-import { BASEURL } from "../config";
-import { SITE } from "../utils/seoConstants";
 
 const Footer = () => {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-
   const SUPPORT_PHONE = import.meta.env.VITE_SUPPORT_PHONE || "+91 98765 43210";
+  const SUPPORT_EMAIL = import.meta.env.VITE_SUPPORT_EMAIL || "support@kalnaliquor.com";
 
   const socialLinks = [
-    {
-      Icon: Facebook,
-      url: "https://www.facebook.com/gautam.theunstopabble",
-      color: "hover:bg-[#1877F2]",
-      label: "Facebook",
-    },
-    {
-      Icon: Twitter,
-      url: "https://x.com/_unstopabble",
-      color: "hover:bg-[#1DA1F2]",
-      label: "Twitter",
-    },
-    {
-      Icon: Instagram,
-      url: "https://www.instagram.com/theunstopabble/",
-      color: "hover:bg-[#E4405F]",
-      label: "Instagram",
-    },
-    {
-      Icon: Linkedin,
-      url: "https://www.linkedin.com/in/gautamkr62/",
-      color: "hover:bg-[#0A66C2]",
-      label: "LinkedIn",
-    },
+    { Icon: Facebook, url: "#", label: "Facebook" },
+    { Icon: Twitter, url: "#", label: "Twitter" },
+    { Icon: Instagram, url: "#", label: "Instagram" },
+    { Icon: Linkedin, url: "#", label: "LinkedIn" },
   ];
 
-  const handleSubscribe = async (e) => {
-    e.preventDefault();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email))
-      return toast.error("Please enter a valid email 📧");
-
-    setLoading(true);
-    try {
-      const res = await fetch(`${BASEURL}/api/v1/users/newsletter`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        toast.success("Subscribed successfully! Admin Notified 🚀");
-        setEmail("");
-      } else {
-        toast.error(data.message || "Something went wrong");
-      }
-    } catch {
-      toast.error("Network Error 😔");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <footer className="bg-gray-950 text-white pt-20 pb-10 border-t border-gray-900 relative overflow-hidden font-sans">
-      {/* ✨ Background Ambient Glow */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[128px] pointer-events-none"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/5 rounded-full blur-[128px] pointer-events-none"></div>
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* --- TOP SECTION: NEWSLETTER --- */}
-        <div className="flex flex-col items-center bg-gray-900 p-8 md:p-12 rounded-2xl md:rounded-[2.5rem] border border-gray-800 mb-10 sm:mb-16 shadow-2xl relative overflow-hidden">
-          <div className="text-center max-w-2xl mb-6 md:mb-10">
-            <h3 className="text-3xl md:text-4xl font-extrabold uppercase tracking-tight mb-4 leading-tight">
-              SUBSCRIBE TO <span className="text-primary">SWAD</span> NEWS <span className="inline-block">📰</span>
-            </h3>
-            <p className="text-gray-400 text-xs sm:text-sm font-medium px-2 sm:px-6">
-              Get the latest updates, secret menu offers, and special promos
-              delivered to your inbox.
-            </p>
-          </div>
-
-          <form
-            onSubmit={handleSubscribe}
-            className="flex items-center bg-black border border-gray-700 rounded-full w-full overflow-hidden focus-within:border-primary transition-all"
-          >
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 bg-transparent px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-gray-300 outline-none min-w-0"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-primary hover:bg-red-600 text-white font-bold px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm h-full transition-all shrink-0 disabled:opacity-50"
-            >
-              {loading ? "..." : "Subscribe"}
-            </button>
-          </form>
-        </div>
-
-        {/* --- MIDDLE SECTION: LINKS GRID --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
-          {/* Column 1: Brand & Social */}
-          <div className="space-y-6">
-            <Link
-              to="/"
-              className="text-3xl md:text-4xl font-black tracking-tighter text-primary flex items-center group w-fit"
-            >
-              Swad
-              <span className="text-white group-hover:text-gray-300 transition-colors">
-                Kart
+    <footer className="bg-surface border-t border-border mt-auto">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+        {/* ── Grid ────────────────────────────────────── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          {/* Column 1: Brand */}
+          <div className="space-y-4">
+            <Link to="/" className="inline-flex items-center gap-1">
+              <span className="text-2xl font-display font-extrabold tracking-tight text-foreground">
+                Kalna<span className="text-accent">Liquor</span>
               </span>
-              <span className="w-2.5 h-2.5 rounded-full bg-primary mt-4 animate-bounce"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 animate-pulse" />
             </Link>
-            <p className="text-gray-400 text-sm leading-7 font-medium pr-4">
-              Experience the best food delivery service in town. Fresh, hot, and
-              tasty meals delivered right to your doorstep within minutes. ⚡
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Licensed liquor delivery in Kalna, West Bengal. Order premium spirits, wine, and beer from verified shops near you — delivered discreetly to your doorstep.
             </p>
-
-            <div className="flex gap-3 pt-2">
+            <div className="flex gap-2 pt-1">
               {socialLinks.map((item, index) => (
                 <a
                   key={index}
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`bg-gray-900 border border-gray-800 p-3 rounded-xl text-gray-400 hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-lg ${item.color}`}
+                  className="w-9 h-9 rounded-lg bg-surface-raised border border-border flex items-center justify-center text-muted-foreground hover:text-accent hover:border-accent/40 transition-all"
                   aria-label={item.label}
                 >
-                  <item.Icon size={20} />
+                  <item.Icon size={16} />
                 </a>
               ))}
             </div>
@@ -156,141 +56,83 @@ const Footer = () => {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h3 className="text-white font-black uppercase tracking-widest text-xs mb-8 border-b border-gray-800 pb-3 w-fit">
-              Quick Links
-            </h3>
-            <ul className="space-y-4">
+            <h3 className="text-xs font-bold text-foreground uppercase tracking-widest mb-5">Quick Links</h3>
+            <ul className="space-y-3">
               {[
                 { name: "Home", path: "/" },
-                { name: "Menu", path: "/search" },
+                { name: "All Shops", path: "/#shops" },
                 { name: "About Us", path: "/about" },
                 { name: "Contact", path: "/contact" },
+                { name: "FAQ", path: "/page/faq" },
               ].map((item) => (
                 <li key={item.name}>
-                  <Link
-                    to={item.path}
-                    className="text-gray-400 hover:text-primary transition-all text-sm flex items-center gap-2 group font-medium"
-                  >
-                    <ArrowRight
-                      size={14}
-                      className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300 text-primary"
-                    />
-                    <span className="group-hover:translate-x-1 transition-transform duration-300">
-                      {item.name}
-                    </span>
+                  <Link to={item.path} className="text-sm text-muted-foreground hover:text-accent transition-colors">
+                    {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Support Links */}
+          {/* Column 3: Policies */}
           <div>
-            <h3 className="text-white font-black uppercase tracking-widest text-xs mb-8 border-b border-gray-800 pb-3 w-fit">
-              Support
-            </h3>
-            <ul className="space-y-4">
+            <h3 className="text-xs font-bold text-foreground uppercase tracking-widest mb-5">Policies</h3>
+            <ul className="space-y-3">
               {[
-                { name: "FAQ", path: "/page/faq" },
-                { name: "Help Center", path: "/page/help" },
                 { name: "Terms of Service", path: "/page/terms" },
                 { name: "Privacy Policy", path: "/page/privacy" },
                 { name: "Cookie Policy", path: "/page/cookie" },
+                { name: "Age Verification", path: "/page/age-verification" },
+                { name: "Return Policy", path: "/page/returns" },
               ].map((item) => (
                 <li key={item.name}>
-                  <Link
-                    to={item.path}
-                    className="text-gray-400 hover:text-primary transition-all text-sm flex items-center gap-2 group font-medium"
-                  >
-                    <ArrowRight
-                      size={14}
-                      className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300 text-primary"
-                    />
-                    <span className="group-hover:translate-x-1 transition-transform duration-300">
-                      {item.name}
-                    </span>
+                  <Link to={item.path} className="text-sm text-muted-foreground hover:text-accent transition-colors">
+                    {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 4: Contact Info */}
+          {/* Column 4: Contact */}
           <div>
-            <h3 className="text-white font-black uppercase tracking-widest text-xs mb-8 border-b border-gray-800 pb-3 w-fit">
-              Contact Us
-            </h3>
-            <ul className="space-y-6">
-              <li className="group">
-                <a
-                  href="https://www.jagannathuniversity.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-4 text-gray-400 text-sm transition-all"
-                >
-                  <div className="p-2.5 bg-gray-900 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors duration-300 border border-gray-800 flex-shrink-0">
-                    <MapPin size={18} />
-                  </div>
-                  <span className="leading-relaxed group-hover:text-gray-300 transition-colors">
-                    Jagannath University
-                    <br />
-                    Jaipur, Rajasthan, India
-                  </span>
-                </a>
+            <h3 className="text-xs font-bold text-foreground uppercase tracking-widest mb-5">Contact Us</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 text-sm text-muted-foreground">
+                <MapPin size={16} className="text-accent shrink-0 mt-0.5" />
+                <span>Kalna, Purba Bardhaman,<br />West Bengal, India</span>
               </li>
-              <li className="flex items-center gap-4 text-gray-400 text-sm group">
-                <div className="p-2.5 bg-gray-900 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors duration-300 border border-gray-800">
-                  <Phone size={18} />
-                </div>
-                <a
-                  href={`tel:${SUPPORT_PHONE}`}
-                  className="group-hover:text-gray-300 transition-colors font-mono"
-                >
+              <li>
+                <a href={`tel:${SUPPORT_PHONE}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-accent transition-colors">
+                  <Phone size={16} className="text-accent shrink-0" />
                   {SUPPORT_PHONE}
                 </a>
               </li>
-              <li className="flex items-center gap-4 text-gray-400 text-sm group">
-                <div className="p-2.5 bg-gray-900 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors duration-300 border border-gray-800">
-                  <Mail size={18} />
-                </div>
-                <a
-                  href={`mailto:${SITE.inboxEmail}`}
-                  className="group-hover:text-gray-300 transition-colors"
-                >
-                  {SITE.email}
+              <li>
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-accent transition-colors">
+                  <Mail size={16} className="text-accent shrink-0" />
+                  {SUPPORT_EMAIL}
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-medium gap-4">
-          <p className="text-center md:text-left hover:text-gray-400 transition-colors cursor-default flex items-center gap-1">
-            © {new Date().getFullYear()}
-            <span className="font-extrabold tracking-tighter ml-1">
-              <span className="text-primary">Swad</span>
-              <span className="text-white">Kart</span>
-            </span>
-            . All rights reserved.
+        {/* ── Age notice ──────────────────────────────── */}
+        <div className="mt-10 p-4 rounded-xl bg-surface-raised border border-border flex items-center gap-3 text-sm text-muted-foreground">
+          <Shield size={20} className="text-accent shrink-0" />
+          <p>
+            <strong className="text-foreground">21+ Only.</strong> All orders require valid age verification upon delivery. 
+            By using this website, you confirm that you are of legal drinking age in India.
           </p>
+        </div>
 
-          <div className="flex items-center gap-1.5 bg-gray-900/50 hover:bg-gray-900 px-4 py-2 rounded-full border border-gray-800 transition-all group">
-            Made with
-            <Heart
-              size={12}
-              className="text-red-500 fill-red-500 animate-pulse group-hover:scale-125 transition-transform"
-            />
-            by
-            <a
-              href="https://gautam-kr.vercel.app"
-              target="_blank"
-              rel="noopener"
-              className="text-white font-bold group-hover:text-primary transition-colors"
-              title="Gautam Kumar - Full Stack Developer Portfolio"
-            >
-              Gautam Kumar
-            </a>
-          </div>
+        {/* ── Bottom bar ──────────────────────────────── */}
+        <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-muted-foreground">
+          <p>© {new Date().getFullYear()} Kalna Liquor. All rights reserved.</p>
+          <p className="flex items-center gap-1">
+            Secured by <Shield size={11} className="text-accent" /> Razorpay
+          </p>
         </div>
       </div>
     </footer>
