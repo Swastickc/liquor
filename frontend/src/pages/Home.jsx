@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef, lazy, Suspense } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import {
   Search, MapPin, Clock, Star, ArrowRight, Loader2,
-  Trophy, Sparkles, Wine, ShoppingBag, Shield, ChevronRight
+  Trophy, Sparkles, Shield, ChevronRight,
+  ShoppingBag, Wine, Beer, Martini,
+  BadgeCheck, Store, Truck, Timer,
 } from "lucide-react";
 import { BASEURL } from "../config";
 import { getSocket } from "../utils/socket.js";
@@ -16,62 +18,93 @@ import { toast } from "react-hot-toast";
 const VoiceSearch = lazy(() => import("../components/VoiceSearch"));
 const HERO_IMG_URL = "/hero.webp";
 
-function SectionLabel({ children }) {
-  return (
-    <span className="label-pill">
-      <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block" />
-      {children}
-    </span>
-  );
-}
+/* ─── Category pills ─── */
+const CATEGORIES = [
+  { name: "Whisky", emoji: "🥃", color: "#c8933a" },
+  { name: "Vodka", emoji: "🍸", color: "#4a90d9" },
+  { name: "Rum", emoji: "🍹", color: "#8b4513" },
+  { name: "Beer", emoji: "🍺", color: "#f0ad4e" },
+  { name: "Wine", emoji: "🍷", color: "#9b2c2c" },
+  { name: "Brandy", emoji: "🥂", color: "#d4a574" },
+  { name: "Gin", emoji: "🍸", color: "#5bc0de" },
+  { name: "Sake", emoji: "🍶", color: "#e8d5b7" },
+];
 
+/* ─── Shop Card ─── */
 function ShopCard({ shop, t }) {
+  const deliveryFee = shop.deliveryFee || 0;
   return (
     <Link
       to={`/restaurant/${shop._id}`}
-      className="group block rounded-2xl border border-border overflow-hidden transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1"
-      style={{ background: "var(--surface)" }}
+      className="group block rounded-2xl border border-border overflow-hidden transition-all duration-300 hover:shadow-hover hover:-translate-y-0.5 bg-surface"
     >
-      <div className="relative h-48 overflow-hidden" style={{ background: "var(--surface-raised)" }}>
+      {/* Image */}
+      <div className="relative h-44 overflow-hidden bg-surface-raised">
         <img
-          src={shop.image ? `${BASEURL}/api/v1/image/thumbnail?url=${encodeURIComponent(shop.image)}&w=400&q=75&fit=cover` : "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=70&fm=webp&auto=format&fit=crop"}
+          src={shop.image
+            ? `${BASEURL}/api/v1/image/thumbnail?url=${encodeURIComponent(shop.image)}&w=400&q=75&fit=cover`
+            : "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=70&fm=webp&fit=crop"
+          }
           alt={shop.name || "Shop"}
           loading="lazy"
           onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=70&fm=webp&fit=crop"; }}
-          width={400} height={267}
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider text-white shadow-sm ${shop.isOpenNow ? "bg-emerald-500/90" : "bg-red-500/80"}`}>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
+        {/* Status badge */}
+        <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider text-white shadow-sm ${
+          shop.isOpenNow ? "bg-emerald-500/90" : "bg-red-500/80"
+        }`}>
           {shop.isOpenNow ? t("open") : t("closed")}
         </div>
-        <div className="absolute top-3 right-3 flex items-center gap-1 backdrop-blur-md px-2.5 py-1 rounded-full shadow-sm" style={{ background: "rgba(13,15,20,0.75)", border: "1px solid var(--border)" }}>
-          <Star size={11} fill="#c8933a" stroke="#c8933a" />
-          <span className="text-[11px] font-mono font-bold" style={{ color: "var(--foreground)" }}>{shop.rating > 0 ? shop.rating.toFixed(1) : "New"}</span>
+
+        {/* Rating badge */}
+        <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full shadow-sm border border-white/10">
+          <Star size={11} fill="#f0ad4e" stroke="#f0ad4e" />
+          <span className="text-[11px] font-mono font-bold text-white">
+            {shop.rating > 0 ? shop.rating.toFixed(1) : "New"}
+          </span>
         </div>
+
+        {/* Performance score */}
         {shop.performanceScore > 0 && (
-          <div className="absolute bottom-3 left-3 flex items-center gap-1 backdrop-blur-md px-2.5 py-1 rounded-full shadow-sm" style={{ background: "rgba(13,15,20,0.75)", border: "1px solid var(--border)" }}>
-            <Trophy size={10} style={{ color: "var(--accent)" }} />
-            <span className="text-[11px] font-mono font-bold" style={{ color: "var(--foreground)" }}>{shop.performanceScore}</span>
+          <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
+            <Trophy size={10} className="text-accent" />
+            <span className="text-[11px] font-mono font-bold text-white">{shop.performanceScore}</span>
           </div>
         )}
       </div>
-      <div className="p-5">
-        <h3 className="font-display text-xl mb-1 group-hover:text-accent transition-colors" style={{ color: "var(--foreground)" }}>
+
+      {/* Info */}
+      <div className="p-4 space-y-3">
+        <h3 className="font-display text-lg leading-tight text-foreground group-hover:text-accent transition-colors">
           {shop.name || "Shop"}
         </h3>
-        <div className="flex items-center gap-1.5 text-sm mb-4" style={{ color: "var(--muted-foreground)" }}>
-          <MapPin size={13} style={{ color: "var(--accent)" }} className="shrink-0" />
+        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+          <MapPin size={13} className="text-accent shrink-0" />
           <span>Kalna, West Bengal</span>
         </div>
-        <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid var(--border)" }}>
-          <div className="flex items-center gap-1.5" style={{ color: "var(--muted-foreground)" }}>
+
+        {/* Delivery info row */}
+        <div className="flex items-center justify-between pt-2 border-t border-border">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <Clock size={12} />
-            <span className="text-xs font-mono">30–45 min</span>
+            <span className="font-mono">30–45 min</span>
           </div>
-          <span className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider group-hover:gap-2 transition-all" style={{ color: "var(--accent)" }}>
-            Order <ChevronRight size={13} />
+          {deliveryFee > 0 ? (
+            <span className="text-xs font-mono text-muted-foreground">₹{deliveryFee} delivery</span>
+          ) : (
+            <span className="text-xs font-semibold text-emerald-500 flex items-center gap-1">
+              <BadgeCheck size={12} /> Free
+            </span>
+          )}
+        </div>
+
+        {/* CTA */}
+        <div className="pt-1">
+          <span className="flex items-center justify-center gap-1.5 w-full py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-accent/10 text-accent border border-accent/20 group-hover:bg-accent group-hover:text-white transition-all">
+            View Shop <ChevronRight size={14} />
           </span>
         </div>
       </div>
@@ -79,12 +112,39 @@ function ShopCard({ shop, t }) {
   );
 }
 
+/* ─── Trust Badge ─── */
+function TrustBadge({ icon: Icon, text, sub }) {
+  return (
+    <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-surface border border-border/60">
+      <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+        <Icon size={20} className="text-accent" />
+      </div>
+      <div>
+        <p className="text-sm font-semibold text-foreground">{text}</p>
+        {sub && <p className="text-[11px] text-muted-foreground">{sub}</p>}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Stat Card ─── */
+function StatCard({ label, value }) {
+  return (
+    <div className="bg-surface border border-border rounded-xl p-4 text-center">
+      <p className="text-2xl font-display text-foreground">{value}</p>
+      <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-muted-foreground mt-1">{label}</p>
+    </div>
+  );
+}
+
+/* ─── Main Home Component ─── */
 const Home = () => {
   const { t } = useTranslation("common");
   const { userInfo } = useSelector((state) => state.user);
+  const [searchParams] = useSearchParams();
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
   const [loading, setLoading] = useState(true);
   const [recommendations, setRecommendations] = useState([]);
   const socketRef = useRef(null);
@@ -106,16 +166,16 @@ const Home = () => {
     }
   };
 
+  // Initial load + socket
   useEffect(() => {
     fetchRestaurants();
     const abortRecs = new AbortController();
     if (userInfo) {
       fetch(`${BASEURL}/api/v1/analytics/recommendations?limit=6`, {
-        credentials: "include",
-        signal: abortRecs.signal,
+        credentials: "include", signal: abortRecs.signal,
       })
         .then((r) => (r.ok ? r.json() : null))
-        .then((data) => { if (data && data.recommendations) setRecommendations(data.recommendations); })
+        .then((data) => { if (data?.recommendations) setRecommendations(data.recommendations); })
         .catch(() => {});
     }
     let socket = null;
@@ -138,181 +198,224 @@ const Home = () => {
     };
   }, [userInfo]);
 
+  // Search filter
   useEffect(() => {
     if (!searchTerm.trim()) {
       setFilteredRestaurants(restaurants);
     } else {
+      const q = searchTerm.toLowerCase();
       setFilteredRestaurants(
-        restaurants.filter((s) => s.name && s.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        restaurants.filter((s) => s.name && s.name.toLowerCase().includes(q))
       );
     }
   }, [searchTerm, restaurants]);
+
+  // Read search param from URL
+  useEffect(() => {
+    const urlSearch = searchParams.get("search");
+    if (urlSearch) setSearchTerm(urlSearch);
+  }, [searchParams]);
 
   const statItems = [
-    { label: "Licensed Shops",  value: restaurants.length || "—" },
-    { label: "Avg. Delivery",   value: "30 min" },
-    { label: "Delivery Hours",  value: "10AM–10PM" },
-    { label: "Min. Age",        value: "21 Years" },
+    { label: "Licensed Shops", value: restaurants.length || "—" },
+    { label: "Avg. Delivery",  value: "30 min" },
+    { label: "Delivery Hours", value: "10AM–10PM" },
+    { label: "Min. Age",       value: "21 Years" },
   ];
-
-  useEffect(() => {
-    if (!searchTerm.trim()) {
-      setFilteredRestaurants(restaurants);
-    } else {
-      setFilteredRestaurants(
-        restaurants.filter((s) => s.name && s.name.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
-    }
-  }, [searchTerm, restaurants]);
 
   return (
     <>
       <PageSEO
-        title="Order Liquor Online - Kalna Liquor Delivery"
-        description="Order premium liquor online in Kalna. Fast delivery, real-time tracking, secure Razorpay payments. Open 10 AM to 10 PM."
+        title="Kalna Liquor — Order Liquor Online in Kalna | Fast Delivery"
+        description="Order premium liquor online from licensed shops in Kalna, West Bengal. Fast delivery, real-time tracking, secure payments. 10 AM to 10 PM daily."
         canonicalPath="/"
-        jsonLdScripts={[toJsonLd(localBusinessSchema()), toJsonLd(breadcrumbSchema([{ name: "Home", url: "/" }]))]}
+        jsonLdScripts={[
+          toJsonLd(localBusinessSchema()),
+          toJsonLd(breadcrumbSchema([{ name: "Home", url: "/" }])),
+        ]}
       />
 
-      {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: "var(--background)" }}>
+      {/* ── HERO ─────────────────────────────────────── */}
+      <section className="relative pt-28 pb-12 md:pt-36 md:pb-16 overflow-hidden bg-background">
+        {/* Background */}
         <div className="absolute inset-0 z-0">
-          <img src={HERO_IMG_URL} alt="" aria-hidden="true" className="w-full h-full object-cover" style={{ opacity: 0.15 }} loading="eager" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, var(--background) 45%, rgba(13,15,20,0.6) 100%)" }} />
+          <img src={HERO_IMG_URL} alt="" aria-hidden="true" className="w-full h-full object-cover opacity-10" loading="eager" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background/80" />
         </div>
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(200,147,58,0.07) 0%, transparent 70%)", filter: "blur(60px)" }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-32 pb-20 w-full">
+        <div className="absolute top-40 right-1/4 w-96 h-96 rounded-full pointer-events-none bg-accent/5 blur-[100px]" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-3xl">
-            <div className="age-badge mb-6">
-              <Shield size={11} />
-              21+ Only — Valid ID Required on Delivery
+            {/* Age badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-wider mb-6">
+              <Shield size={12} />
+              21+ Only — Valid ID Required
             </div>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl leading-none tracking-tight mb-6" style={{ color: "var(--foreground)" }}>
+
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight text-foreground mb-4">
               Premium Spirits,<br />
-              <span className="gradient-text">Delivered Fast.</span>
+              <span className="text-accent">Delivered Fast.</span>
             </h1>
-            <p className="text-lg mb-10 max-w-xl" style={{ color: "var(--muted-foreground)" }}>
-              Order from licensed liquor shops across Kalna, West Bengal. Discreet, legal, 10 AM–10 PM daily.
+
+            <p className="text-base md:text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed">
+              Order from licensed liquor shops across Kalna, West Bengal. 
+              Discreet packaging, legal delivery, 10 AM – 10 PM.
             </p>
-            <div className="relative max-w-xl mb-6">
-              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "var(--muted-foreground)" }} />
+
+            {/* Search */}
+            <div className="relative max-w-xl mb-8">
+              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
               <input
                 type="search"
-                placeholder="Search shops…"
+                placeholder="Search for Whisky, Rum, Beer..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="input-field pl-11 pr-12 py-4 text-base"
+                className="w-full bg-surface border border-border rounded-2xl pl-11 pr-12 py-4 text-base text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
                 aria-label="Search shops"
               />
               <Suspense fallback={null}>
                 <VoiceSearch setSearchTerm={setSearchTerm} />
               </Suspense>
             </div>
+
+            {/* CTA buttons */}
             <div className="flex flex-wrap gap-3">
-              <a href="#shops" className="btn-accent px-7 py-3.5 text-sm flex items-center gap-2 group">
-                Browse Shops
-                <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+              <a href="#shops" className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-light text-white font-bold rounded-xl transition-all shadow-accent/20 hover:shadow-accent/30">
+                Browse Shops <ArrowRight size={16} />
               </a>
               {!userInfo && (
-                <Link to="/register" className="btn-ghost px-7 py-3.5 text-sm">
+                <Link to="/register" className="inline-flex items-center px-6 py-3 border border-border text-foreground font-semibold rounded-xl hover:bg-surface transition-all">
                   Create Account
                 </Link>
               )}
             </div>
           </div>
-          <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4">
+
+          {/* Stats row */}
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3">
             {statItems.map(({ label, value }) => (
-              <div key={label} className="rounded-xl p-4" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
-                <p className="font-mono text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "var(--muted-foreground)" }}>{label}</p>
-                <p className="font-display text-2xl" style={{ color: "var(--foreground)" }}>{value}</p>
-              </div>
+              <StatCard key={label} label={label} value={value} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── TRUST STRIP ──────────────────────────────────────────── */}
-      <div style={{ background: "var(--surface)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex flex-wrap justify-center gap-8">
-          {[
-            { icon: <Shield size={15} />, text: "Age-verified 21+" },
-            { icon: <Clock size={15} />, text: "10 AM – 10 PM delivery" },
-            { icon: <Wine size={15} />, text: "Licensed shops only" },
-            { icon: <ShoppingBag size={15} />, text: "Razorpay secured" },
-          ].map(({ icon, text }) => (
-            <div key={text} className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--muted-foreground)" }}>
-              <span style={{ color: "var(--accent)" }}>{icon}</span>
-              {text}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── SHOPS ────────────────────────────────────────────────── */}
-      <section id="shops" className="py-24 lg:py-32" style={{ background: "var(--background)" }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="mb-14">
-            <SectionLabel>Licensed Shops</SectionLabel>
-            <h2 className="font-display text-4xl lg:text-5xl mt-4" style={{ color: "var(--foreground)" }}>
-              {searchTerm ? `Results for "${searchTerm.slice(0, 40)}"` : t("topRestaurants")}
-            </h2>
+      {/* ── CATEGORIES ────────────────────────────────── */}
+      <section className="py-10 bg-background border-y border-border/40">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-4">Shop by Category</h2>
+          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
+            {CATEGORIES.map((cat) => (
+              <Link
+                key={cat.name}
+                to={`/?category=${cat.name.toLowerCase()}`}
+                className="flex flex-col items-center gap-2 px-5 py-3 rounded-2xl border border-border bg-surface hover:border-accent/40 hover:bg-surface-raised transition-all shrink-0 min-w-[90px]"
+              >
+                <span className="text-2xl">{cat.emoji}</span>
+                <span className="text-xs font-semibold text-foreground whitespace-nowrap">{cat.name}</span>
+              </Link>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── TRUST BADGES ──────────────────────────────── */}
+      <section className="py-6 bg-surface/50 border-b border-border/40">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <TrustBadge icon={Shield} text="Age Verified 21+" sub="Valid ID required" />
+            <TrustBadge icon={Timer} text="10 AM – 10 PM" sub="Daily delivery hours" />
+            <TrustBadge icon={Store} text="Licensed Shops" sub="Govt. approved vendors" />
+            <TrustBadge icon={Truck} text="30-45 min Delivery" sub="Track in real-time" />
+          </div>
+        </div>
+      </section>
+
+      {/* ── SHOPS GRID ────────────────────────────────── */}
+      <section id="shops" className="py-12 md:py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-accent">
+                {searchTerm ? `Results for "${searchTerm.slice(0, 40)}"` : "All Shops"}
+              </span>
+              <h2 className="font-display text-2xl md:text-3xl text-foreground mt-1">
+                {searchTerm ? "Search Results" : t("topRestaurants")}
+              </h2>
+            </div>
+            {!searchTerm && restaurants.length > 0 && (
+              <span className="text-xs text-muted-foreground hidden sm:block">
+                {restaurants.length} shop{restaurants.length !== 1 ? "s" : ""} near you
+              </span>
+            )}
+          </div>
+
           {loading ? (
-            <div className="flex justify-center items-center py-32">
-              <Loader2 size={40} className="animate-spin" style={{ color: "var(--accent)" }} />
+            <div className="flex justify-center items-center py-24">
+              <Loader2 size={36} className="animate-spin text-accent" />
             </div>
           ) : filteredRestaurants.length === 0 ? (
-            <div className="text-center py-24 rounded-2xl" style={{ border: "1px dashed var(--border)" }}>
-              <ShoppingBag size={40} className="mx-auto mb-4" style={{ color: "var(--muted-foreground)" }} />
-              <p className="text-lg" style={{ color: "var(--muted-foreground)" }}>{t("noResults")}</p>
+            <div className="text-center py-20 rounded-2xl border border-dashed border-border">
+              <ShoppingBag size={48} className="mx-auto mb-4 text-muted-foreground" />
+              <p className="text-lg text-muted-foreground">No shops found</p>
+              <p className="text-sm text-muted-foreground/60 mt-1">Try a different search term</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {filteredRestaurants.map((shop) => (
                 <ShopCard key={shop._id} shop={shop} t={t} />
               ))}
             </div>
           )}
-          <OrderAgain />
-          {recommendations.length > 0 && (
-            <div className="mt-24">
-              <div className="mb-10">
-                <SectionLabel>AI Picks</SectionLabel>
-                <h2 className="font-display text-3xl lg:text-4xl mt-4 flex items-center gap-3" style={{ color: "var(--foreground)" }}>
-                  Recommended <span className="gradient-text">For You</span>
-                  <Sparkles size={22} style={{ color: "var(--accent)" }} />
-                </h2>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                {recommendations.map((rec, idx) => (
-                  <Link
-                    key={rec._id ? rec._id.toString() : rec.productId ? rec.productId.toString() : idx}
-                    to={`/restaurant/${rec.restaurant}`}
-                    className="group rounded-xl overflow-hidden transition-all duration-300 hover:shadow-card-hover hover:-translate-y-0.5"
-                    style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
-                  >
-                    <div className="h-28 overflow-hidden" style={{ background: "var(--surface-raised)" }}>
-                      <img
-                        src={rec.image || "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=300"}
-                        alt={rec.name}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="p-3">
-                      <p className="text-sm font-semibold truncate" style={{ color: "var(--foreground)" }}>{rec.name}</p>
-                      <p className="text-xs font-medium mt-0.5" style={{ color: "var(--accent)" }}>{rec.reason}</p>
-                      {rec.price > 0 && (
-                        <p className="text-xs mt-1 font-mono" style={{ color: "var(--muted-foreground)" }}>₹{rec.price}</p>
-                      )}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </section>
+
+      {/* ── ORDER AGAIN ──────────────────────────────── */}
+      {userInfo && <OrderAgain />}
+
+      {/* ── RECOMMENDATIONS ──────────────────────────── */}
+      {recommendations.length > 0 && (
+        <section className="py-12 bg-surface/30 border-t border-border/40">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex items-center gap-3 mb-8">
+              <div>
+                <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-accent">AI Picks</span>
+                <h2 className="font-display text-2xl md:text-3xl text-foreground mt-1 flex items-center gap-2">
+                  Recommended For You
+                  <Sparkles size={20} className="text-accent" />
+                </h2>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+              {recommendations.map((rec, idx) => (
+                <Link
+                  key={rec._id ? rec._id.toString() : idx}
+                  to={`/restaurant/${rec.restaurant}`}
+                  className="group rounded-xl overflow-hidden border border-border bg-surface hover:border-accent/30 hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  <div className="h-28 overflow-hidden bg-surface-raised">
+                    <img
+                      src={rec.image || "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=300"}
+                      alt={rec.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-3">
+                    <p className="text-sm font-semibold truncate text-foreground">{rec.name}</p>
+                    {rec.reason && (
+                      <p className="text-[10px] font-medium text-accent mt-0.5">{rec.reason}</p>
+                    )}
+                    {rec.price > 0 && (
+                      <p className="text-xs mt-1 font-mono text-muted-foreground">₹{rec.price}</p>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 };
