@@ -2,35 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Swiggy-Inspired Light Theme ──────────────────── */
+/* ─── Swiggy Design System Tokens ──────────────────── */
 @layer base {
   :root {
-    --background:      #ffffff;
-    --surface:         #ffffff;
-    --surface-raised:  #f8f8f8;
-    --border:          #e9eaec;
-    --border-subtle:   #f0f0f0;
-    --foreground:      #282c3f;
-    --muted-foreground:#686b78;
-    --placeholder:     #a9abb2;
-    --accent:          #fc8019;
-    --accent-light:    #ff9a40;
-    --accent-dim:      #e06800;
-    --accent-subtle:   rgba(252,128,25,0.08);
-    --accent-border:   rgba(252,128,25,0.25);
-    --success:         #48c479;
-    --success-subtle:  rgba(72,196,121,0.10);
-    --danger:          #e0364a;
-    --danger-subtle:   rgba(224,54,74,0.08);
-    --danger-border:   rgba(224,54,74,0.25);
-    --warning:         #f7a742;
-    --info:            #5d8ed5;
-    /* legacy aliases */
-    --muted:           #f8f8f8;
-    --card:            #ffffff;
-    --shadow-card:     0 1px 5px rgba(40,44,63,0.08);
-    --shadow-hover:    0 8px 20px rgba(40,44,63,0.12);
-    --shadow-float:    0 12px 30px rgba(40,44,63,0.15);
+    --swiggy-orange:      #FC8019;
+    --swiggy-charcoal:    #282C3F;
+    --swiggy-yellow:      #F3C334;
+    --swiggy-muted:       #686B78;
+    --swiggy-border:      #E9EAEC;
+
+    --background:         #ffffff;
+    --surface:            #ffffff;
+    --surface-raised:     #f8f8f8;
+    --border:             #E9EAEC;
+    --border-subtle:      #F0F0F0;
+    --foreground:         #282C3F;
+    --muted-foreground:   #686B78;
+    --placeholder:        #A9ABB2;
+    --accent:             #FC8019;
+    --accent-light:       #FF9A40;
+    --accent-dim:         #E06800;
+    --accent-yellow:      #F3C334;
+    --accent-subtle:      rgba(252,128,25,0.08);
+    --accent-border:      rgba(252,128,25,0.25);
+    --success:            #48C479;
+    --danger:             #E0364A;
+    --danger-subtle:      rgba(224,54,74,0.08);
+    --warning:            #F3C334;
+    --info:               #5D8ED5;
+
+    --shadow-card:        0 2px 8px rgba(40,44,63,0.06);
+    --shadow-hover:       0 8px 24px rgba(40,44,63,0.12);
+    --shadow-float:       0 12px 32px rgba(40,44,63,0.15);
+    --shadow-hard:        4px 4px 0px rgba(40,44,63,0.08);
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -49,17 +53,21 @@
   }
 
   input, textarea { user-select: text; }
+
+  ::-webkit-scrollbar { display: none; }
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
-/* ─── Custom Utility Classes ───────────────────────── */
+/* ─── Component Classes ────────────────────────────── */
 @layer components {
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-bold text-sm text-white transition-all;
-    background-color: var(--accent);
+    background-color: var(--swiggy-orange);
   }
   .btn-primary:hover {
     background-color: var(--accent-light);
     box-shadow: 0 4px 12px rgba(252,128,25,0.3);
+    transform: translateY(-1px);
   }
 
   .btn-outline {
@@ -73,40 +81,94 @@
     color: var(--accent);
   }
 
-  .card {
+  /* Swiggy-style card with hard shadow option */
+  .card-swiggy {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 14px;
     box-shadow: var(--shadow-card);
     transition: box-shadow 0.2s, transform 0.2s;
   }
-  .card:hover {
+  .card-swiggy:hover {
     box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
   }
-
-  .section-label {
-    @apply text-[11px] font-bold uppercase tracking-widest;
-    color: var(--muted-foreground);
-  }
-
-  .section-title {
-    @apply text-2xl font-bold tracking-tight;
-    color: var(--foreground);
-  }
-
-  .chip {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer whitespace-nowrap;
-    border: 1px solid var(--border);
-    color: var(--muted-foreground);
+  .card-swiggy-hard {
     background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow-hard);
+    transition: box-shadow 0.2s, transform 0.2s;
   }
-  .chip:hover, .chip.active {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-subtle);
+  .card-swiggy-hard:hover {
+    box-shadow: 6px 6px 0px rgba(40,44,63,0.1);
+    transform: translate(-1px, -1px);
   }
 
+  /* Category Tile */
+  .category-tile {
+    @apply relative rounded-2xl overflow-hidden cursor-pointer shrink-0;
+    width: 130px;
+    height: 160px;
+  }
+  .category-tile img {
+    @apply w-full h-full object-cover transition-transform duration-300;
+  }
+  .category-tile:hover img {
+    transform: scale(1.08);
+  }
+  .category-tile .overlay {
+    @apply absolute inset-0 flex flex-col justify-end p-3;
+    background: linear-gradient(180deg, transparent 40%, rgba(40,44,63,0.85) 100%);
+  }
+  .category-tile .overlay span {
+    @apply text-white font-bold text-sm;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  /* Delivery Time Badge */
+  .delivery-badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-bold;
+    background: rgba(40,44,63,0.06);
+    color: var(--muted-foreground);
+  }
+
+  /* Lane Section */
+  .lane {
+    @apply flex gap-3 overflow-x-auto pb-2;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Section Header */
+  .section-header {
+    @apply flex items-end justify-between mb-4;
+  }
+  .section-header h2 {
+    @apply text-xl font-bold;
+    color: var(--swiggy-charcoal);
+  }
+  .section-header a {
+    @apply text-sm font-semibold;
+    color: var(--swiggy-orange);
+  }
+
+  /* Gradient Banner */
+  .banner-orange {
+    background: linear-gradient(135deg, #FC8019 0%, #F3C334 100%);
+  }
+  .banner-charcoal {
+    background: linear-gradient(180deg, #282C3F 0%, #1A1E2E 100%);
+  }
+
+  /* Rating Badge */
+  .rating-badge {
+    @apply inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[11px] font-bold text-white;
+  }
+  .rating-high { background: #48C479; }
+  .rating-mid  { background: #F3C334; }
+  .rating-low  { background: #E0364A; }
+
+  /* Input Field */
   .input-field {
     @apply w-full rounded-xl border px-4 py-3 text-sm transition-all;
     background: var(--surface);
@@ -118,7 +180,18 @@
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--accent-subtle);
   }
-  .input-field::placeholder {
-    color: var(--placeholder);
+  .input-field::placeholder { color: var(--placeholder); }
+
+  /* Chip */
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer whitespace-nowrap;
+    border: 1px solid var(--border);
+    color: var(--muted-foreground);
+    background: var(--surface);
+  }
+  .chip:hover, .chip.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-subtle);
   }
 }
