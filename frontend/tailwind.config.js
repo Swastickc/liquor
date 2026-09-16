@@ -4,53 +4,44 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Legacy alias kept so admin/delivery pages don't break
-        primary: "#c8933a",
-        secondary: "#1a1e28",
+        primary: "#fc8019",
+        secondary: "#f8f8f8",
 
-        // Premium dark theme tokens (mirror CSS custom properties)
-        background:        "#0d0f14",
-        surface:           "#13161e",
-        "surface-raised":  "#1a1e28",
-        foreground:        "#edeef2",
-        muted:             "#1a1e28",
-        "muted-foreground":"#8891a8",
-        accent:            "#c8933a",
-        "accent-light":    "#dba954",
-        "accent-dim":      "#8f6426",
-        border:            "#2a2f3d",
-        "border-subtle":   "#1e2230",
-        card:              "#13161e",
-        success:           "#2ecc71",
+        background:        "#ffffff",
+        surface:           "#ffffff",
+        "surface-raised":  "#f8f8f8",
+        foreground:        "#282c3f",
+        muted:             "#f8f8f8",
+        "muted-foreground":"#686b78",
+        accent:            "#fc8019",
+        "accent-light":    "#ff9a40",
+        "accent-dim":      "#e06800",
+        border:            "#e9eaec",
+        "border-subtle":   "#f0f0f0",
+        card:              "#ffffff",
+        success:           "#48c479",
         danger:            "#e0364a",
-        warning:           "#e8a135",
-        info:              "#4a90d9",
+        warning:           "#f7a742",
+        info:              "#5d8ed5",
       },
       fontFamily: {
-        display: ["Calistoga", "Georgia", "serif"],
+        display: ["Inter", "system-ui", "-apple-system", "sans-serif"],
         sans:    ["Inter", "system-ui", "-apple-system", "sans-serif"],
         mono:    ["JetBrains Mono", "monospace"],
       },
       backgroundImage: {
-        "accent-gradient": "linear-gradient(135deg, #c8933a 0%, #dba954 100%)",
-        "surface-gradient":"linear-gradient(180deg, #13161e 0%, #0d0f14 100%)",
+        "accent-gradient": "linear-gradient(135deg, #fc8019 0%, #ff9a40 100%)",
       },
       boxShadow: {
-        card:       "0 2px 12px rgba(0,0,0,0.45)",
-        "card-hover":"0 8px 32px rgba(0,0,0,0.55)",
-        float:      "0 16px 48px rgba(0,0,0,0.65)",
-        accent:     "0 4px 16px rgba(200,147,58,0.30)",
-        "accent-lg":"0 8px 24px rgba(200,147,58,0.38)",
-        // legacy
-        "neon-primary": "0 0 15px rgba(200,147,58,0.4)",
-      },
-      gridTemplateColumns: {
-        hero: "1.1fr 0.9fr",
+        card:       "0 1px 5px rgba(40,44,63,0.08)",
+        "card-hover":"0 8px 20px rgba(40,44,63,0.12)",
+        float:      "0 12px 30px rgba(40,44,63,0.15)",
+        accent:     "0 4px 12px rgba(252,128,25,0.25)",
+        "accent-lg":"0 8px 20px rgba(252,128,25,0.30)",
       },
       animation: {
-        "fade-in":        "fadeIn 0.5s ease-out forwards",
-        "slide-up":       "slideUp 0.4s ease-out forwards",
-        "slide-in-bottom":"slideInBottom 0.6s cubic-bezier(0.16,1,0.3,1) forwards",
+        "fade-in":  "fadeIn 0.4s ease-out forwards",
+        "slide-up": "slideUp 0.3s ease-out forwards",
       },
       keyframes: {
         fadeIn: {
@@ -58,11 +49,7 @@ export default {
           "100%": { opacity: "1" },
         },
         slideUp: {
-          "0%":   { transform: "translateY(20px)", opacity: "0" },
-          "100%": { transform: "translateY(0)",    opacity: "1" },
-        },
-        slideInBottom: {
-          "0%":   { transform: "translateY(32px)", opacity: "0" },
+          "0%":   { transform: "translateY(10px)", opacity: "0" },
           "100%": { transform: "translateY(0)",    opacity: "1" },
         },
       },
