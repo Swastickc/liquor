@@ -32,37 +32,6 @@
     --shadow-hover:    0 8px 32px rgba(0,0,0,0.55);
     --shadow-float:    0 16px 48px rgba(0,0,0,0.65);
   }
-}
-
-@layer base {
-  :root {
-    --background:      #0d0f14;
-    --surface:         #13161e;
-    --surface-raised:  #1a1e28;
-    --border:          #2a2f3d;
-    --border-subtle:   #1e2230;
-    --foreground:      #edeef2;
-    --muted-foreground:#8891a8;
-    --placeholder:     #555d72;
-    --accent:          #c8933a;
-    --accent-light:    #dba954;
-    --accent-dim:      #8f6426;
-    --accent-subtle:   rgba(200,147,58,0.12);
-    --accent-border:   rgba(200,147,58,0.28);
-    --success:         #2ecc71;
-    --success-subtle:  rgba(46,204,113,0.12);
-    --danger:          #e0364a;
-    --danger-subtle:   rgba(224,54,74,0.12);
-    --danger-border:   rgba(224,54,74,0.30);
-    --warning:         #e8a135;
-    --info:            #4a90d9;
-    /* legacy aliases kept for admin/delivery pages */
-    --muted:           #1a1e28;
-    --card:            #13161e;
-    --shadow-card:     0 2px 12px rgba(0,0,0,0.45);
-    --shadow-hover:    0 8px 32px rgba(0,0,0,0.55);
-    --shadow-float:    0 16px 48px rgba(0,0,0,0.65);
-  }
 
   *, *::before, *::after { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
