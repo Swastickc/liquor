@@ -1,0 +1,30 @@
+{
+  "name": "kalna-grocery-storefront",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.js",
+    "format": "prettier --write src api server tests"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "lucide-react": "^0.562.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.23",
+    "postcss": "^8.5.26",
+    "prettier": "^3.9.7",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^3.4.1",
+    "vite": "^7.2.4"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}

@@ -1,3 +1,5 @@
+import groceryRoutes from "./grocery/routes.js";
+import { expireOrders as expireGroceryOrders } from "./grocery/service.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -102,9 +104,11 @@ app.set("trust proxy", 1);
 
 // --- 📏 Body Parser Limits (prevent DoS) ---
 // 🛡️ Webhooks needing RAW body (must be BEFORE express.json())
+app.use("/api/grocery/webhook", express.raw({ type: "application/json", limit: "100kb" }));
 app.use("/api/v1/payment/webhook", express.raw({ type: "application/json", limit: "100kb" }));
 
 
+app.use("/api/grocery/photo", express.json({ limit: "3mb" }));
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true, limit: "1mb" }));
 
@@ -115,6 +119,7 @@ const allowedOrigins = [
   "https://localhost:5173",
   "https://swadkart.vercel.app",
   process.env.FRONTEND_URL,
+  "https://kalna-daily.vercel.app",
   "https://swadkart-5wtf.onrender.com",
 ].filter(Boolean); // Remove undefined/null entries
 
@@ -305,6 +310,7 @@ app.use(safeMongoSanitize);
 // ==========================================
 const csrfExemptPaths = [
   "/api/v1/payment/webhook",
+  "/api/grocery/webhook",
   "/api/v1/users/register",
   "/api/v1/users/login",
   "/api/v1/users/logout",
@@ -459,6 +465,13 @@ app.get("/health", healthLimiter, async (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+// Grocery uses the existing Mongo connection, email service and payment account.
+app.use("/api/grocery", groceryRoutes);
+const groceryExpiryTimer = setInterval(() => {
+  if (mongoose.connection.readyState === 1) expireGroceryOrders().catch(() => console.error("Grocery stock expiry failed"));
+}, 60000);
+groceryExpiryTimer.unref();
 
 // --- 🛣️ API Routes ---
 app.use("/api/v1/users", userRoutes);

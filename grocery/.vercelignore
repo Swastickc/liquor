@@ -1,0 +1,5 @@
+node_modules
+work
+tests
+README.md
+.env*
