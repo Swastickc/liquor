@@ -42,3 +42,7 @@ Automated refunds/cancellations, GPS tracking, SMS sign-in OTP and push notifica
 Vercel CLI is authenticated. User signed into Render in the in-app browser. Browser runtime was reset once after app crash; re-bootstrap only if bindings no longer exist. Follow browser skill. No secrets copied into source. Original frontend .env.local/.env.production.local created by Vercel CLI are ignored; do not print or commit them.
 Local preview last responded at http://127.0.0.1:5180/.
 Retired Supabase implementation is local scratch in work/retired-supabase, not deployed, not required. Current repository contains the Mongo implementation only.
+
+## UI completion checkpoint
+UI design pass committed as 1582b2a on main: shared admin/account/driver styling, admin navigation tabs, mobile product cards, responsive sign-in screen, order progress timeline, bag charges, support link, improved mobile typography and touch sizes. Preview account and driver screens are reachable without backend setup and do not fabricate live orders.
+Verified phone widths 320 and 390 (no page overflow in storefront/admin/driver), admin tabs, product editor open/close, mobile and desktop sign-in layouts, no browser console errors, production build and 10 frontend tests. Vercel production deployment initiated for this version; check latest deployment status. Backend integration/payment/email limitations above still apply.
