@@ -217,20 +217,128 @@ test("existing owner admin role is reused and only that role can manage products
   expect((await Product.findById("new-item")).stock).toBe(8);
 });
 
-test('checkout verifies the provider order, captured status, signature and webhook before fulfillment',async()=>{
- const originalFetch=global.fetch;process.env.GROCERY_CHECKOUT_ENABLED='true';process.env.RAZORPAY_KEY_ID='rzp_test_fixture';process.env.RAZORPAY_KEY_SECRET='fixture-only';process.env.GROCERY_RAZORPAY_WEBHOOK_SECRET='webhook-fixture';
- const {createHmac}=await import('node:crypto');let providerOrder;let paymentStatus='authorized';
- global.fetch=jest.fn(async(url,options)=>{if(url.endsWith('/orders')){providerOrder=JSON.parse(options.body);return {ok:true,json:async()=>({id:'order_fixture',...providerOrder})};}if(url.endsWith('/payments/pay_fixture'))return {ok:true,json:async()=>({id:'pay_fixture',order_id:'order_fixture',amount:21500,currency:'INR',status:paymentStatus})};throw new Error('Unexpected provider URL');});
- try{
- const customer=await login('checkout@example.test');const b=body();const response=await customer.post('/api/grocery/create-order').send({...b,amount:1}).expect(200);expect(response.body.amount).toBe(21500);expect(providerOrder.amount).toBe(21500);const orderId=response.body.orderId;
- await customer.post('/api/grocery/verify-payment').send({orderId,paymentId:'pay_fixture'}).expect(400);
- const signature=createHmac('sha256','fixture-only').update('order_fixture|pay_fixture').digest('hex');
- await customer.post('/api/grocery/verify-payment').send({orderId,paymentId:'pay_fixture',signature}).expect(409);
- expect((await Order.findById(orderId)).status).toBe('pending');paymentStatus='captured';
- await customer.post('/api/grocery/verify-payment').send({orderId,paymentId:'pay_fixture',signature}).expect(200);
- const event=JSON.stringify({event:'payment.captured',payload:{payment:{entity:{id:'pay_fixture'}}}});
- await request(app).post('/api/grocery/webhook').set('Content-Type','application/json').set('x-razorpay-signature','invalid').send(event).expect(401);
- await request(app).post('/api/grocery/webhook').set('Content-Type','application/json').set('x-razorpay-signature',createHmac('sha256','webhook-fixture').update(event).digest('hex')).send(event).expect(200);
- expect((await Order.findById(orderId)).status).toBe('paid');expect((await Product.findById('rice')).stock).toBe(8);
- }finally{global.fetch=originalFetch;delete process.env.GROCERY_CHECKOUT_ENABLED;delete process.env.RAZORPAY_KEY_ID;delete process.env.RAZORPAY_KEY_SECRET;delete process.env.GROCERY_RAZORPAY_WEBHOOK_SECRET;}
+test("checkout verifies the provider order, captured status, signature and webhook before fulfillment", async () => {
+  const originalFetch = global.fetch;
+  process.env.GROCERY_CHECKOUT_ENABLED = "true";
+  process.env.RAZORPAY_KEY_ID = "rzp_test_fixture";
+  process.env.RAZORPAY_KEY_SECRET = "fixture-only";
+  process.env.GROCERY_RAZORPAY_WEBHOOK_SECRET = "webhook-fixture";
+  const { createHmac } = await import("node:crypto");
+  let providerOrder;
+  let paymentStatus = "authorized";
+  global.fetch = jest.fn(async (url, options) => {
+    if (url.endsWith("/orders")) {
+      providerOrder = JSON.parse(options.body);
+      return {
+        ok: true,
+        json: async () => ({ id: "order_fixture", ...providerOrder }),
+      };
+    }
+    if (url.endsWith("/payments/pay_fixture"))
+      return {
+        ok: true,
+        json: async () => ({
+          id: "pay_fixture",
+          order_id: "order_fixture",
+          amount: 21500,
+          currency: "INR",
+          status: paymentStatus,
+        }),
+      };
+    throw new Error("Unexpected provider URL");
+  });
+  try {
+    const customer = await login("checkout@example.test");
+    const b = body();
+    const response = await customer
+      .post("/api/grocery/create-order")
+      .send({ ...b, amount: 1 })
+      .expect(200);
+    expect(response.body.amount).toBe(21500);
+    expect(providerOrder.amount).toBe(21500);
+    const orderId = response.body.orderId;
+    await customer
+      .post("/api/grocery/verify-payment")
+      .send({ orderId, paymentId: "pay_fixture" })
+      .expect(400);
+    const signature = createHmac("sha256", "fixture-only")
+      .update("order_fixture|pay_fixture")
+      .digest("hex");
+    await customer
+      .post("/api/grocery/verify-payment")
+      .send({ orderId, paymentId: "pay_fixture", signature })
+      .expect(409);
+    expect((await Order.findById(orderId)).status).toBe("pending");
+    paymentStatus = "captured";
+    await customer
+      .post("/api/grocery/verify-payment")
+      .send({ orderId, paymentId: "pay_fixture", signature })
+      .expect(200);
+    const event = JSON.stringify({
+      event: "payment.captured",
+      payload: { payment: { entity: { id: "pay_fixture" } } },
+    });
+    await request(app)
+      .post("/api/grocery/webhook")
+      .set("Content-Type", "application/json")
+      .set("x-razorpay-signature", "invalid")
+      .send(event)
+      .expect(401);
+    await request(app)
+      .post("/api/grocery/webhook")
+      .set("Content-Type", "application/json")
+      .set(
+        "x-razorpay-signature",
+        createHmac("sha256", "webhook-fixture").update(event).digest("hex"),
+      )
+      .send(event)
+      .expect(200);
+    expect((await Order.findById(orderId)).status).toBe("paid");
+    expect((await Product.findById("rice")).stock).toBe(8);
+  } finally {
+    global.fetch = originalFetch;
+    delete process.env.GROCERY_CHECKOUT_ENABLED;
+    delete process.env.RAZORPAY_KEY_ID;
+    delete process.env.RAZORPAY_KEY_SECRET;
+    delete process.env.GROCERY_RAZORPAY_WEBHOOK_SECRET;
+  }
+});
+
+test("guest customer skips OTP but still requires phone, payment and private order ownership", async () => {
+  process.env.GROCERY_CHECKOUT_ENABLED = "true";
+  process.env.RAZORPAY_KEY_ID = "rzp_test_fixture";
+  process.env.RAZORPAY_KEY_SECRET = "fixture-only";
+  try {
+    const guest = request.agent(app),
+      other = request.agent(app);
+    await guest.post("/api/grocery/auth/guest").send({}).expect(200);
+    await other.post("/api/grocery/auth/guest").send({}).expect(200);
+    const session = (await guest.get("/api/grocery/auth/session").expect(200))
+      .body;
+    expect(session.user.guest).toBe(true);
+    expect(mail).not.toHaveBeenCalled();
+    const missingPhone = body();
+    delete missingPhone.address.phone;
+    await guest
+      .post("/api/grocery/create-order")
+      .send(missingPhone)
+      .expect(400);
+    await guest.post("/api/grocery/settings").send({}).expect(403);
+    await guest
+      .post("/api/grocery/driver-enrol")
+      .send({ name: "Test", phone: "9000000000" })
+      .expect(403);
+    const order = await reserveOrder(session.user.id, body());
+    expect((await guest.get("/api/grocery/orders")).body[0].id).toBe(order.id);
+    expect((await other.get("/api/grocery/orders")).body).toEqual([]);
+    await guest
+      .post("/api/grocery/verify-payment")
+      .send({ orderId: order.id, paymentId: "pay_fake" })
+      .expect(400);
+    expect((await Order.findById(order.id)).status).toBe("pending");
+  } finally {
+    delete process.env.GROCERY_CHECKOUT_ENABLED;
+    delete process.env.RAZORPAY_KEY_ID;
+    delete process.env.RAZORPAY_KEY_SECRET;
+  }
 });

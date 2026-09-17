@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Check, Package, RefreshCw } from "lucide-react";
 import Auth, { useSession } from "./Auth";
-import { backend, callApi } from "./backend";
+import { backend, callApi, ensureCheckoutSession } from "./backend";
 import { money } from "./data";
 import { cartTotals } from "./catalog";
 import { DriverControls } from "./Delivery";
@@ -231,7 +231,21 @@ export function Account({ onBack }) {
   if (!session)
     return (
       <div className="account-page">
-        <Auth onBack={onBack} />
+        <WorkspaceHeader label="Your orders" onBack={onBack} />
+        <div className="workspace-empty">
+          <Package size={32} />
+          <h2>Your next good thing starts here.</h2>
+          <p>
+            Place an order without signing up. Your orders will be available on
+            this device.
+          </p>
+          <button
+            onClick={onBack}
+            className="mt-6 rounded-lg bg-forest px-5 py-3 text-white"
+          >
+            Browse the store
+          </button>
+        </div>
       </div>
     );
   return (
@@ -247,7 +261,9 @@ export function Account({ onBack }) {
         <div className="flex flex-wrap justify-between gap-3">
           <div>
             <h1 className="text-3xl font-semibold">Your account</h1>
-            <p className="mt-2 text-sm text-muted">{session.user.email}</p>
+            <p className="mt-2 text-sm text-muted">
+              {session.user.email || "Orders placed on this device"}
+            </p>
           </div>
           <button
             onClick={() => backend.auth.signOut()}
@@ -256,6 +272,13 @@ export function Account({ onBack }) {
             Sign out
           </button>
         </div>
+        {session.user.guest && (
+          <p className="my-4 rounded bg-cream p-4 text-xs leading-5">
+            Keep this browser session to track your order and see your delivery
+            code. Save your order number; clearing cookies or switching devices
+            removes access here.
+          </p>
+        )}
         <OrderList />
       </div>
     </div>
@@ -286,11 +309,12 @@ export function Checkout({ cart, products, settings, onSuccess, onBack }) {
     setBusy(true);
     setError("");
     try {
+      const checkoutSession = await ensureCheckoutSession();
       const items = products
         .filter((p) => cart[p.id] > 0 && p.active !== false)
         .map((p) => ({ id: p.id, quantity: cart[p.id] }));
       const fingerprint = JSON.stringify({
-        user: session.user.id,
+        user: checkoutSession.user.id,
         items,
         address,
       });
@@ -311,7 +335,9 @@ export function Checkout({ cart, products, settings, onSuccess, onBack }) {
         description: "Grocery order",
         prefill: {
           name: address.name,
-          email: session.user.email,
+          ...(checkoutSession.user.email
+            ? { email: checkoutSession.user.email }
+            : {}),
           contact: address.phone,
         },
         theme: { color: "#174c37" },
@@ -352,7 +378,7 @@ export function Checkout({ cart, products, settings, onSuccess, onBack }) {
     }
   }
   if (loading) return <p className="py-10">Checking your account…</p>;
-  if (!session) return <Auth title="Sign in to checkout" onBack={onBack} />;
+
   if (result)
     return (
       <div className="rounded-xl bg-cream p-7">
@@ -387,8 +413,8 @@ export function Checkout({ cart, products, settings, onSuccess, onBack }) {
       </button>
       <h2 className="text-2xl font-semibold">Where should it go?</h2>
       <p className="mb-5 mt-2 text-xs text-muted">
-        Signed in as {session.user.email}. Stock and prices are checked before
-        payment.
+        No sign-up needed. Add your phone number and delivery address, then pay
+        securely.
       </p>
       <div className="grid gap-4 sm:grid-cols-2">
         {[

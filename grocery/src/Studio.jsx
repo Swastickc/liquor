@@ -36,7 +36,7 @@ export default function Studio(props) {
   if (!isLive) return <Admin {...props} />;
   if (loading || checking)
     return <p className="p-10 text-center">Checking admin access…</p>;
-  if (!session)
+  if (!session || session.user.guest)
     return (
       <div className="min-h-screen bg-cream px-5 py-14">
         <Auth title="Store admin sign-in" onBack={props.onBack} />

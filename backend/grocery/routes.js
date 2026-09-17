@@ -58,9 +58,18 @@ const admin = (req, res, next) =>
   isAdmin(req) ? next() : error(res, 403, "Admin access required.");
 async function identity(req, res, next) {
   const token = req.cookies?.grocery_session;
-  if (!token) return error(res, 401, "Verify your email to continue.");
+  if (!token) return error(res, 401, "Start a checkout session to continue.");
   try {
     const claims = jwt.verify(token, key(), { audience: "kalna-grocery" });
+    if (claims.guest === true) {
+      req.groceryUser = {
+        id: claims.sub,
+        email: null,
+        role: "user",
+        guest: true,
+      };
+      return next();
+    }
     const account = await Account.findById(claims.sub).lean();
     if (!account) return error(res, 401, "Session expired.");
     const legacy = await User.findOne({ email: account.email })
@@ -235,6 +244,37 @@ router.post(
       maxAge: 7 * 86400000,
     });
     res.json({ user: { id: account._id, email: account.email } });
+  }),
+);
+router.post(
+  "/auth/guest",
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 30,
+    standardHeaders: true,
+    legacyHeaders: false,
+  }),
+  wrap(async (req, res) => {
+    if (req.cookies?.grocery_session) {
+      try {
+        jwt.verify(req.cookies.grocery_session, key(), {
+          audience: "kalna-grocery",
+        });
+        return res.json({ ready: true });
+      } catch {}
+    }
+    const token = jwt.sign({ sub: randomUUID(), guest: true }, key(), {
+      audience: "kalna-grocery",
+      expiresIn: "7d",
+    });
+    res.cookie("grocery_session", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/api/grocery",
+      maxAge: 7 * 86400000,
+    });
+    res.json({ ready: true });
   }),
 );
 router.post("/auth/logout", (_req, res) => {
@@ -517,6 +557,12 @@ router.get(
 router.post(
   "/driver-enrol",
   wrap(async (req, res) => {
+    if (req.groceryUser.guest)
+      return error(
+        res,
+        403,
+        "Drivers must sign in with a verified staff account.",
+      );
     const { name, phone } = req.body;
     if (
       typeof name !== "string" ||
@@ -600,6 +646,12 @@ router.post(
 );
 router.post(
   "/create-order",
+  rateLimit({
+    windowMs: 3600000,
+    limit: 30,
+    standardHeaders: true,
+    legacyHeaders: false,
+  }),
   wrap(async (req, res) => {
     if (process.env.GROCERY_CHECKOUT_ENABLED !== "true")
       return error(res, 503, "The store is not accepting orders yet.");

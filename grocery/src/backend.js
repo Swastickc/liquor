@@ -18,11 +18,9 @@ async function request(path, { method = "GET", body } = {}) {
     body: body === undefined ? undefined : JSON.stringify(body),
     signal: AbortSignal.timeout(45000),
   });
-  const data = await res
-    .json()
-    .catch(() => ({
-      error: "The store service is unavailable. Please retry.",
-    }));
+  const data = await res.json().catch(() => ({
+    error: "The store service is unavailable. Please retry.",
+  }));
   if (!res.ok) {
     const error = new Error(
       data.error || data.message || "The request could not be completed.",
@@ -150,7 +148,11 @@ export const backend = isLive
     }
   : null;
 export async function loadCatalog() {
-  if (!session) { try { await backend.auth.getSession(); } catch {} }
+  if (!session) {
+    try {
+      await backend.auth.getSession();
+    } catch {}
+  }
   return request(session?.user.role === "admin" ? "admin/catalog" : "catalog");
 }
 export async function saveProduct(product) {
@@ -172,4 +174,17 @@ export async function uploadPhoto(file) {
 }
 export async function callApi(action, body) {
   return request(action, { method: "POST", body });
+}
+
+export async function ensureCheckoutSession() {
+  try {
+    const current = await backend.auth.getSession();
+    if (current.data.session) return current.data.session;
+  } catch (error) {
+    throw error;
+  }
+  await request("auth/guest", { method: "POST", body: {} });
+  const current = await backend.auth.getSession();
+  notify(current.data.session);
+  return current.data.session;
 }

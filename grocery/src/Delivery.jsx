@@ -225,7 +225,7 @@ export default function Delivery() {
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
   async function refresh() {
-    if (!session) return;
+    if (!session || session.user.guest) return;
     try {
       const { data, error } = await backend
         .from("grocery_drivers")
@@ -253,7 +253,7 @@ export default function Delivery() {
   }
   useEffect(() => {
     refresh();
-    if (!session) return;
+    if (!session || session.user.guest) return;
     const timer = setInterval(refresh, 30000);
     return () => clearInterval(timer);
   }, [session]);
@@ -289,7 +289,7 @@ export default function Delivery() {
       </div>
     );
   if (loading) return <p className="p-8">Checking your account…</p>;
-  if (!session)
+  if (!session || session.user.guest)
     return (
       <div className="account-page">
         <Auth
