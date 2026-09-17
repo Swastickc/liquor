@@ -177,14 +177,8 @@ export async function callApi(action, body) {
 }
 
 export async function ensureCheckoutSession() {
-  try {
-    const current = await backend.auth.getSession();
-    if (current.data.session) return current.data.session;
-  } catch (error) {
-    throw error;
-  }
-  await request("auth/guest", { method: "POST", body: {} });
   const current = await backend.auth.getSession();
-  notify(current.data.session);
+  if (!current.data.session || current.data.session.user.guest)
+    throw new Error("Please verify your email to continue.");
   return current.data.session;
 }

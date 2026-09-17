@@ -58,18 +58,11 @@ const admin = (req, res, next) =>
   isAdmin(req) ? next() : error(res, 403, "Admin access required.");
 async function identity(req, res, next) {
   const token = req.cookies?.grocery_session;
-  if (!token) return error(res, 401, "Start a checkout session to continue.");
+  if (!token) return error(res, 401, "Verify your email to continue.");
   try {
     const claims = jwt.verify(token, key(), { audience: "kalna-grocery" });
-    if (claims.guest === true) {
-      req.groceryUser = {
-        id: claims.sub,
-        email: null,
-        role: "user",
-        guest: true,
-      };
-      return next();
-    }
+    if (claims.guest === true)
+      return error(res, 401, "Please verify your email to continue.");
     const account = await Account.findById(claims.sub).lean();
     if (!account) return error(res, 401, "Session expired.");
     const legacy = await User.findOne({ email: account.email })
@@ -244,37 +237,6 @@ router.post(
       maxAge: 7 * 86400000,
     });
     res.json({ user: { id: account._id, email: account.email } });
-  }),
-);
-router.post(
-  "/auth/guest",
-  rateLimit({
-    windowMs: 15 * 60 * 1000,
-    limit: 30,
-    standardHeaders: true,
-    legacyHeaders: false,
-  }),
-  wrap(async (req, res) => {
-    if (req.cookies?.grocery_session) {
-      try {
-        jwt.verify(req.cookies.grocery_session, key(), {
-          audience: "kalna-grocery",
-        });
-        return res.json({ ready: true });
-      } catch {}
-    }
-    const token = jwt.sign({ sub: randomUUID(), guest: true }, key(), {
-      audience: "kalna-grocery",
-      expiresIn: "7d",
-    });
-    res.cookie("grocery_session", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/api/grocery",
-      maxAge: 7 * 86400000,
-    });
-    res.json({ ready: true });
   }),
 );
 router.post("/auth/logout", (_req, res) => {

@@ -228,26 +228,8 @@ export function OrderList({ admin = false }) {
 export function Account({ onBack }) {
   const { session, loading } = useSession();
   if (loading) return <p className="p-10 text-center">Loading account…</p>;
-  if (!session)
-    return (
-      <div className="account-page">
-        <WorkspaceHeader label="Your orders" onBack={onBack} />
-        <div className="workspace-empty">
-          <Package size={32} />
-          <h2>Your next good thing starts here.</h2>
-          <p>
-            Place an order without signing up. Your orders will be available on
-            this device.
-          </p>
-          <button
-            onClick={onBack}
-            className="mt-6 rounded-lg bg-forest px-5 py-3 text-white"
-          >
-            Browse the store
-          </button>
-        </div>
-      </div>
-    );
+  if (!session || session.user.guest)
+    return <Auth title="Sign in to your account" onBack={onBack} />;
   return (
     <div className="account-page">
       <WorkspaceHeader label="Your account" onBack={onBack} />
@@ -262,7 +244,7 @@ export function Account({ onBack }) {
           <div>
             <h1 className="text-3xl font-semibold">Your account</h1>
             <p className="mt-2 text-sm text-muted">
-              {session.user.email || "Orders placed on this device"}
+              {session.user.email}
             </p>
           </div>
           <button
@@ -272,13 +254,6 @@ export function Account({ onBack }) {
             Sign out
           </button>
         </div>
-        {session.user.guest && (
-          <p className="my-4 rounded bg-cream p-4 text-xs leading-5">
-            Keep this browser session to track your order and see your delivery
-            code. Save your order number; clearing cookies or switching devices
-            removes access here.
-          </p>
-        )}
         <OrderList />
       </div>
     </div>
@@ -379,6 +354,9 @@ export function Checkout({ cart, products, settings, onSuccess, onBack }) {
   }
   if (loading) return <p className="py-10">Checking your account…</p>;
 
+  if (!session || session.user.guest)
+    return <Auth title="Sign in to place your order" onBack={onBack} />;
+
   if (result)
     return (
       <div className="rounded-xl bg-cream p-7">
@@ -413,8 +391,7 @@ export function Checkout({ cart, products, settings, onSuccess, onBack }) {
       </button>
       <h2 className="text-2xl font-semibold">Where should it go?</h2>
       <p className="mb-5 mt-2 text-xs text-muted">
-        No sign-up needed. Add your phone number and delivery address, then pay
-        securely.
+        Add your phone number and delivery address, then pay securely.
       </p>
       <div className="grid gap-4 sm:grid-cols-2">
         {[

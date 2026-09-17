@@ -304,38 +304,27 @@ test("checkout verifies the provider order, captured status, signature and webho
   }
 });
 
-test("guest customer skips OTP but still requires phone, payment and private order ownership", async () => {
+test("checkout requires verified email and phone, and rejects retired guest sessions", async () => {
   process.env.GROCERY_CHECKOUT_ENABLED = "true";
   process.env.RAZORPAY_KEY_ID = "rzp_test_fixture";
   process.env.RAZORPAY_KEY_SECRET = "fixture-only";
   try {
-    const guest = request.agent(app),
-      other = request.agent(app);
-    await guest.post("/api/grocery/auth/guest").send({}).expect(200);
-    await other.post("/api/grocery/auth/guest").send({}).expect(200);
-    const session = (await guest.get("/api/grocery/auth/session").expect(200))
-      .body;
-    expect(session.user.guest).toBe(true);
-    expect(mail).not.toHaveBeenCalled();
+    await request(app).post("/api/grocery/create-order").send(body()).expect(401);
+    const { createHmac } = await import("node:crypto");
+    const { default: jwt } = await import("jsonwebtoken");
+    const signingKey = createHmac("sha256", process.env.JWT_SECRET)
+      .update("kalna-grocery-session-v1").digest("hex");
+    const oldGuest = jwt.sign({ sub: randomUUID(), guest: true }, signingKey,
+      { audience: "kalna-grocery", expiresIn: "7d" });
+    await request(app).get("/api/grocery/auth/session")
+      .set("Cookie", `grocery_session=${oldGuest}`).expect(401);
+    await request(app).post("/api/grocery/create-order")
+      .set("Cookie", `grocery_session=${oldGuest}`).send(body()).expect(401);
+    const customer = await login("verified@example.test");
     const missingPhone = body();
     delete missingPhone.address.phone;
-    await guest
-      .post("/api/grocery/create-order")
-      .send(missingPhone)
-      .expect(400);
-    await guest.post("/api/grocery/settings").send({}).expect(403);
-    await guest
-      .post("/api/grocery/driver-enrol")
-      .send({ name: "Test", phone: "9000000000" })
-      .expect(403);
-    const order = await reserveOrder(session.user.id, body());
-    expect((await guest.get("/api/grocery/orders")).body[0].id).toBe(order.id);
-    expect((await other.get("/api/grocery/orders")).body).toEqual([]);
-    await guest
-      .post("/api/grocery/verify-payment")
-      .send({ orderId: order.id, paymentId: "pay_fake" })
-      .expect(400);
-    expect((await Order.findById(order.id)).status).toBe("pending");
+    await customer.post("/api/grocery/create-order").send(missingPhone).expect(400);
+    await customer.post("/api/grocery/settings").send({}).expect(403);
   } finally {
     delete process.env.GROCERY_CHECKOUT_ENABLED;
     delete process.env.RAZORPAY_KEY_ID;
