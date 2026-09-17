@@ -16,6 +16,7 @@ import { backend, isLive, uploadPhoto } from "./backend";
 import StoreSettings from "./StoreSettings";
 import { OrderList } from "./Commerce";
 import { DriverManager } from "./Delivery";
+import { WorkspaceHeader, EmptyWorkspace, workspaceTabs } from "./Workspace";
 const blank = {
   name: "",
   brand: "",
@@ -31,6 +32,7 @@ const blank = {
   stock: 0,
 };
 export default function Admin({ products, onSave, onBack, ProductArt }) {
+  const [tab, setTab] = useState("catalog");
   const [query, setQuery] = useState(""),
     [draft, setDraft] = useState(null),
     [error, setError] = useState(""),
@@ -136,25 +138,20 @@ export default function Admin({ products, onSave, onBack, ProductArt }) {
     `${p.name} ${p.category}`.toLowerCase().includes(query.toLowerCase()),
   );
   return (
-    <div className="min-h-screen bg-[#f5f6f1] text-ink">
-      <header className="border-b bg-white px-5 py-5">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-4">
-            <span className="text-xl font-bold tracking-tight text-forest">
-              kalna daily.
-            </span>
-            <span className="border-l pl-4 text-sm text-muted">
-              Store studio
-            </span>
-          </div>
+    <div className="workspace min-h-screen text-ink">
+      <WorkspaceHeader label="Store studio" onBack={onBack} />
+      <nav className="workspace-tabs" aria-label="Store management">
+        {workspaceTabs.map(([id, label, Icon]) => (
           <button
-            onClick={onBack}
-            className="flex items-center gap-2 rounded border px-4 py-2 text-sm"
+            key={id}
+            aria-current={tab === id ? "page" : undefined}
+            onClick={() => setTab(id)}
           >
-            <ArrowLeft size={15} /> View storefront
+            <Icon size={17} />
+            {label}
           </button>
-        </div>
-      </header>
+        ))}
+      </nav>
       <main className="mx-auto max-w-6xl p-5 md:p-8">
         <div className="mb-7 rounded-lg border border-[#ddd5ac] bg-[#fffbea] px-4 py-3 text-xs leading-5 text-[#685929]">
           {isLive ? (
@@ -177,123 +174,153 @@ export default function Admin({ products, onSave, onBack, ProductArt }) {
             </>
           )}
         </div>
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-[10px] font-bold tracking-[.16em] text-muted">
-              YOUR STORE, YOUR WAY
-            </p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight">
-              Product catalog
-            </h1>
-            <p className="mt-2 text-sm text-muted">
-              Manage the everyday selection, one detail at a time.
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={exportCatalog}
-              className="flex items-center gap-2 rounded-lg border bg-white px-4 py-3 text-xs font-semibold"
-            >
-              <Download size={15} /> Export
-            </button>
-            <button
-              onClick={(e) => edit(blank, e)}
-              className="flex items-center gap-2 rounded-lg bg-forest px-4 py-3 text-xs font-semibold text-white"
-            >
-              <Plus size={15} /> Add product
-            </button>
-          </div>
-        </div>
-        <StoreSettings />
-        <div className="my-7 grid grid-cols-3 gap-3">
-          {[
-            ["Total products", products.length],
-            [
-              "Visible in store",
-              products.filter((p) => p.active !== false).length,
-            ],
-            ["Categories", new Set(products.map((p) => p.category)).size],
-          ].map(([label, value]) => (
-            <div key={label} className="rounded-lg border bg-white p-4">
-              <p className="text-xs text-muted">{label}</p>
-              <p className="mt-2 text-2xl font-semibold">{value}</p>
-            </div>
-          ))}
-        </div>
-        <div role="status" className="mb-3 text-sm text-forest">
-          {notice}
-        </div>
-        <div className="overflow-hidden rounded-xl border bg-white">
-          <div className="relative border-b p-4">
-            <Search size={16} className="absolute left-7 top-7 text-muted" />
-            <input
-              type="search"
-              aria-label="Search admin products"
-              placeholder="Search products or categories"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="w-full max-w-sm rounded-md border bg-[#f7f8f4] py-2 pl-10 pr-3 text-sm"
-            />
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[620px] text-left text-sm">
-              <thead className="bg-[#fafbf8] text-[10px] uppercase tracking-wider text-muted">
-                <tr>
-                  <th className="px-5 py-3">Product</th>
-                  <th>Category</th>
-                  <th>Price</th>
-                  <th>Status</th>
-                  <th>
-                    <span className="sr-only">Actions</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {shown.map((p) => (
-                  <tr key={p.id} className="border-t">
-                    <td className="flex items-center gap-3 px-5 py-3">
-                      <div className="admin-thumb w-12 shrink-0 rounded bg-cream">
-                        <ProductArt product={p} />
-                      </div>
-                      <div>
-                        <p className="font-semibold">{p.name}</p>
-                        <p className="mt-1 text-xs text-muted">{p.size}</p>
-                      </div>
-                    </td>
-                    <td className="text-xs text-muted">{p.category}</td>
-                    <td>{money(p.price)}</td>
-                    <td>
-                      <span
-                        className={`rounded-full px-2 py-1 text-[10px] ${p.active !== false ? "bg-[#edf4e8] text-forest" : "bg-gray-100 text-gray-600"}`}
-                      >
-                        {p.active !== false ? "Visible" : "Hidden"}
-                      </span>
-                    </td>
-                    <td className="pr-4">
-                      <button
-                        aria-label={`Edit ${p.name}`}
-                        onClick={(e) => edit(p, e)}
-                        className="rounded border p-2"
-                      >
-                        <Pencil size={15} />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {!shown.length && (
-              <p className="p-10 text-center text-sm text-muted">
-                No matching products.
-              </p>
-            )}
-          </div>
-        </div>
-        {isLive && (
+        {tab === "catalog" && (
           <>
-            <DriverManager />
-            <OrderList admin />
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="text-[10px] font-bold tracking-[.16em] text-muted">
+                  THE EVERYDAY SELECTION
+                </p>
+                <h1 className="mt-2 text-3xl font-semibold tracking-tight">
+                  Product catalog
+                </h1>
+                <p className="mt-2 text-sm text-muted">
+                  Your products, prices and availability. All in one place.
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={exportCatalog}
+                  className="flex items-center gap-2 rounded-lg border bg-white px-4 py-3 text-xs font-semibold"
+                >
+                  <Download size={15} /> Export
+                </button>
+                <button
+                  onClick={(e) => edit(blank, e)}
+                  className="flex items-center gap-2 rounded-lg bg-forest px-4 py-3 text-xs font-semibold text-white"
+                >
+                  <Plus size={15} /> Add product
+                </button>
+              </div>
+            </div>
+
+            <div className="my-7 grid grid-cols-3 gap-3">
+              {[
+                ["Total products", products.length],
+                [
+                  "Visible in store",
+                  products.filter((p) => p.active !== false).length,
+                ],
+                ["Categories", new Set(products.map((p) => p.category)).size],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-lg border bg-white p-4">
+                  <p className="text-xs text-muted">{label}</p>
+                  <p className="mt-2 text-2xl font-semibold">{value}</p>
+                </div>
+              ))}
+            </div>
+            <div role="status" className="mb-3 text-sm text-forest">
+              {notice}
+            </div>
+            <div className="overflow-hidden rounded-xl border bg-white">
+              <div className="relative border-b p-4">
+                <Search
+                  size={16}
+                  className="absolute left-7 top-7 text-muted"
+                />
+                <input
+                  type="search"
+                  aria-label="Search admin products"
+                  placeholder="Search products or categories"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="w-full max-w-sm rounded-md border bg-[#f7f8f4] py-2 pl-10 pr-3 text-sm"
+                />
+              </div>
+              <div className="overflow-x-auto">
+                <table className="catalog-table w-full text-left text-sm">
+                  <thead className="bg-[#fafbf8] text-[10px] uppercase tracking-wider text-muted">
+                    <tr>
+                      <th className="px-5 py-3">Product</th>
+                      <th>Category</th>
+                      <th>Price</th>
+                      <th>Status</th>
+                      <th>
+                        <span className="sr-only">Actions</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {shown.map((p) => (
+                      <tr key={p.id} className="border-t">
+                        <td className="flex items-center gap-3 px-5 py-3">
+                          <div className="admin-thumb w-12 shrink-0 rounded bg-cream">
+                            <ProductArt product={p} />
+                          </div>
+                          <div>
+                            <p className="font-semibold">{p.name}</p>
+                            <p className="mt-1 text-xs text-muted">{p.size}</p>
+                          </div>
+                        </td>
+                        <td
+                          data-label="Category"
+                          className="text-xs text-muted"
+                        >
+                          {p.category}
+                        </td>
+                        <td data-label="Price">{money(p.price)}</td>
+                        <td>
+                          <span
+                            className={`rounded-full px-2 py-1 text-[10px] ${p.active !== false ? "bg-[#edf4e8] text-forest" : "bg-gray-100 text-gray-600"}`}
+                          >
+                            {p.active !== false ? "Visible" : "Hidden"}
+                          </span>
+                        </td>
+                        <td className="pr-4">
+                          <button
+                            aria-label={`Edit ${p.name}`}
+                            onClick={(e) => edit(p, e)}
+                            className="rounded border p-2"
+                          >
+                            <Pencil size={15} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {!shown.length && (
+                  <p className="p-10 text-center text-sm text-muted">
+                    No matching products.
+                  </p>
+                )}
+              </div>
+            </div>
           </>
+        )}
+        {tab === "settings" && (
+          <div className="workspace-section">
+            <p className="eyebrow">HOW YOUR STORE RUNS</p>
+            <h1>Set up your day.</h1>
+            <p className="section-description">
+              Opening hours, delivery areas and the details customers count on.
+            </p>
+            <StoreSettings />
+          </div>
+        )}
+        {tab === "orders" && (
+          <div className="workspace-section">
+            <p className="eyebrow">FROM BAG TO DOORSTEP</p>
+            <h1>Every order, in view.</h1>
+            {isLive ? <OrderList admin /> : <EmptyWorkspace />}
+          </div>
+        )}
+        {tab === "drivers" && (
+          <div className="workspace-section">
+            <p className="eyebrow">THE LAST MILE</p>
+            <h1>Your delivery team.</h1>
+            {isLive ? <DriverManager /> : <EmptyWorkspace kind="drivers" />}
+          </div>
         )}
       </main>
       <dialog

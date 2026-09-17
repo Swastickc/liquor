@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, Mail, ShieldCheck } from "lucide-react";
 import { backend } from "./backend";
+import { WorkspaceHeader } from "./Workspace";
 export function useSession() {
   const [session, setSession] = useState(null),
     [loading, setLoading] = useState(Boolean(backend));
@@ -45,6 +46,10 @@ export default function Auth({ title = "Verify your email", onBack }) {
   }, [cooldown]);
   async function send(e) {
     e.preventDefault();
+    if (!backend) {
+      setError("Sign-in becomes available when the store is connected.");
+      return;
+    }
     setError("");
     setBusy(true);
     try {
@@ -63,6 +68,10 @@ export default function Auth({ title = "Verify your email", onBack }) {
   }
   async function verify(e) {
     e.preventDefault();
+    if (!backend) {
+      setError("Sign-in becomes available when the store is connected.");
+      return;
+    }
     setError("");
     setBusy(true);
     try {
@@ -79,67 +88,87 @@ export default function Auth({ title = "Verify your email", onBack }) {
     }
   }
   return (
-    <div className="mx-auto max-w-md rounded-xl border bg-white p-7">
-      <ShieldCheck size={28} className="mb-5 text-forest" />
-      <h1 className="text-2xl font-semibold">{title}</h1>
-      <p className="mb-6 mt-2 text-sm leading-6 text-muted">
-        {sent
-          ? `Enter the code sent to ${email}.`
-          : "We’ll send a one-time code to your email. No password to remember."}
-      </p>
-      <form onSubmit={sent ? verify : send}>
-        <label className="text-sm font-semibold">
-          {sent ? "Verification code" : "Email address"}
-          <input
-            required
-            autoComplete={sent ? "one-time-code" : "email"}
-            type={sent ? "text" : "email"}
-            inputMode={sent ? "numeric" : "email"}
-            pattern={sent ? "[0-9]{6,8}" : undefined}
-            maxLength={sent ? 8 : 254}
-            value={sent ? token : email}
-            onChange={(e) =>
-              sent ? setToken(e.target.value) : setEmail(e.target.value)
-            }
-            className="mt-2 w-full rounded-md border px-3 py-3 font-normal"
-          />
-        </label>
-        {error && (
-          <p role="alert" className="mt-3 text-sm text-red-700">
-            {error}
-          </p>
-        )}
-        <button
-          disabled={busy}
-          className="mt-5 w-full rounded-lg bg-forest py-3 text-sm font-semibold text-white"
-        >
-          {busy ? "Please wait…" : sent ? "Verify code" : "Send code"}
-        </button>
-      </form>
-      {sent && (
-        <div className="mt-4 flex justify-between text-xs">
-          <button disabled={busy || cooldown > 0} onClick={send}>
-            {cooldown ? `Resend in ${cooldown}s` : "Resend code"}
-          </button>
-          <button
-            onClick={() => {
-              setSent(false);
-              setToken("");
-              setError("");
-            }}
-          >
-            Change email
-          </button>
+    <div className="auth-layout">
+      <aside className="auth-story">
+        <a href="#" className="store-brand">
+          kalna<span>daily</span>
+        </a>
+        <div>
+          <p className="eyebrow">CLOSE TO HOME</p>
+          <h2>
+            Your everyday.
+            <br />A little easier.
+          </h2>
+          <p>Good things for your home, from your neighbourhood store.</p>
         </div>
-      )}
-      {onBack && (
-        <button
-          onClick={onBack}
-          className="mt-6 flex items-center gap-2 text-xs text-muted"
-        >
-          <ArrowLeft size={14} /> Back to store
-        </button>
-      )}
+        <img src="/products/chips.webp" alt="Fresh red apples" />
+        <span>Kalna, West Bengal</span>
+      </aside>
+      <div className="auth-card">
+        <span className="auth-icon">
+          <Mail size={24} />
+        </span>
+        <p className="eyebrow">WELCOME TO KALNA DAILY</p>
+        <h1 className="text-2xl font-semibold">{title}</h1>
+        <p className="mb-6 mt-2 text-sm leading-6 text-muted">
+          {sent
+            ? `Enter the code sent to ${email}.`
+            : "We’ll send a one-time code to your email. No password to remember."}
+        </p>
+        <form onSubmit={sent ? verify : send}>
+          <label className="text-sm font-semibold">
+            {sent ? "Verification code" : "Email address"}
+            <input
+              required
+              autoComplete={sent ? "one-time-code" : "email"}
+              type={sent ? "text" : "email"}
+              inputMode={sent ? "numeric" : "email"}
+              pattern={sent ? "[0-9]{6,8}" : undefined}
+              maxLength={sent ? 8 : 254}
+              value={sent ? token : email}
+              onChange={(e) =>
+                sent ? setToken(e.target.value) : setEmail(e.target.value)
+              }
+              className="mt-2 w-full rounded-md border px-3 py-3 font-normal"
+            />
+          </label>
+          {error && (
+            <p role="alert" className="mt-3 text-sm text-red-700">
+              {error}
+            </p>
+          )}
+          <button
+            disabled={busy}
+            className="mt-5 w-full rounded-lg bg-forest py-3 text-sm font-semibold text-white"
+          >
+            {busy ? "Please wait…" : sent ? "Verify code" : "Send code"}
+          </button>
+        </form>
+        {sent && (
+          <div className="mt-4 flex justify-between text-xs">
+            <button disabled={busy || cooldown > 0} onClick={send}>
+              {cooldown ? `Resend in ${cooldown}s` : "Resend code"}
+            </button>
+            <button
+              onClick={() => {
+                setSent(false);
+                setToken("");
+                setError("");
+              }}
+            >
+              Change email
+            </button>
+          </div>
+        )}
+        {onBack && (
+          <button
+            onClick={onBack}
+            className="mt-6 flex items-center gap-2 text-xs text-muted"
+          >
+            <ArrowLeft size={14} /> Back to store
+          </button>
+        )}
+      </div>
     </div>
   );
 }

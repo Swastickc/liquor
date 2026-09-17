@@ -201,7 +201,7 @@ function App() {
     cartButtonRef.current?.focus();
   }
   if (driver) return <Delivery />;
-  if (account && isLive)
+  if (account)
     return (
       <Account
         onBack={() => {
@@ -346,6 +346,26 @@ function App() {
                   <span>Subtotal</span>
                   <span>{money(subtotal)}</span>
                 </p>
+                {isLive && (
+                  <div className="bag-charges">
+                    <p>
+                      <span>Delivery</span>
+                      <strong>
+                        {Number(storeSettings?.delivery_fee)
+                          ? money(Number(storeSettings.delivery_fee))
+                          : "Free"}
+                      </strong>
+                    </p>
+                    <p>
+                      <span>Estimated total</span>
+                      <strong>
+                        {money(
+                          subtotal + Number(storeSettings?.delivery_fee || 0),
+                        )}
+                      </strong>
+                    </p>
+                  </div>
+                )}
                 <p className="mt-3 rounded bg-cream p-3 text-xs leading-5 text-muted">
                   {isLive
                     ? "Prices and availability are confirmed before payment."

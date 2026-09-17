@@ -58,7 +58,7 @@ export default function Storefront({
           <button onClick={() => browse("Snacks")}>Fresh picks</button>
         </nav>
         <div className="header-actions">
-          {isLive && <a href="#account">Account</a>}
+          {<a href="#account">Account</a>}
           <button ref={cartButtonRef} className="bag-button" onClick={openCart}>
             <ShoppingBag size={17} />
             <span>My bag</span>
@@ -324,12 +324,20 @@ export default function Storefront({
             kalna<span>daily</span>
           </a>
           <p>The everyday store, close to home.</p>
+          {storeSettings?.support_phone && (
+            <a
+              className="store-support"
+              href={`tel:${storeSettings.support_phone}`}
+            >
+              Store help · {storeSettings.support_phone}
+            </a>
+          )}
         </div>
         <div className="footer-links">
           <button onClick={() => browse()}>Shop essentials</button>
           <a href="#studio">Open store studio</a>
           <a href="#driver">Delivery partner</a>
-          {isLive && <a href="#account">Your orders</a>}
+          {<a href="#account">Your orders</a>}
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Kalna Daily</span>
@@ -344,7 +352,8 @@ export default function Storefront({
         <button className="mobile-bag" onClick={openCart}>
           <ShoppingBag size={17} />
           <span>
-            {totalCount} items · {money(subtotal)}
+            {totalCount} {totalCount === 1 ? "item" : "items"} ·{" "}
+            {money(subtotal)}
           </span>{" "}
           View bag <ArrowRight size={16} />
         </button>

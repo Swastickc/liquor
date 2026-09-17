@@ -5,6 +5,7 @@ import { backend, callApi } from "./backend";
 import { money } from "./data";
 import { cartTotals } from "./catalog";
 import { DriverControls } from "./Delivery";
+import { WorkspaceHeader } from "./Workspace";
 let checkoutScript;
 function loadRazorpay() {
   if (window.Razorpay) return Promise.resolve();
@@ -126,6 +127,35 @@ export function OrderList({ admin = false }) {
                   {order.status.replaceAll("_", " ")}
                 </span>
               </div>
+              {["paid", "packing", "out_for_delivery", "delivered"].includes(
+                order.status,
+              ) && (
+                <ol className="order-progress" aria-label="Delivery progress">
+                  {["paid", "packing", "out_for_delivery", "delivered"].map(
+                    (step, index) => (
+                      <li
+                        key={step}
+                        data-complete={
+                          index <=
+                          [
+                            "paid",
+                            "packing",
+                            "out_for_delivery",
+                            "delivered",
+                          ].indexOf(order.status)
+                        }
+                      >
+                        <span>{index + 1}</span>
+                        {
+                          ["Confirmed", "Packing", "On the way", "Delivered"][
+                            index
+                          ]
+                        }
+                      </li>
+                    ),
+                  )}
+                </ol>
+              )}
               <ul className="my-4 space-y-1 text-sm text-muted">
                 {order.items.map((item) => (
                   <li key={item.id}>
@@ -200,28 +230,34 @@ export function Account({ onBack }) {
   if (loading) return <p className="p-10 text-center">Loading account…</p>;
   if (!session)
     return (
-      <div className="bg-cream px-5 py-12">
+      <div className="account-page">
         <Auth onBack={onBack} />
       </div>
     );
   return (
-    <div className="mx-auto max-w-3xl p-6">
-      <button onClick={onBack} className="mb-7 flex items-center gap-2 text-sm">
-        <ArrowLeft size={16} /> Back to store
-      </button>
-      <div className="flex flex-wrap justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-semibold">Your account</h1>
-          <p className="mt-2 text-sm text-muted">{session.user.email}</p>
-        </div>
+    <div className="account-page">
+      <WorkspaceHeader label="Your account" onBack={onBack} />
+      <div className="mx-auto max-w-3xl p-6">
         <button
-          onClick={() => backend.auth.signOut()}
-          className="text-sm underline"
+          onClick={onBack}
+          className="mb-7 flex items-center gap-2 text-sm"
         >
-          Sign out
+          <ArrowLeft size={16} /> Back to store
         </button>
+        <div className="flex flex-wrap justify-between gap-3">
+          <div>
+            <h1 className="text-3xl font-semibold">Your account</h1>
+            <p className="mt-2 text-sm text-muted">{session.user.email}</p>
+          </div>
+          <button
+            onClick={() => backend.auth.signOut()}
+            className="text-sm underline"
+          >
+            Sign out
+          </button>
+        </div>
+        <OrderList />
       </div>
-      <OrderList />
     </div>
   );
 }

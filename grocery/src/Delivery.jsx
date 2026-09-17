@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Auth, { useSession } from "./Auth";
+import { WorkspaceHeader, EmptyWorkspace } from "./Workspace";
 import { backend, callApi, isLive } from "./backend";
 
 export function DriverControls({ order, onUpdate }) {
@@ -271,20 +272,26 @@ export default function Delivery() {
   }
   if (!isLive)
     return (
-      <main className="mx-auto max-w-lg p-8">
-        <h1 className="text-2xl font-semibold">Delivery partner</h1>
-        <p className="my-4">
-          Driver accounts become available when the store backend is connected.
-        </p>
-        <a href="#" className="underline">
-          Back to store
-        </a>
-      </main>
+      <div className="workspace">
+        <WorkspaceHeader label="Delivery partner" />
+        <div className="driver-preview">
+          <p className="eyebrow">KALNA DAILY · DELIVERY</p>
+          <h1>A good day, delivered.</h1>
+          <p className="section-description">
+            Your assigned orders, customer details and delivery confirmation,
+            together in one place.
+          </p>
+          <EmptyWorkspace kind="drivers" />
+          <a href="#account" className="driver-signin">
+            Sign in to your account
+          </a>
+        </div>
+      </div>
     );
   if (loading) return <p className="p-8">Checking your account…</p>;
   if (!session)
     return (
-      <div className="p-5">
+      <div className="account-page">
         <Auth
           title="Delivery partner sign-in"
           onBack={() => (window.location.hash = "")}
@@ -292,7 +299,7 @@ export default function Delivery() {
       </div>
     );
   return (
-    <main className="mx-auto max-w-2xl p-5">
+    <main className="driver-page mx-auto max-w-2xl p-5">
       <header className="mb-6 flex items-center justify-between gap-3">
         <div>
           <a href="#" className="text-xs underline">
