@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:ae2ac69485bfe3f693b73016fea90d15c71eef37625749ec9c5213bd0524ffe2",
+  "claims": [
+    {
+      "id": "claim_ce44df3abb9347db89b97e8af47348fb",
+      "statement": "server.js performs production environment validation at startup, fatally exiting if JWT_SECRET/MONGO_URI are missing or if JWT_SECRET is under 32 characters in production.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L59-L95",
+          "version": "repo-lines-v1:sha256:82c498c1c508ced048b4e41db16284435abb01f6a25aa0b454c3147566fc5911:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg3MjRmMjQ4N2EwODc5ODc2OWU1OTUzZTE4MTIwNTU4YWU2MjAzY2JmMzUwZTg3MzBiNTZiNmJkOTMzYTk4NzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0Y2M2MDIyNGEyZjUxNmZlNzZkZDViMzgzYTRlMDU4MThlMDQ1NjI2NjA4ZDdlNzc3Yjc3OTc0NzhkMjczMTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwMGNlZTFjODVlNTNkMDM1MzNjZWUwYzBkMzdiNDdhMGM0MTg1ZjI4ZWU4MTJmOWFhODNkZDM1NmFkNmE4NDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc2ZTVmMzRhNjBhOGQ2ZmJlNzhkNGU2NjE0NzllMjg0YjYyNzRmMTNhYTQwOGU3OGNiOGI2OTU5OTUyNzg2ZmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_215dcc8eeab1446e968312b47fac7f85",
+      "statement": "The webhook route for POST /api/v1/payment/webhook is configured with express.raw() BEFORE express.json() so Razorpay HMAC verification sees the exact signed bytes.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L103-L109",
+          "version": "repo-lines-v1:sha256:d1c398b4bea58456057df51c98f935a603b8fb298de1e12680464dd5d9b74bf4:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODU1MTgyYWI3OTZlOGRlZTI2ZTBiYjllZThkMDVmYThhZDc3MTc2NTdmZjk0N2RhZjRjNjI3NGQzYjUxMThiYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmUyMTdkMTI0OTg4YWMxNTYzNWM0MjE3MTkyYjk1YmRkODlmY2VlN2M1MDdhZDEzMWUzM2RjMDg4YzM4MjIzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmU3NWUyYWZhZTFjYjAwNWY5MjQ5NzQzY2ZkMmQxZWEyY2JiMDIxZjk0OTdmMjk2NGVkMzZlZTgxYjEwODI3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmU1NDAyMDQ2MDcyMjFmMjFmZDNmNTg4NTliMTcxYzRkOTQ1YWU2MmUyZTlkZjM1ZjIwNjA3YWY2YWU4ZjgyYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e358c49686764475bd2f2c26e6b10db3",
+      "statement": "server.js defines a custom safeMongoSanitize middleware that strips keys starting with $ or containing dots from body/query/params, while explicitly skipping Buffer bodies to preserve raw webhook payloads.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L280-L301",
+          "version": "repo-lines-v1:sha256:51dea857654a8e12efd17f0e35ee5895940884ba4008bc38e1350520c1d96f37:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4NTY0ODg5YzM2NjdhNmEwZjdhZjE1OTM3YjhiYzJjODZhZmI0MzBhNGE1NWVmYmVjNWZlY2I5Y2MzOWFlNWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE5MThiMWZjNGQ1NDNlYTQ0NGNkNTI0ZWMxYjkyYzY3ZGFjNTUyMTg5MThhNmI5OGI3NDA2NzI0MTA2YzJhMzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlMWNiNzc5ZjY2MGVhMTYzNmFjYTUxNTY3MTY1MDk3MjQ3YjA1ZDllMzNlNWQ5ODAxNWU1ZDEwZDdlMTAwNWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiYTUyNmRmM2IzNjEyYjViMDc4N2MwMjhkMWZhYjRmZTkwY2UzMWIwY2Q4MTkzZTM3NWRkZTFmMDZkZWY3NDkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c38ca35a721246d2ad3e1b0828e91c3d",
+      "statement": "CSRF protection requires the X-Requested-With header on cookie-authenticated mutating requests but exempts Bearer-token requests and an explicit csrfExemptPaths list including order creation.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L306-L353",
+          "version": "repo-lines-v1:sha256:e243a515481b84ac6b3234453ab0e905b5a974c00a6283c43caad1297f814194:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFlNjQ3NmNiZWNiNDgzY2JmOTExMjRhYTI1NjRlYmJlZjUzY2M0ZjMzNDVmMTZiNWQ1NDAzY2Y2YWFjMGRhYzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc2YTYwMWVmYjA4ZDhhYzFhYWU5NjA3ZDBkODZlOGFkMTE3ZDc1N2YxZDczMWY0ZTE2OWM3YTljYzJlYzhmZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ3Y2Q0YmM3ODg1MTkzNjU4ZjRjNjA0NTUyMWM0MDU2OTIxNWQzY2RlOGUyNjMyZDAzZWU4MzAxOTJiYjFhMTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_82b64a10488b4a14b6728f0f8b2f4bff",
+      "statement": "CORS uses an exact-origin whitelist (localhost:5173, swadkart.vercel.app, FRONTEND_URL, swadkart-5wtf.onrender.com) with credentials enabled, and rejects other origins with a CORS Protocol Violation error.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L112-L119",
+          "version": "repo-lines-v1:sha256:b9676099047070447bbe2303caad494f849bf52795fdd5273ec0fe1a9b52580d:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTBhNzU5NmU4Mzg1MzQ5Y2QzY2M1MzRiN2ExOTljMWM2ZmMwZWUwNzAxYjI4NjlkOGM3NmE2MzQ1ZTI0YThjNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmE1NGU1Nzc0M2JlYWQxNDI5NmJhYTlmNmYzZGRlYTJjZWY0MDYzZTcxMmE2Y2IxNGQyMjQ0MzA3MmQyNTgxYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmQ1YjNlMzM0NTA1MWQxN2E2ZDliNmYxYTY2MmZiYjFkMDZmY2M0MzNlNmVlYTcwNDg4MmI5MmVmMmVhZmM3MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTM4N2FkNDc2ODIwNzBkZDY1MDQxY2FlMTBlNDZhZjAxNmQyZmU5NWFmNjI3NmUyMGE0ZmYxNDI2NWVlNzBjYSJ9"
+        },
+        {
+          "resource": "repo://backend/server.js#L357-L374",
+          "version": "repo-lines-v1:sha256:302c017ceec3e8d49ef1fec2ca6d6ad955c2771285f044845dfea0a4a6431cdf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhYzY4ZTIwYTg3YjNmZDUzODAxMjEzYzVhZTIxZjI0MDBlN2JkYjgyYmQ3MjlmNzAyMTRlNjA4YmE1N2U2Y2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5OTY3ZWMxZWQzODM2ZjhlYjE3YWZmMTcyYjViZmVmN2RlNjA0ODVhNDM5YzZjYTExYzU5MWUxNzU1NzM5YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ3Y2Q0YmM3ODg1MTkzNjU4ZjRjNjA0NTUyMWM0MDU2OTIxNWQzY2RlOGUyNjMyZDAzZWU4MzAxOTJiYjFhMTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3NWIyZjAyZmEzNGFlYzNhODAyOWMzYmZlOGU5NzgwODU2NjFmMGJlOTM4NTg1ZmY4ZjFlMmUwMWVkODJjYTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c4357f92f22349a8b690e9dbdaeb68da",
+      "statement": "Rate limiting is layered: 200 req/15min globally on /api, 10 req/10min auth limiter on login/register/verify-email/password endpoints, 5 req/hour contact-support limiter, and a POST-only order limiter of 20/15min on /api/v1/orders.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L376-L425",
+          "version": "repo-lines-v1:sha256:8ee8db39589583c5f77175974692c313188f69bd379ea9f07ea469e5530bcdfe:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5MzcwMTQ3MDcwMDNiMjVhN2NiYWRlN2Y3MDg4MDdjNWI2MjdjOTUzYjZiMmU3NDY5YWVjYWMzMjgxOTIwNWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAyMWQ2MDc3ZDQ4YzBkZTAwNmY0ZjNhZGMwNWQ5ZTBkMzc2YTg4MjVkMDYxMGVmYWM1NTZkODI5OTFhNTk1YjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE1MTk5YzlkM2Y4NmYwZmM2Mzg2MjAyOTY1ODNlMDk3NmVjZjFiMTUxNzQyNmY1YjM1YTMyZjAxYTE3MjNlMDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0e9aceb930d14be89098b1221da8ede9",
+      "statement": "The protect middleware authenticates via Authorization Bearer header first with req.cookies.jwt fallback, verifies against JWT_SECRET, and rejects tokens whose tokenVersion no longer matches the user record (password-change invalidation).",
+      "evidence": [
+        {
+          "resource": "repo://backend/middleware/authMiddleware.js#L10-L51",
+          "version": "repo-lines-v1:sha256:eab7e8e2500c370038f13322bc4362842125b8307251fcae8240cb47afb9ea16:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYyMzFlNTM3M2I4OWIwNWZhZmNiY2U1YzUzZmMwN2NiNGNlYmFjZGZhMGY4MzkyNTc0MmQ4NTY4ZjY5NzVkNDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM4NTg2MjFjNzBlNTc1ZGE1NTRmZmFhNjA1M2FhOWQ4YWZlNGRhZTkyYzNmM2YyMGFlM2M0ZTM1NzJjODFmODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE4MjNjYzgxZDJhNGE1OTIzMWZiYzkzNDAzNTE0NTI1ODZjOTc5NzUyYWIyNWRlZDIwMDNmODM4NjJiMjkyZDEifQ"
+        },
+        {
+          "resource": "repo://backend/middleware/authMiddleware.js#L60-L77",
+          "version": "repo-lines-v1:sha256:3d928d0c1a3818cda73fd229c820f9db6a6a8332dc77e47153c7f5b4242d1a1f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5ZGMzNjgyODhkNDBmMzc2N2I1ZTlmODE1YTJmMzExMGExYTAxMTU4YjgxNjBiYzM3ZTAwYzhhODU0NjE2ZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY5MjE0MmFkZjI4YTM4MDFlMzYwYTU3YmU3ZjM0NWNlYTU5NDdjYmI5ZDQzM2UyYzFiODI3NDg1NWJiNjg3ZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQyNjAzNGM1MmZlMDQxYzlmZTExOGY5MWU2NWQxNzYyZDlhMGFkZTJmNDJmZGU2N2U1NzQ2YTMzNjgzMDljOWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_182588ca689c4c36932c3bb988178141",
+      "statement": "RBAC is provided by authorizeRoles(...roles) plus named gates (adminOnly, adminOrRestaurantOwner, adminOrDeliveryPartner) and a generic resourceOwnerOrAdmin ownership-check factory in roleMiddleware.js.",
+      "evidence": [
+        {
+          "resource": "repo://backend/middleware/roleMiddleware.js#L1-L80",
+          "version": "repo-lines-v1:sha256:afeb62803360de6257f8f444b2a701c50a79fd5c5c335a296e82dda77405f96c:eyJzZWxlY3RlZExpbmVDb3VudCI6ODAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAzZjdlNDhhMTZiODhkM2RkNjIyOGFlZjU5OTg0MmQwOGEyM2U2MWE4NDFkZTY0MGQ3YjljOTA5Y2IwYzVhMmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxYjlhNjZmNWU0MDliYmVkZDFjY2Q1ZDdjNDA3YzIyNjU5NDNjZjAwNWY2ZDhlZTdhZjdiMTlkMjVmNjc4YWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYyOTYzZDEzMmRhNjBjNjQ5ZTZkOTFiODc4MTFkYjExMTkxZjEyMzdjOGEzMmJlZGJmNWFmNzhhNGUyNGJiOTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c43e45ec4c524bc68f3aa981191f59e8",
+      "statement": "errorHandler translates MongoDB duplicate-key 11000 to 400, ObjectId CastError to 404, and Mongoose ValidationError to 400, and only returns the stack trace in development.",
+      "evidence": [
+        {
+          "resource": "repo://backend/middleware/errorMiddleware.js#L13-L36",
+          "version": "repo-lines-v1:sha256:3dbcfed3cc7c3fcac110b94ade3711b2c2d2c8c1aff4029544f598c9ea8bfbd4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzNmUxOTNiYTA2MjM5YjRjZTQxOGNjMWYyMTIxZDQxYjM0MTEwNjljMWIyYWQ5NjQyNDE5NzgzN2ZlMmE1ZWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2ODY1NDRlNmY3MWU5MjFjYTA4NWMwMGRmMjI3ZjljNDY2MzY2NzFlMjY3YWQ3YzQ2YzNkMmQ5ZTBmMTc2ODIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMjJmMzNlY2ZhZjc0YWQxNWM2ODY2NmE1YTMxMGM4NTM5ZTAyYTdiYjJlZjAyNjE3YTYwZjc5MTU2OTBlY2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI3NWI0NWUzZDdkMTdjZDZlYjAzY2MwODI1NGI1NTg1MTNlN2JkMjU0ZGU0YmFlMmY4MTljODM4NjM2M2U5ZTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_110ef57b5a0c4251a9a3d53597b3bca0",
+      "statement": "The fraudDetection middleware runs only on order creation, is non-blocking by design (always calls next(), even on internal error), flags high-value first orders, duplicate phone prefixes, and frequent cancellation patterns, and attaches req.fraudFlags.",
+      "evidence": [
+        {
+          "resource": "repo://backend/middleware/fraudDetectionMiddleware.js#L3-L50",
+          "version": "repo-lines-v1:sha256:b5943875491559032e7057aa64111616ca54c3625f75dbd868ade8db3b35689c:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0OWMyNGEwNmIzNWUxM2FhNGRiODc1N2RmYjQ0YWZlZjVjZGNiMGQwOTU2OTUyZTdlNzg2OTVjZDYyODQ1MzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4N2YwMzNiOGZlNmIyYTdkMDcxMDU5OTExNzA4MDAwMTM0ZmJlOWExMWYxZDY3Y2I1NjczZjUxNTVhZjY0OTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk0MTEwYTMzNDgzZjk5MWE1NjZmNDg1ZDNmOWM1ODIwZjQxODk5MTkwYzEwMDFjMmU2YzNlODZmNDkyMDVjYTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_43053f3ebb804a61ab289f68a7508697",
+      "statement": "cacheResponse middleware provides Redis-backed GET caching with a query-hash cache key and in-process Map mutex for stampede protection, falling through to the database on cache errors.",
+      "evidence": [
+        {
+          "resource": "repo://backend/middleware/cacheMiddleware.js#L1-L40",
+          "version": "repo-lines-v1:sha256:e04c709d64af0f6a71e5e7a3d31ce3ae6ea28a8bec9030dc5d42955d05c17881:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjOGQ1MmRhYjM3ZjkxNTE4ZGM3MzgxNjYwM2M4NWRjZWE5MjhmYjZlNGQzZTExZDkwYThjOWZlZWQyZmVmOGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImViMGM1ZDkwMmE5MjU4YzE5MDZjNDMzZWU5ZDMxZGVlMWE1ZmNmM2IzY2Q0ODJlODNkMGEyMjJkMzc4M2JjNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY4NjkxNTgzYzFiODFiZGEzMzFmNTc4ZTdhZmQ0YWQwZGVlYTEwMzkwNDE2NDNhNWM2NDNlOThjYzc3NzYxZGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ed7a3096c13e48bab16f631aff1cea46",
+      "statement": "Socket.io authentication runs in io.use middleware at connect time, accepting the token from handshake.auth.token or the jwt cookie, capping length at 1000 chars, and verifying with JWT_SECRET before attaching socket.user.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L147-L177",
+          "version": "repo-lines-v1:sha256:353c9fba93ce78239778572ead4a831ab144e2a51d32725f5ba2f688305d863c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0NzZhMmRmMGNhMWY5NTU0OWEzMzY1MmMwMjcwZDQ1NWY2ZTQ0NTEwY2NkNGY1NzRmYjNlOWVmYzBmZmEwNTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY4OWVlY2M1NzQ3OGNjOGJhMGYyYjU5ODhkNmU4MWUxZTMyOTUxMWJhY2E2NWQyYmQ0M2E4ZWM0OWNkNWI3NWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlOTk2NWYzOGJiMTY5ZWJiMmVjYjJmNzk1MzkxNjgzNzIwZDZjZmYxYjQxNWFjYTZmNjBlZDBlY2JjZDI5ZmUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-03T11:06:07.603Z"
+  }
+}

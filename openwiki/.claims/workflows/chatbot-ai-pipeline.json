@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:38c81dda97f41913394eb9ae9e7dc781ade477ad1c06b3f2b083ca28ff41406d",
+  "claims": [
+    {
+      "id": "claim_5fa0f1274aac486c9c0eab84852e4bb4",
+      "statement": "chatPipeline.runChatPipeline is the single orchestrator shared by POST /api/v1/chat (JSON, emit=null) and POST /api/v1/chat/stream (SSE); it races executePipeline against a 15 s pipeline timeout and an optional AbortSignal, and on timeout/abort/error returns a degraded language-aware fallback reply while best-effort persisting only the user message.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/chatController.js#L18-L58",
+          "version": "repo-lines-v1:sha256:d23552eba68784c760a5a4a7b41ef6abc4d8c2a5c53c9cf8d5e89396bb0579e3:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBmY2E0NTk5YmZlMmZhZTUwNjgzODRiMTJmZmQ1ZWM4MWUwMzFlZTc1ZWE2ZDI2MzQwOTMzNTE5MmVmOTIyZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjMmJkOWU4N2Q1ODljYjUxYzI4ZmMwMDJiYzYxMjZhNjhkNmUyMzMxZmZlZWE0YjI2MzY1MTIzMDVkNTM3YTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNlNjQ5N2EzNmIwMTU0YWQ4YjYzOGMxNjVkMmZiMWQ1Y2IwMzRkNjUyMzgwOTBkYjU1YzVkZDAzODg4MDM1NDUifQ"
+        },
+        {
+          "resource": "repo://backend/services/chat/chatPipeline.js#L1-L19",
+          "version": "repo-lines-v1:sha256:e66fa181ec4348295f942af6cee24341b2ad522328e56b1405d60a03a1a640b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE5NDUwNzFlMTFiNzk4MzQzNDQ2ODZiNTg3ZmJhMWNlMDE1NjU3OWZjYzJlNmUxNWUzMThkZGI1MzVlODUyZmIifQ"
+        },
+        {
+          "resource": "repo://backend/services/chat/chatPipeline.js#L262-L363",
+          "version": "repo-lines-v1:sha256:bb8e5ea4ecaff0381389b60c6b62b0069ab8232fb88e0bf0f9c73f70ca62c99b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjMTZhODkwYTkwMzBjYWY0NGYxM2FlN2MzMGNhYzg2MDFjZjdmZTA2ZTFjNzIyZDljZTMxNDllNTk4NDNiMDNlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5MWYzNGM4NDM4MDdiZTBkYmUxN2M0NjJkNjBhYzgxMDI1OTUwNDAyNDE1ZGEyOWFiNDFjMzFjZjJkMzFiOWMyIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI5ZDRkODg2NmMyOGQ1ZTkxYWFjMmMwNzMyNzUwOTczNGQxYmYyNjkzN2VlN2FlN2EzMjBhZjY4NWVmMzY2ZmE5In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_579d090406364130914cd451646ce218",
+      "statement": "The pipeline stages are: load history, pure synchronous language detection, parallel intent classification + sentiment analysis, retrieval only for recommendation/order_inquiry/order_placement intents (errors degrade to empty list), system prompt with language instruction and sanitized product/cart context fitted to a 6000-token budget with tiktoken cl100k_base, then the Groq call and multi-tool loop.",
+      "evidence": [
+        {
+          "resource": "repo://backend/services/chat/chatPipeline.js#L378-L416",
+          "version": "repo-lines-v1:sha256:522afe1e0cbca2a37c702bd8d725447ee091cb8ab5f4f7e518dac536706bc1e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0YWE4OWQwN2FiZDJjNGEzZmMxYzgyZjY2YzFlNjQwMzMzMzA3NzllNDFlNzc2NmEzYThkZGM4ZDE1OWM3YTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1YmM0NjJjMWZmYzM2NWFmMzIzNzk4Mzc4ZjVmMTJlYTNlMWVkZWI2OTgxMjI1ZmI0YzA3ODZmZmEzYzZlMDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzODcxNzg4MGEzMjU0YzZjYWUwZjJjYzZjNDQxNDRlYzNiYWE3NGNhM2ZlMGE2MTZhZGU5MTcxYmZhY2RjNmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRmOTg1NTk2ZGQyOTAyZGJiNTJmYjNiNjBlZTQyZGM3ZTNiNDJlYmFmYzZlNDk2MWI5ZjYzZGIzZDE2NGFlZGIifQ"
+        },
+        {
+          "resource": "repo://backend/services/chat/chatPipeline.js#L67-L117",
+          "version": "repo-lines-v1:sha256:f560603ed1e8da66a42c5d4760d59b429ff3ae3a50bf704c2295bcba7657ed13:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc0MjE3YTY2OTQ2N2RkY2U5NWFmNDllZjIzZDgyOWZjNjAxMWFkMjQ5YTEyNjVjN2MwYTQ5ZWMxMWZhNTFmZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkMWNlOTM5YzkzN2RhNjkwMjliYmIyNzdmMzRmZTkzNTliN2I2MDNjNGU1MGRlNzQwN2JlNzc5ZGRkOTExMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4OTE2NGIxYjE3MzZmYWZiNWQ0Y2FhMGM5YjE2NjA2YTg2ZWM3NDNhMmNlZjRlNmZiY2ZhMjg0Nzk3NWYwM2UifQ"
+        },
+        {
+          "resource": "repo://backend/services/chat/tokenBudget.js#L21-L60",
+          "version": "repo-lines-v1:sha256:0bc6933be7f0d9d2b1e2b20952e7a0acc71f5d7fef062af8d28ddd995a8b2868:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4YmM5Y2VhMGQ2MTIwYWZhY2NjYzFhYWY4MDliNjZhOTA3MjNjZGQ5OTdmMGFmNWE5Yjc2ZjZmNzdiOGU4ZTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhYWVlZGQzYjFmOThiYTNmNzM1NWU0YTVkNjM2OGQzODU0MWNkYWUzYjlmMTE1MjE4NWU1ZDkwMTAwYmNmNGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMyZGJjYTJhYWJjMjRjYzQ3OTljYzg5NDQ0MmZlMWMxYmNkOTcwNTZiMGFiNDY1ZDIxNDBhZjE5MzQ3NTIzZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY3NDVlMTQzNDIzMTA3Y2FiMzJiZTEyZDQ1NTRmNDBmMWRkODg2NDA4ZGUyZGMzMWQxMTY5NTE4ZjVlYmQ1ODgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_de0c00685da64eab8b4699ef43ad3921",
+      "statement": "Groq calls go through callGroqWithRetry (3 attempts max, 500/1500 ms backoff, HTTP 429 and queue-fallback abort retries immediately; model llama-3.3-70b-versatile, temperature 0.7, max_tokens 400) and groqQueue.callGroq, which caps Groq at 27 calls per calendar minute via a Redis counter chat:groq:rpm:<YYYYMMDDHHmm> (TTL 90 s), enqueues overflow into a Redis FIFO capped at 100 with a 10 s deadline resolving { fallback: true, reason: 'deadline_exceeded' }, and falls back to an in-memory counter/queue when Redis is unavailable.",
+      "evidence": [
+        {
+          "resource": "repo://backend/services/chat/chatPipeline.js#L142-L192",
+          "version": "repo-lines-v1:sha256:a6db17bba97c63319db592292ca9ff9c07b5e694912b29c7001343c5c7178787:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1MjIxYTc5NjI1ODBhZjUzZjQwYWNiNDE4ZDBhZTRmOTJkNmYzMWYzYWEyNTI3MjAxNzhkMTM2MjRhMWFlZWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMyYjk5ODQzOWJkNTdkNTcwN2Q3Y2M3NDc3NjVkMzQ1Yjc1ZGY5ZGRmZjI1Y2JhOGQ3NThhMjA1MGY5ZTBhYjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiMDIwMTlmMmE4ZTdiZTQzNzExMThhNzQzMjkwMTczMTRjMjYxZjQ2OWYzNjY1Y2JlZTA1M2FhOTVkOTRhZDEifQ"
+        },
+        {
+          "resource": "repo://backend/services/chat/groqQueue.js#L1-L28",
+          "version": "repo-lines-v1:sha256:1c605d3b1ea2218486ff298fadd5d9e359bcd90e3c9b250123b9bdd93afe557e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwNTU0MDg1MDhiNTdlYTFmNThlM2QwNGUzY2Y0NTg0ZjQ3ZDUxY2JkNjU2NTM2NjU3NDA3YmEwZDZmN2UxNjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJkMzg0YjhmMjdjZTI2NmJjYmY5ZGU0MzY4YjI0MDcxZjFlNGNmMmFiMzcwZTgyZTM1MzAxZmRiNjYzYTNkMDcifQ"
+        },
+        {
+          "resource": "repo://backend/services/chat/groqQueue.js#L254-L336",
+          "version": "repo-lines-v1:sha256:d12e557f1352993c18d9119c9adc27749158aadda26ea20a28e746167af71aa4:eyJzZWxlY3RlZExpbmVDb3VudCI6ODMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlZDU4ODBhNmIwNmRkMzQ1MTA3YmQ2NzNmYjc5N2QxMTBlNmM3N2QwYTdlMDhhNGM0YzZmZmRhODQwNTBmZDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE1MGIzM2UzYzA4NTMzM2Q2YzVmNDNmMDFmYjZiOGQ5NTQyOGVmZTQzMDFhNWE0ZTUwODhjMTk1Yzc2OTdhYjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczMDI3ODg4OGU1YmE3YzQ5NzBiOWY1ZmRhYzMzMDNhM2Y2ODk1N2NlNGNlN2EyOGI1MTgzOTc5NDU1Mjk5ZWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8da6a8f1e6ea4b5fb38aea602e8e2520",
+      "statement": "The multi-tool loop iterates at most 5 times: it executes each tool_call via getToolExecutor with parsed args plus userId (unknown tool returns { success:false, reason:'unknown_tool' }, throw returns 'internal_error'), appends role:'tool' messages with stringified results, emits a tool_call SSE event per call, and re-calls the LLM until a final text reply.",
+      "evidence": [
+        {
+          "resource": "repo://backend/services/chat/chatPipeline.js#L479-L543",
+          "version": "repo-lines-v1:sha256:d44631ca932db7d93258e596d343a3933eea66b0d088e06ffaad5bd1940c71ee:eyJzZWxlY3RlZExpbmVDb3VudCI6NjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmYTcyMDVlYWM2YWQ0ODFjYjI0M2I5ZjM2ODIzYjA0OTY0OGExMzY3ODEyYTc0NWZmYmIzYWMyMTJhODEzNTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlZWVmZGQ1MTEzZDk5MDU2ZjFlMTlkZTFiN2Q1YmVkZTZlMGEzMDFmOWU4ZjdiZTRlYWQzZjhmOGRhODY2YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImExMzBjNjc0MDU0MjJlZmU2ZGMxOTI5ZDZmMzdlMTUzYWUwMDRlMjIyNzZkODc2YWZhNTBkN2IyNDc1YTk2ZDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_056a1dc86fcd4cb182708c67aadc62d3",
+      "statement": "toolRegistry exposes faq_support as the only public tool (always available) and place_order/get_order_status/cancel_order/get_delivery_eta/reorder_last only when userId is truthy; getToolExecutor returns null for unregistered names, and place_order gates sequentially on auth, product existence, integer quantity 1-10, and stock availability before writing to the User model's shared cartItems array.",
+      "evidence": [
+        {
+          "resource": "repo://backend/services/chat/orderPlacementTool.js#L1-L55",
+          "version": "repo-lines-v1:sha256:690df463c490b0389d21ac1e7238392a045a6489800e26410d93ea51ffa83a55:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxM2RiYTFmNmYxMzUzNWViZmJkN2UyODcxMDQxODUzMTg4YWQyNDU4OTQ0NDE2NzEzZDRmMGVkNWRkNGRlYjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJlMzZmYzkzZDllMGRiN2U5MDk0OWVkYWI5OTFiZTZjYmExNGNjZGU3YTg3Y2IyYTI3ODljOTRiMDA1M2FkNGIifQ"
+        },
+        {
+          "resource": "repo://backend/services/chat/tools/toolRegistry.js#L28-L89",
+          "version": "repo-lines-v1:sha256:e4451ddf2f1dfe50a9a244526e4dedde114b69832957c316378abb25a5ab8bf8:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkZjBlMWIyNjBlY2EyMDM3N2YzZWQ3ZDAxZDVlYWM5ZDlmMmQ5NWRiZWNlNjNlZTliYmE5MWIyMGIxNjhjYTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzNjY3ZWMxNjczMjExZTRlOWQ2NWQzOWE1YWQ0ZGU1MjBiYzljZjdhYjk3MmQ3OTMyOTBiNTg2NzAyNDM5MjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_99f28be25c7046df8b0c680a76d5c410",
+      "statement": "The chat rate limiter enforces IP tier 10 req/60s and user tier 50 req/3600s with a 200 ms Redis PING health probe (verifying incr/expire/ttl are real commands since cacheClient proxies to in-memory), per-key in-memory fallback on Redis errors, and the Express wrapper returns 429 with retryAfterSeconds but fails open if the limiter itself throws.",
+      "evidence": [
+        {
+          "resource": "repo://backend/routes/chatRoutes.js#L38-L57",
+          "version": "repo-lines-v1:sha256:78c9d762d0d6acc6e786941dfab7f846bfc5b1883061104d1f98dd44d7021f57:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc2YzA5ODQ0OTFmZWQzZDQ5YzVlMmJmZDMwM2QxM2ZiMTJmZTc3M2VlN2Y5MTNmMTQ2NGUwYzNkZDdiYzk0MWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxZjA0OTk2NWQ2MGIxZDZkZDUxZDMyZTNjNWJiYzYxMDg2ZTc2ODc5NDdjMzI3NjQzMjdmMjNkN2YwZWJlZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwYzExM2NlMWU1YWNlMzgwMjM0NGNjYjAyZDA0ODRjMzQ4MzFkNmQ4NzRiYWFjZmE4YjczYzE3YzY1YmQ4ODEifQ"
+        },
+        {
+          "resource": "repo://backend/services/chat/rateLimiter.js#L1-L56",
+          "version": "repo-lines-v1:sha256:347bf1bfac4f408b69679fdff1a4f1a5ebeba04c2ff7aea09830fd37b7c8d6e6:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAzZWEwNzY5MjdjNGM3ZDdiZmFkYjE1MDE5ODcxZGVkNTMyMWE0YTdlN2MzNDZhODJhNWQzMDQyNWJkOGRlZGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiNmM5ZWY0YzJhMDQ3YTE4MzEzYjY2YzE4MjE2NDgwOGFiYTIwZWQ3MjA2YmU3NzdlNGE0YWQxNjQ5MWRjNzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmZjQ4ZWQyMTgwZTJhZDMxYTM5ODg2NjljOTQ0Mjk2OTBiYmJlOTRkYTc2MTYwY2RiMzk5MTFhZjY4NTkxMjMifQ"
+        },
+        {
+          "resource": "repo://backend/services/chat/rateLimiter.js#L110-L154",
+          "version": "repo-lines-v1:sha256:db039bda42c587ec44af922cef70978ee77ab3a5fff9ca0ae3b85abf20f85630:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU3YWRlYTE2YjZjYTdkMGRkZjE4Zjk1NTY3NTIxODBlMmNkNDJjZDA2M2EyYTVkNDQ1YjJhNjhhMTg1Mzk4MmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMzYzk2NThkOTUwMTUxMTM5NjQwNjc0Y2JlNzBiZmZiNzM1OWUxNWUwZGY5NDNjYWRhZjQzMTEzMzk4YzMwNmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBjMzliOTQ3NzlkNzFlZTI5YjQxNmQ4N2Y4OWIwODc1NzM3NDMzMTg3N2RmMDVjZTIwMzRhY2IwZmUyM2Q0M2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM4YTI5NjZiMTY0MTY1ZGEyNmU1NDkxOGJlZjYwYzZlOWJhNWIyNDdkNGRlNzU4ODU0MTJhYTdhMDJjNjU3ZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_374d7eb28ab3448f8cc8964466b69de9",
+      "statement": "streamChat writes SSE headers including X-Accel-Buffering: no, enforces a 30 s inactivity timeout (error event then res.end, reset on every emission), detects client disconnect via req.on('close') which aborts the pipeline through an AbortController, and uses sseSerializer events with ids of 1-64 chars, types token/tool_call/done/error, object payloads, and a 65536-byte cap; the frontend consumes the stream with fetch+ReadableStream in useChatStream.js using the shared parseEventLine.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/chatStreamController.js#L18-L108",
+          "version": "repo-lines-v1:sha256:d219887d2ef3894980706aa3b0c20523c3b3992641ca8f18fd87bbcbb20b14d3:eyJzZWxlY3RlZExpbmVDb3VudCI6OTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAzMDBmOWViMmQyMDQ3YWUxNmVlZTZhMmQ4MmEwZGE0NTgzNzIxNzZhNDc0ZGY4N2I1Yzk1MTYzNzAxYzFhNTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyYTA2YWZjODEzYWFmNmM4Njg4NjEwNzhmZWI3MzE2NjY4NDBlZGYwZTY5ZTJiNDljZjQxN2JiNGJjMTgwOGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1YTY0NGZiM2U5NDkwNmZiMWU1YTQ3M2FmNDU2MGRjMWU5ZTgyOTVjMzFkZTE1MDE0YTJiMWNjMzUzYzlhMDkifQ"
+        },
+        {
+          "resource": "repo://backend/services/chat/sseSerializer.js#L1-L98",
+          "version": "repo-lines-v1:sha256:047b0bb510e836fb5913d65667e604fdeacda9b238588fb79cefbaaabfab8642:eyJzZWxlY3RlZExpbmVDb3VudCI6OTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhYjJmY2MwNzExOGU0Mjk2YmQxNzEzNTA3NGNlNjNkMzYwOGIyOWUxOWQwNGUzMTE1ZjgyYTJkYjhhYzEwNDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY3ZGNkZGViNTRiODEwNzU4Mzk3NzdkYTNkMWJjODBhZjMzZGVkNjYwYmExZDdiOTYzYWIzYzIxNTUwYjU5MTkifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/chatbot/hooks/useChatStream.js#L1-L67",
+          "version": "repo-lines-v1:sha256:ad3153a04d1bbc1a8225c525953df1047082ce74b15d994ecb530e9ffa89634f:eyJzZWxlY3RlZExpbmVDb3VudCI6NjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhYzIxYzVhMjZlYzgzZmE3ZDNlMjQ5ZjQwNGIzNjQ4ZTEwYzMwZDQ5ZmYyOWY2ZDY2ZTVmOWMxOThjMzE2YjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxN2FmMTEwMWM5N2I3YzJmNTI1NDA3ODJlNjM0Y2M0NDQwZjBlOTcwMzQxZTUyZjk3NTIzMTFkNzhiN2Q3ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE4ZGNkODI1OTRmNjNmNDkxZjdlNDdiOGEwNDVkODJiOTk3ZjBhYjA0ZjI0YzI0ZjA0YTIyZjhiOGVmYzFkODQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b8251ca2eb95405e9240200798f58b8b",
+      "statement": "Escalation is sticky: checkEscalation sets escalationFlag on the Conversation when the last 3 user-message sentiments are all below -0.4, never clears it, and swallows its own errors; conversation persistence appends messages atomically with $push/$each/$slice:-200 (max 200 retained), upserts by sessionId, and retries twice with 200/400 ms backoff.",
+      "evidence": [
+        {
+          "resource": "repo://backend/services/chat/chatPipeline.js#L204-L248",
+          "version": "repo-lines-v1:sha256:9aba6c5d4c7cb5317ae997c4452a77f65ba20b432e3a5b8b8ed4451bf462e1bc:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NGY5N2RiZTIyMjYzMzhiN2ZiZDk1YzYzMmI1NjAxMjdjMGMyOTAwZDI1ZDhhYjI0NGY3MGU0NTgxMWEzOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU4OWJhOTQxMDJiZGY0YTg1MTQwOTFiZjhlYzgzMTczODI2ZjFjOGZiY2FlNWE4NzRlZDQ0NTU4MGFjNDg1ZmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBhNDE5NjZmZjFmZjYxYzA2Mzg3MmI1NGNlNDk1ZGVhMTE0MjQ4N2Q2YzIzYTZhNmMyNzc5NzM1NDhjN2UwNDgifQ"
+        },
+        {
+          "resource": "repo://backend/services/chat/conversationRepo.js#L1-L76",
+          "version": "repo-lines-v1:sha256:9fcb21b297b97b61ada45d62add559b502be99af4bc5085234a7e0c1643580d6:eyJzZWxlY3RlZExpbmVDb3VudCI6NzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2NThjZTM0NTVkMmUwMGQ5Yjk4NmZhZTk4MzMxZjE3MDExYTMxNGZkNzViNWQxMmVmOWY1NTk2ZTYxYTg1OGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1ZGZjNDE3MmE4ZGRmODk3MzFmMjg4ZWZlOTc4ODI4YjhkN2UxMDJhYjg3NDVjN2Q5MWQwNzQ5ZjU3ZmQyZWMifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-03T11:06:07.603Z"
+  }
+}

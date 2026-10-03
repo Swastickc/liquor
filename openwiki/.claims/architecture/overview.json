@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:d7a066cdaf8aa7f3e08ad567b86b13ae1cb44a50f02b8d3994b92ed0ad0d7ea7",
+  "claims": [
+    {
+      "id": "claim_77f4d1c597fc4095acd2ca747a8ce576",
+      "statement": "backend/config/db.js connects with production-tuned MongoDB pooling (maxPoolSize 50 in prod vs 10 in dev, majority write concern) and retries connection 5 times with doubled backoff before process.exit(1).",
+      "evidence": [
+        {
+          "resource": "repo://backend/config/db.js#L1-L27",
+          "version": "repo-lines-v1:sha256:813b3fdabafceaabc4554ac8b054fb623bd580fe0d0bbcf9fc32ee0ec6edd3bf:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3MmFiNjEwOWEzNjY3NmY3NDUzZTRkMThkYzcxMzg2MjY1NTdjMzMwOGFlZmU4NmVhMmQ1OTNmNmVjNTMwMGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNlZGFlNWQ0MTFhNTk1MmNlOGZkMDFlN2Q3YThkZWM0NzU2YmQ4MjQ0NjlhNzJjMmNmMjc1MTYxMDI2NTZmYTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0f108c7228b4470dbcaa6d3bec0e4aa9",
+      "statement": "redis.js returns an in-memory LRU-capped (1000 entries) client with the same get/setEx/del/ping surface when REDIS_URL is unset, so the app degrades gracefully without Redis.",
+      "evidence": [
+        {
+          "resource": "repo://backend/config/redis.js#L1-L46",
+          "version": "repo-lines-v1:sha256:4592bc7db67d43c8287df028fc23848fa205b227a388864350564a26a2c6c4bc:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjODM4ZjJiNWE0NDhlNTA5ZjJiMTM5NGVlMTgzYTBmMDU4YmY1ODM3MWMwYjMzYmZlNDg2OTU4ZDk3YjY3ZDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFiMzg2OGY1NDQwZDgzZjg3YWY1NjQ1MmFlYjFlYTBiMzAwZTQ3ZTI3YjBkNzUzM2M1YmQyYTk1ZTViMDhkYzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1YmRhZThlM2NmMTg3OWQ5MjdhMjg5YmVlMzEyZDEwOGZhN2RlNjY3MzlkMzFlODkzZDEwZGVmMmNiNTFjYjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b9ac75f8909146188dc603af3c5491c0",
+      "statement": "server.js attaches the Socket.io io instance to every request as req.io and mounts ~20 route modules under /api/v1, with several feature mounts (chat, coupons, loyalty, group orders) commented out.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L138-L142",
+          "version": "repo-lines-v1:sha256:8d5f306190f34863792137493de910a09e1711ced0689b1f5312154c62e35059:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM3ZTM2YTBiZDFhNjM4NzAwY2FlY2U2M2M4YjE4NjQ3NTg0YmJhM2QyMzFhOWVhYTEzMjYwNGVjZTQ2NWQ1YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWQ0ODMyYTA2MjkxMmJlNmMzMTMyNWZjYmEwZTIyMzE4MzJkNDZlZTM5NzcxODUwMGQyMTliNjQ5YjMzZWIyMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjFmM2JiZmMyZjg2MjQ3ZGNhNGI2YmI3MDkyNmU5ZTUwNzY5ZGJiMWQ5ZWI4NWY3YmM4YzQ2NmE1ZTBmN2YxNiJ9"
+        },
+        {
+          "resource": "repo://backend/server.js#L464-L493",
+          "version": "repo-lines-v1:sha256:2f4f6f9710750b18d78c4dbe2df934a5c6e9219275dbbda52445e8dd427d1ffa:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhNzI3NzhiYmQ0ODAxODdiM2YzY2MyYTI0ZDcyN2FlMDQxOGY1MWM3OTU1NjA0NzQ3M2I5MDUyNDRjYzE5MTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhMDNlMmQxMzc0M2QyMDdhZmI3MzFjOGVjM2I0NDlhZTJjN2IyNzMyNzU2ZjZjZjA2NDQ1MjJkZTMxMWY3ZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2Mjk4ZWUyOGE2MzExYmJiNGNkZTZiYWY4YzhiYzkwYzlmMjAwNzY2MjA5NTVkZTM1MzJlZDQ2MDU0YmNlZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJkOGJmNGYwMWFlMmRjZjE1ZmQ0NWUzMmZiN2UxODI5MTBiZTA1NGYxNDI3YzA5MmRiYTg5ODQwYjY3NzdiNjIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f3321faaa0534b8fbe4849b5af3b270a",
+      "statement": "The Workbox service worker config marks all /api and onrender.com requests as NetworkOnly and socket.io as NetworkOnly while precaching app-shell assets, preventing stale API responses offline.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/vite.config.js#L31-L76",
+          "version": "repo-lines-v1:sha256:385b1994530e80f684dc275e251d6e2c7ea9e6fa3726c3812ca541e936f7ee26:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyYTViZGY2NTRjN2Y4NjhhOGQxNjJhNjYxNjcyOTUwMjY3ODZjMDM5ZDQ5NjY5NWI0MjcxMzhjZjk4ZTc5ZWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2OGY3YzRhZTExMmZkNmVjMmY1ZjJiNTRlNzAwYzk4ODU3MTY1OGM4Y2Q0ZjE5YzljOWQzYTZiNzFhN2ZjMTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5MTU1NDAzYjkwNjFhNTliYjAwMGQ5ZDQ5NmYxM2I5ZWY3NDFkMzY1Mzk2MjBiNTdjYmE3NDcyNTBhNTc1NGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmMDYxNGIyNTJmOWIzYTFjZmViYjBmMDNjZTc3OTYyYzFkNjU2YWIxM2U4NzFmMTA2YjJmZGM1ZDRhNWJkY2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bec5212c4e194b05a57f575a3982fca7",
+      "statement": "vite.config.js dev server proxies /api to http://localhost:8000 with cookieDomainRewrite, making local cross-origin auth work without CORS setup.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/vite.config.js#L86-L95",
+          "version": "repo-lines-v1:sha256:d8b6b0e6cc3980b68366ec76b7d328a1e25120f0a60563295bb320589c5a3620:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlMjFjOWRhYzU5MzlkY2M3NDg5M2Y3NzBkNzhlNTliMWVhMzM4MzAyODUzM2E1ZjI5Zjc4NjdhYzhiNmU0NTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwZWY0ZDE1ODU3OTc0MDc4Y2YzYTBhNDY4M2M4N2Y1ZDMzZjc5YmMyYThjYWViZjk4NTg4NTM1NDJiMmJkNTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0YWIwNDJiNTJlODQ1ZTAzYjQyMzg2Y2FhN2I0MzBkZjkwYTQ1MGM2YmNmY2FkMDA4ZGVmNDgyZDgwOTBlNTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE5NmJhZjlkNTNhNmNkZTE3NzFkMjZmZmQwZjQ1MzgwMDUwY2I0NGJhOTAxZTAxZmE2MWZiYTdmMTM5ZGE1NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_70339b8533e346b98057e878262bc422",
+      "statement": "The /health endpoint reports Mongo and Redis readiness with 200/503 status and per-service booleans, and the root path returns a JSON service index.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L440-L461",
+          "version": "repo-lines-v1:sha256:ec3a81b58693706e9a12bb6f3af5186b3f89d1ae23bd18884401b690e0c377dd:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyMDdkNjY1NzIwNGNjYjYzMWRmOWI0MjllZmUzY2ZmZTUyOWQyZDVkZmY5ODQ0MjMyYzhmYjhkOGIzNDM5NzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI5NTU0MjM2YTJjMGMwNzNiNWRhZmQyODQ0N2YyNDU3YWEwMDYxMzhjMmIxNzE1ZmRkMzcyODc2Zjc4MmFjNWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY5YzE5YWM0ZGNiNjJlNDE2ZWZlNzhjNzJhOGZiMDkwNmIyZGE3ZTIyNGM5NGY4ZTQ0OGIyNjE4MWIzNDYyZTUifQ"
+        },
+        {
+          "resource": "repo://backend/server.js#L512-L521",
+          "version": "repo-lines-v1:sha256:89f3a2c4f48b5361c5ac9cd4f8e0892fa074518c1dad36e283e63fb1e929e37f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM1YzkwMmFlMjNhNmRiMjRlYWNkNTQ2MmIzMDFiNzFhNmJmMGIzZjMwMmZiNGVhZWFiNmUxMTAxYTNiMTBkMzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMwZGIyZmMwODk4ZDJlODFhM2M2ZjYyNmEzNjc1MTEyNWEzMjNhOThhYmQ1MTNlNDM2OGIzNTQ1NTNiNzNkZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJiYzIwOWNjMzE3YzE4ZDViYWM4MTBlYjEzMzU5MjgxYmZmNDI2MDViMGE3YjgyYTgyM2FkMjIyZTNjZjI0MzkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8ad387c023634798a58ac9997242d796",
+      "statement": "server.js implements graceful shutdown (Socket.io, then HTTP, then Mongoose, forced exit after 10s) on SIGTERM/SIGINT and deliberately crashes on unhandledRejection.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L537-L569",
+          "version": "repo-lines-v1:sha256:9c0d35bae2f6096805bceb03bfe812c27c301c9f001916ce24039b1b86c856cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRkMTIzMzIxMjFkM2Y0MmQyMmQ0NmZlOGZkODk3ZDUwN2NlYTQ3MmZmYzc1NmZlMTJmZTkwMzYyMTg0YzlhNGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ3ZDJiNDZlMzVmNjUzNzUxYjFiZjVjZWMwNGU4MDIxOTllMzljNjhkMThmZmU5ZjgxYjJiYmEzODBkOWJjZjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU2YjcxN2E1YWI0Zjg4M2I4YzJiNWUzNTU1ZTkwNzIwZTAxYzZkOTYyMTYxMWM1OGJiMWE1YTVhOTA1ZjJiMGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c959944fe60d418bac7f4d22574deacc",
+      "statement": "Frontend logs out users only on explicit 401/403 from session validation — 5xx and timeouts keep the session, specifically because Render free-tier cold starts take 30-50s.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/redux/userSlice.js#L22-L46",
+          "version": "repo-lines-v1:sha256:6ad580b3867ed3da1c419681cdda8509554ea9c4b18aa82c3a97ac77784d738d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyNjQ3OTA3N2ViODQyNDQxMTZhZTJhZDc0MTZiOGU5OTIwOGRiODhmNDBkZjRmMGQxMzY5MGFlYWM2NjZhZWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxMDA4MzhjZjVjNjY2ZWI5MWVjNTAyMzVkNzAwMjE4NWY5ODM3NTdmMGI0OGY3N2I1OTE0OWU4YzA0Zjg0OTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc4ZDFiMzk0MjVkNTYxN2E1ZThiNzFiMWU2MjNhMDFlM2M5YjhhMWU3NjdkODJkODMzNDhjNTc1MmU4Y2JiNDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBlZmFiOGU4YzJhZmU0OTgzMWVlY2IzZTI1ZjY4YjkzYjNmMTAxZDFkNjAzZWRiMTg5YWM5YTBiNjdkZjE3ZjgifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-03T11:06:07.603Z"
+  }
+}

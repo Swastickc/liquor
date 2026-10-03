@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:efd96588ddd36e3b888cd9875cfd6bbc1480aae87aae36ba111f5edcd79a07aa",
+  "claims": [
+    {
+      "id": "claim_5c6f9d444f7c48b49bd01875390376a8",
+      "statement": "Backend tests run with Jest 29 in ESM mode via the script `node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --forceExit`; jest.config.js matches `**/tests/**/*.test.js` with a node environment, 30 s timeout, and `coverage` output directory.",
+      "evidence": [
+        {
+          "resource": "repo://backend/jest.config.js#L1-L8",
+          "version": "repo-lines-v1:sha256:eabc9cb929e8b356a712f84dcff91bab55bda80143d325e11598533f0634b4f9:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTJiZjYzNTkzMWRjNjk0MTAyYWE1YjZiMTY3YmI0NTVhOTY0MDA4NzhmNDQyZGU4MTE3ZWY0ZDllZDk0YzMzNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGYzOTgyZmQ2MTAxNzM1OTkyNDFmY2E5M2M3Yzg2NjY4M2Y1OGY1NDFlY2VkMWMyMDk4MTAyMTQ1NDc3MTY0YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://backend/package.json#L8-L10",
+          "version": "repo-lines-v1:sha256:9fb9236f00fe30bf8ced519809394529e65a38f365ba6ba727a2e5469e2c2fe4:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGI2ZGJjMjNiMTZiN2ExY2ZiZTljNjhiNmIwZGZjYTAxYjlhY2Q5YTczZjFhMGU2OWEwOWNmNzlhZDEyNTJjYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDRlZjI2NTc4MzRkY2M1ZjBkOWYyYWI0ZjRlOGUxYmFmMGFmNTU1NTI3YzFkODBjZGUzMTQyNjRkMzBmYTk1MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODc3ODkzMmJlNzU1YWM1NTA4YTBkMjg4NTI2NWY5NzRhODA5OWNhZjAxZmFmMmQzYjEwMjJmMDQzNzEwNWFkYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzllNDlhZmYxYWJiZWY2NjI2MWQyNzE5N2FhYTcyZWJlNmFkZDI5YWVmZjYyYTAxOTcwNjQ2OWNiMWEzZjBhNyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_fc41ef44ec724d7e966b7528a4fd7740",
+      "statement": "backend/tests/api.test.js imports the real Express app after starting MongoMemoryServer, setting process.env.MONGO_URI to its URI and PORT to 0, and gating on mongoose reaching 'connected' before running supertest-based integration tests including security (NoSQL sanitization, rate limiting) and removed-route 404 regression checks.",
+      "evidence": [
+        {
+          "resource": "repo://backend/tests/api.test.js#L133-L169",
+          "version": "repo-lines-v1:sha256:f8d2baa080626e40e408080a85808cfb287f3a5b41656124d8e9fb93c85d14d2:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmNzRjMTM3ZWQwZDM3YjZhMTU1MmI1Yjg4YzI1YTkxMTA4NmI4ZmI0OWNhZjQ0YmI5MTVmYTk5NDk3YzRmNTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxYTI4M2MzNzc0NmI4NDc1Y2I2NTBjMGI4NGYyMTk4ZmQ0YjIwOWNjYzdhZGFhNzM0YTRhNjIzMzNlZGI0NjIifQ"
+        },
+        {
+          "resource": "repo://backend/tests/api.test.js#L15-L41",
+          "version": "repo-lines-v1:sha256:8e8a45c4c6abe8e6161f522a4aaef7f40e4d0b21cdec9e30d35117cdc752213f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxYzM0OGRhZDU0ZDZiMGYwODkxMGI0ZjY2OTYwNzJkMjlmZDYzNWNkY2Q0MDY0ODZiNDFhNzUyNDcwNmM1NGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjNmZlOTJmZjVkZTU1Y2M0ZmFjMzlmODAyZDM0NDg3MThiMTcxNzdhMjllOWM1ZDc3MWYzYzFlNDVkNzA0MDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZhM2NmNTE5MjM1NGY3MTYxNWFjNTEwMzRiM2U5N2MyMGVkYTk5NjQzZmNhZjViYmU2ZDQxYWQ1OWJkMTIxNjcifQ"
+        },
+        {
+          "resource": "repo://backend/tests/api.test.js#L171-L203",
+          "version": "repo-lines-v1:sha256:fa9839fdffc2dcefddb57df5ad063b13c7701584bc11bc845a6c1d92981f54bc:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI5MjMzOGFjZWQxOTI1NjliZjQ1ZTA5ZDRhZTI0ZGM0NTNhYzE5ZGFhMDE5YWU5NjUwZTMwY2YyMGRiZjRiNWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5NTc2YjU0ZTI1NWUzYzk0OGVlYTViNTkwNGZhMzhiODE2ODJmZGQzY2JkOWFlODQxZmYwZTdiZDgwZDM5NGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5d9a92352c064ccab1e1ab946816d3f0",
+      "statement": "Backend chat property suites use jest.unstable_mockModule to replace every external I/O dependency (groq client/queue, conversationRepo, tokenBudget, toolRegistry, fallbackResponder, sseSerializer, classifiers) before dynamic import, then use fast-check (fc.assert with numRuns 50-100) to prove invariants such as intent-before-reply ordering, escalation stickiness, bounded Groq retries, and success under Redis failure.",
+      "evidence": [
+        {
+          "resource": "repo://backend/tests/properties/chatPipeline.property.test.js#L1-L120",
+          "version": "repo-lines-v1:sha256:99e2e7edeef02603a5194dad2da306193efc97d4f00563db92bb9d0e10cb5d9c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlYWYyMmNmMDczMjU5MmMyNDcxNDFjYmU2MWVmYTExMDEyNjEyZjVhMzEyMmI5YWY5YmJhZjUyZjU3MjRkMTk0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlNDZlNDY3MjA3MjQ3Y2RjYzMxNWFiYWU3ZThhODY1MGE5NmIyZmVhOWE1MDg5OTJmMWIxMTE2NzA4NWRiZjc5In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_55b280d7d9ef41ed9188afad73a3dd0f",
+      "statement": "backend/tests/generators/chat.js provides shared fast-check arbitraries (arbMessage) built from Latin words, Hinglish keywords, and Devanagari/Tamil/Telugu/Bengali codepoint pools to mirror the multilingual chat input the product receives; the frontend mirrors it with frontend/src/__tests__/generators/chat.js.",
+      "evidence": [
+        {
+          "resource": "repo://backend/tests/generators/chat.js#L1-L49",
+          "version": "repo-lines-v1:sha256:b5db87b2d06489b49bf5c2b306aa813a8bf717c33129b42e9683f3d58deba175:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5ODFmNWI0Y2RkYzk4NTVjYzkzNDgzNjE4YTFmYWI5YTcwNzY2MGIxZjU0ZDE2YzYzNmE0ZTE0OGYzNzAyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MjAxNGJjOTUwMWMwNTUwMzNiMzkzYjE4OWY5YTdmNzAzOTEwYzJlM2QwMWUyNGQxNTkyZjQ4ZjNjNzcxNjUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_79d16722925f4388b19f1804008bdd61",
+      "statement": "Frontend tests are Vitest property suites over extracted pure functions (six files under frontend/src/__tests__/properties/); useChatSession.property.test.js re-implements the hook's session logic with a Map as localStorage, proving resolveSessionId always yields a persisted UUID v4 and startNewChat generates a fresh unique UUID, using crypto.randomUUID.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/__tests__/properties/useChatSession.property.test.js#L16-L53",
+          "version": "repo-lines-v1:sha256:aaa99d38caf784b4c89fcb8e65c8f5f2f53071633735a3d8f6b7a217af31bd59:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlZDMyYmVkYmZiOWQ5ZWE2NmYzZDYzYmJlNzQwNTEyZTYwMjU3MDYyMGYzNmNkZjNkZjNiNzBmOTg0NDRhYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY5MGE5ZmNiYmViZjBiNjU1ZmM2MDk5YzkzZDk5MzIyYWFiNzExMDczMmI5MjhlMDViMTI2MzNlM2UzMmRiMmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFkODUyNDE2NWI0NzIyMzBkMDkzNWI2OWRlN2ZkOTRmZjQwMWZjNzZjNjczNzJkYzQ1OGM0YmMzMDAwYzZhNzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d5625b7e40c04a8e9b65599cf9c6eb9f",
+      "statement": "Two standalone live-e2e scripts exist outside the test runners: backend/api_e2e_test.js walks the Render-hosted API through login, order creation, Razorpay order creation, locally computed HMAC-SHA256 signature, and /api/v1/payment/verify; e2e_live_test.mjs drives the Vercel frontend with Puppeteer through register (DOB 1990-01-01 to pass the 21+ gate), cart, shipping, and online payment, treating a razorpay.com iframe as the success signal and screenshotting error.png on failure.",
+      "evidence": [
+        {
+          "resource": "repo://backend/api_e2e_test.js#L85-L115",
+          "version": "repo-lines-v1:sha256:f81311d8a2161750f0307596bc532c0e7d35e4d67cb35ebf8d13756a56615652:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjZmMwMzBlYTU4YjUyN2Q3NGU3OWVlN2M1NjE3Mjk1NjE1OTIzMDJkZTYzYjg0MjgzZGZjN2ZhMDMzOWZjNWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ5ODJjZTAwZDZmZGQ1NzZkMDYzMjkwYjY1ZTg4YjRlYTJmMTg0YjJkNGFkYTQ3NjViZDNmMzZkOGJlZjI3MGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1MzQxZTA5YjYyNjMwNjE5YTFlNTk4YzQyODRlYzQ2MWY1YTQxZTdhYWU1MWY3MzlhMzRhMGM0MDAyMGY5OWMifQ"
+        },
+        {
+          "resource": "repo://e2e_live_test.mjs#L126-L141",
+          "version": "repo-lines-v1:sha256:0d6c4d531a229f6ddb4f6b52823a3f0c462d8cc32a8936d78243050368ef84ce:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhMjZiNGE4OTUwM2M5NDlhNDViMmUxZTk0MGRmYTEwN2FhNjRiZTk1OGUwMDY2MDczOGRkNTFmM2M5ZjIxMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MGRiNzBiZDZlZTRkM2IwZjZiM2RiMjg5NmIwNWVjNmVjMzE4ZGQ5N2Q4ZDIwZWQ4NmIyMThjNmU4MjUwZTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU4NWFhZmU0MTRiYjE2OThiNWRmN2QzNTI5NzZiZTczYmFhNTI2OGQ3ZWVmOWZmODQzZjM4MTk5ODEzODRhOTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYxZDBkM2U1M2ZhNGQ2ZTQ1ODgyZDQ2Y2ViZmVkMWZkODEyNWM1OTNlMTk1ZTk4NjhmODU2NGY1NWUzNTA4MWUifQ"
+        },
+        {
+          "resource": "repo://e2e_live_test.mjs#L53-L83",
+          "version": "repo-lines-v1:sha256:00cdad841714a26206669e1a9609e051232b91880173001e5e7e71ae9c6b3dea:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllY2ZkZDk4ODYzYjE1ODhiNzcwZGZlMTE1YWE2YzdkZTg5NjBhNDAwMDJkMzFkZDlkNGUwNDZkYjkyOTQxZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZkNDFkMmMyN2U5YThjYjEwYWUzYTM4NTQyMDM1Zjg1YTdjOTVmNmFjNDQ1MzFmMGU4Y2QwOTNjNWUzNmY2ODAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAzOWQzYzE0YmMyYjdmNDM3Njk1NjQ4MWY4NmU4MDc0OTYxZDdlYzVkOTNmMjhlZTk3NGY2ZmYzZTE1YTk1MTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0b118db0021148679846fe94bd423659",
+      "statement": "CI (.github/workflows/ci.yml) runs only a backend node --check syntax sweep, frontend ESLint, and frontend production build; neither the Jest nor the Vitest suites execute in CI, so local `npm test` runs are the real verification gate.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/ci.yml#L1-L11",
+          "version": "repo-lines-v1:sha256:6c953d829770d546a7bd638101aefa86854d184394559f3f4ba60fc25b89143d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjMjM5N2RmOTNmYzU2NWEwYjhjNGFlNmQ5YTk4NjhhMjkxYmQyNDJmZWYxNDZlOTRjYjMxZTE2ODA2NDMwN2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5ZDgwMTU0ZWQ0MmZjNWM3NzliMTMzMTU3OGI1OGI4OWM4MDFlYWNlNzRmMjRjZDQ4ZWI0YTIzNTc5NDBhOTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRhNTMyOGZiYjE2MmMwNzkxZTYyZGQyYzUwYzU0YjJlZDY1YWMzMjllMDE5MTMwMGNhYzdmNTljMDM5N2YyMDEifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/ci.yml#L33-L39",
+          "version": "repo-lines-v1:sha256:3fdc16a6c46c947119a721770b634a50a162b4f45bbd8364342df3107b01cf9e:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2VhZjgzYmIwZGIwOGIzMjFhZDg3ZTk0ZGE5YTAxNjc3MzA3Mjk0ODBhZGQ4NDc2MjAxZDBjODBkZjRiYzJkYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTJkYzUyOGNlNGRlMjU0ZTJjMTAwMzRjNzQwZDQ3MGM1NjU0MmVmZTlkZDQ2ODk0YzJmYjMwNzhmOGExNTQ2ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzMxZDg5OTdmNDgyZTE3MzViNDBlOTFkZGYyNDZiNjUwMTRhZGRhMWZkOTY4MTI3YTgyN2IyY2E0NTliY2ExOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWZlM2E1N2YxZDY5ZjgyNGY1YTVjOTQyMWJjZDM4YWIxYjg3Y2ZiMTRkMjlkODhlNzk2YWE4MTgyNjQ1YTJhNSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-03T11:06:07.603Z"
+  }
+}

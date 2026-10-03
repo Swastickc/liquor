@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:5954f9ca311dcdbb3e6b7aedc58bd44b5ce84476769d65449b9f2f8d63099e49",
+  "claims": [
+    {
+      "id": "claim_fe763c6683ea4e3e840c67c15dc7a8f6",
+      "statement": "The User model carries role-based identity with tokenVersion for JWT invalidation on password change, a capped walletTransactions ledger (pre-save hook trims to 100), WebAuthn biometricCredentials with counter tracking, and capped badges array (50).",
+      "evidence": [
+        {
+          "resource": "repo://backend/models/userModel.js#L104-L149",
+          "version": "repo-lines-v1:sha256:27ac3283a1f5085c0acf3757a6a53ddac7ab25bfaf3e008745619f93d3bc5c78:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzMjI3ZDhkNGU3NDQyMjgxZDcwMDczNzg2MTQ0YWY5NzU1OWVlNDFiNzkyZTVhM2NmNDViYjM1MTA2NjczYWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIyMzExZWRkNWM3Y2Q3NTI5MjA5ZjIyOWEzN2Y2NjdhOGUyZGFmNmE1MWQzMjlkN2U0MDkyNWVhZWVlZGIxNzUifQ"
+        },
+        {
+          "resource": "repo://backend/models/userModel.js#L62-L85",
+          "version": "repo-lines-v1:sha256:d35cdc1006a5a74030f43a831ee98b865f53528eb36412a84aa4d043377e2453:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUwMjU1OGIzZTU1YTI5NWZiNWM5NjQwNTczZDI1OTRjOWI0OTc0ZWQxMDA2NTUxNjJiMTc5YmIwYTc5ZDkwMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyNWM5MDQxMzQ1ODlhNjk4NjBiNjRmYTFhY2NmMGU4ZTE4ZmVkN2MwMjM4MTFjMDUzNjgxNzliNWFkODFmNjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmZDk5MDc5ZjZhMzdiMjMzZTg4MDM4YmY1MzFkYzE4YTE0YTY0Njc3MmU4MDBhNzE4NmM5OTZhMjE5MzJhNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE4ZWRkMDJkY2U1ZjhhOWM4ODYwOWVlYzBhZjIxMjhiMDJjY2ZjMTY2MjQ4ODU2YmIyOWFiZGVjOTY2ZDI4MDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e42d54c562ea4fabb8209802bb1a94f9",
+      "statement": "The User schema stores delivery-partner state as a GeoJSON currentLocation Point plus an isAvailable flag that assignment flows consume atomically.",
+      "evidence": [
+        {
+          "resource": "repo://backend/models/userModel.js#L39-L51",
+          "version": "repo-lines-v1:sha256:58cf428610fa253d71a893d508eb834d8d5e9fda4ec9df2603e4d6eaf4dbbc02:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5M2RkNDQxZDE3YzEwMTIxODVhNzRkMTAwNzE0MWFiNmRkYzk0Yjk5OGM5YTQwOTA4ODQ5NjE3YjBkYWRiZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4YTQ3YWRlMGZmZjc3OTgwOTczZmNhNDA3MTg2ZjA1ODY5M2E4NzRhMTAwNGQ2MTQ2NWE0MGQyMWM3NGEzZTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4YTA1NDlmN2FkY2FiMGQ5YzQxYTYzZWM5ODc0YzU3NzU3OTk1NmEyNGY0NjE0NzA5ZDJlYWEwMWYxYmZhYTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIzNGRiMjgxNTMyNjJiNWYzNTUxYjI4NTI4YmQ0OTNiY2RlMDExNTkyMGYxNmUxZTU1YjFlZjQ5ZmFmODU1ZmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a36961609de24cb884ae3cf6c2cc1b9c",
+      "statement": "The Order model encodes the lifecycle as enums — orderStatus Payment Pending/Placed/Preparing/Ready/Out for Delivery/Delivered/Cancelled and deliveryStatus None/Assigned/Accepted/Rejected/Out for Delivery/Delivered — plus deliveryOTP, otpAttempts, driverLocation, ETA audit array, and expiresAt for unpaid online orders.",
+      "evidence": [
+        {
+          "resource": "repo://backend/models/orderModel.js#L121-L179",
+          "version": "repo-lines-v1:sha256:7c92d9325c1490ee3f1c75b24680f1e5fb521dc93a40e0de9af9a7e55af1e514:eyJzZWxlY3RlZExpbmVDb3VudCI6NTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExZDdmMTk5M2U5OWI0N2Q0ZDRmZWI3ZGQ5NWE3NDljOTk2YzBlZGNlMTBlOTg1OTJkZWMxZjI5MGI0OTc5MmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk2NzZlNTYwMDE2YTNmNmM0YTM5NzA0YjI0MTUzM2Q3ZmI5YjZlMWFmOTNhZjVlODEzZTY5YjA1OWUwNWY0MmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhM2M0ODU2OGI0NWJmNTZjYjc1OTM0YmU4MWMyNjRiN2ZlYjllZWQ0NGJhZjVlMTkzM2NhOGE1NzU5NDdjMzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRhYzdhMjQ3YjgzNWQ3ZWZmOWVjZmUzYzAxY2EwOThmODNhZTAxN2UyNDAyNzAxMjQwNGE2NDU0MWEyZGRiYjYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0fad74fd04dc42dab8647a6e1d0de0c1",
+      "statement": "Order documents carry restaurant economics fields: restaurantCommission, restaurantPayout, payoutStatus pending/processing/paid/failed, and paidOutAt, alongside per-item restaurant refs enabling single-shop validation.",
+      "evidence": [
+        {
+          "resource": "repo://backend/models/orderModel.js#L17-L44",
+          "version": "repo-lines-v1:sha256:43f68f5bd37aeb798a775aaefd24e52bfafa08de0e71bd21868e1fa49478a17a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjZTY5M2Q5ODAxZmI2M2JiOGYzOWE0M2FlOGI3NGM0ZTJjM2ViOWU3Zjg5ZTEyZDM5NWFkZGQ2YzNlODU5N2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2M2Q1MzVjZTM4MDYzZDZiNGM1MWQ4YzM4NmE3ZjliM2U1ODBhMTRhMTBjMDdiMTk4ZGZhZjE5YzkzYTNiZmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFhMzc0MTJhODBjZjA1MTFjMDYxMmVkNGIyNTA2NGFhYWE2NjI0YzkyM2U1MmQzOGFiYWM5MmVjMDJmZTVhMTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljMGNlNjU3ZjRiYjlmNmI5NGU5NDU0YzNmYTFkOTcwNWQwMDY5NGIxYjgyMWRmZWM1OTA2ZmQ4NDBiNzhlZTQifQ"
+        },
+        {
+          "resource": "repo://backend/models/orderModel.js#L90-L98",
+          "version": "repo-lines-v1:sha256:43bc8d6165cdc324a2a5155c60ec7b9924744191c248b78d13ba4f85f80d5bb3:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzY3MDFlZGYwMGFlN2U2N2RlNjlhYTMyMjRiMjJiNGZlNmE4MWE1NjIwYTAxZDAwZWJmZDJiY2NjMDU1MDZlNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGY4OTlmOGNjODY5MTE0MTVkM2FjZWQ1OWViZWIwMDg0NDIyY2ExYWFjMTU0YTA1NjljNDQ0MDA4OGQ0Y2NjYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTRmOWU3MzAxZTQ3OTMxODk4YzYwYTc5MTQzNzFlYWFlMzdmZGQwYjNiMThhMjA3MzU1NTAxNWJmOTE5ZDAwNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTQxZjYzOGJhOTYxZTJmZWMyMDM3YmI4ZTYyOGVkN2NmMDE3YjBkZTMzZDlmNTE4ZDZkOTFlYzFmZWRiMTVkNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_08ce5ff06db94f94bd74829f4f811cb7",
+      "statement": "Order indexes cover user, orderItems.restaurant, orderStatus, createdAt desc, compound deliveryPartner+deliveryStatus, and compound isPaid+createdAt desc, matching the customer/driver/restaurant/admin query patterns.",
+      "evidence": [
+        {
+          "resource": "repo://backend/models/orderModel.js#L187-L193",
+          "version": "repo-lines-v1:sha256:c24c7e771519c6b1286f95f2881a70df5524b4a130fe972da48ec8cf3f5ebc87:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDIzOGVjODU0YjQ4OGJkOGE2MzNmMzAzZmY0NDQ5MDYyODE4YjFjNWZkYmU4MzFkZTU2OTFkODQyOTM0ZDcwMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWU0ODk0NGJkMDM0MTM2ZGIzZjFmOWI4ZDBiYzFmZWRmZDFkNDYyNGUzZGYwNWE3ZjMwNzdkNDY5MTUzNTJkNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzBhYTYxNWQwOTA0ZmU5NDY1OWQ2OTUxMzM1ZjcxMWQ1MGU4NDUyY2IwNGU4YTFmMjlkNmJhZDgxZjVlOWVkZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmFkMTc0NTA4YjkwZDk0ZjA1ODllNzdiZjE0ODAzNTFmNTU5MWU3M2RlZmYxMWZiMmU5Y2JhZjU1ZTA0Yjc2OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_98bf7119493244768a0d85aa1bc1bf6a",
+      "statement": "The Product model includes liquor-domain fields (bottleSize, type enum Beer/Wine/Spirit/Mixer/Other, abv), variants/addons pricing arrays, autoDisable smart inventory, a weekly availability schedule, and a weighted text index (name 10, tags 5, category 3, description 1) for chatbot RAG retrieval.",
+      "evidence": [
+        {
+          "resource": "repo://backend/models/productModel.js#L115-L124",
+          "version": "repo-lines-v1:sha256:939716488d6c9c42876704f8e0d78d46aac0409d2062f8963759d349b1047f49:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk4M2JhZjU4OGViNjg3NDc5N2RlYjlmNzVmZTY3MDFiNjIyYTI0NjI4MmM3YmEzZmMwYjRlMzRkZDgyYzcwOGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5OTY3ZWMxZWQzODM2ZjhlYjE3YWZmMTcyYjViZmVmN2RlNjA0ODVhNDM5YzZjYTExYzU5MWUxNzU1NzM5YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMwYWE2MTVkMDkwNGZlOTQ2NTlkNjk1MTMzNWY3MTFkNTBlODQ1MmNiMDRlOGExZjI5ZDZiYWQ4MWY1ZTllZGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzN2Q2NWU1N2Y2Y2Q4ZGU2ODk0M2QxYjFjNzRmOGJhZGFhYTkyNTVjOTU5Yjk4NjQ3MzZiYjYzZmY0ODVjYTAifQ"
+        },
+        {
+          "resource": "repo://backend/models/productModel.js#L42-L93",
+          "version": "repo-lines-v1:sha256:dffdc17a60aeed98b7f9a70961da441576b2328f2e819056023055409899db55:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNkN2Q0ZjNhYWU3ZWU5OTBjZWVhNjc0YmY5ZmFkZmRkZWQzYmE1MDY2MmFiNzg4OGFiOWYzMTIzMGYzMzZhOTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjNjI3ZGMxMDMzMmViZDhlODBlOGRjN2IxOTYzMTk3ODdiZTU5NzI3M2VlMDc3MWNkMmJmZjc4ODE2N2Q2NzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUxNmIzNzc0MGRhOWFmNjYzZDIxOTk1ODMwNDMxZWY1MDA1Mzg2NzczYjViNDE4NThlMDA0M2IwZWMyNzZhY2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9c912dab054947468a3b1ab920ef6f64",
+      "statement": "The Restaurant model requires an owner ref, stores GeoJSON location with a 2dsphere index and serviceRadiusKm, records licenseNumber, and carries openingTime/closingTime HH:mm defaults (09:00/23:00) re-validated at order time in IST.",
+      "evidence": [
+        {
+          "resource": "repo://backend/models/restaurantModel.js#L28-L65",
+          "version": "repo-lines-v1:sha256:57e1bfb762515db2550da1f5297c4e0d50f836a0b7aa0280c815d8796e4bafc2:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0NWEyMTBlMjYxNjNlZWU0Njc1MWJkZWFiNzE5NGY1ZTg2MjVjYzBkOTU0YzcyNDhjMjZmNWM4YmZmN2UwMDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU3OGRmZGExOTZlYjkxYzExMTRlY2M2ZmQxOWY0NmQ0NDRjNTBkYjNiNWRkMjcxMTg5ZjFmZWU4YjA0YTI1MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4NTc4MDE2NjcxZTgzOWE2OWUwNmVjNmQ5YjU5ZjQ4N2M3NmUyNTMyOTRlMTFlNzVmNDNjZjE4ODg3MzZlZjAifQ"
+        },
+        {
+          "resource": "repo://backend/models/restaurantModel.js#L80-L86",
+          "version": "repo-lines-v1:sha256:17fb6ba12de56d4b7d76cff35cab954499cad3136e9a07a99db2eb7b00bba22e:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTgzYmFmNTg4ZWI2ODc0Nzk3ZGViOWY3NWZlNjcwMWI2MjJhMjQ2MjgyYzdiYTNmYzBiNGUzNGRkODJjNzA4ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWVkN2U5ODA0NDhhMTdlMTE3NmNkZjc0ZjllMjQ0NzZmYTU4Yjg5NzhjZGZjMjA2ZjA5YTVkZjI4YzJiN2YxNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2Y2YWU4YTFmNTYyZmZiMzYwOWMwYjhmYjVkNTdlNDNiN2FiMWVlYjUzOTMxZjhjYjE1OTUzZDM5OWZlNmJjMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWIxZDIxMzU2ZDkwYjk3MDFkNDE3Yzg0ODg3MjQxMjNhNjU3ZmNmM2Q0ZjMzYzhiMmFjMmRhY2M2MjY1NWFmNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_dc32c00d5236435eaad65fabd3409d1c",
+      "statement": "redis.js provides an in-memory Map client capped at 1000 entries with LRU eviction and a Redis-compatible API when REDIS_URL is absent; its incr method throws, so atomic counter features must tolerate cache failures.",
+      "evidence": [
+        {
+          "resource": "repo://backend/config/redis.js#L1-L46",
+          "version": "repo-lines-v1:sha256:4592bc7db67d43c8287df028fc23848fa205b227a388864350564a26a2c6c4bc:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjODM4ZjJiNWE0NDhlNTA5ZjJiMTM5NGVlMTgzYTBmMDU4YmY1ODM3MWMwYjMzYmZlNDg2OTU4ZDk3YjY3ZDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFiMzg2OGY1NDQwZDgzZjg3YWY1NjQ1MmFlYjFlYTBiMzAwZTQ3ZTI3YjBkNzUzM2M1YmQyYTk1ZTViMDhkYzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1YmRhZThlM2NmMTg3OWQ5MjdhMjg5YmVlMzEyZDEwOGZhN2RlNjY3MzlkMzFlODkzZDEwZGVmMmNiNTFjYjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a7bf622122c74219bb36234b6702aade",
+      "statement": "Coupon and CouponUsage models no longer exist as files (imports commented out) but orderController still invokes Coupon.findOne and CouponUsage when a couponCode is supplied, an active code/comment drift in checkout.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/orderController.js#L221-L252",
+          "version": "repo-lines-v1:sha256:35d757f2775d1fbc1594117f44d2c7ab80424e3fa948b33acffca49649f2ae74:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY0MGE1M2ZiNjBkYzdjYjdkNGUwODE3ODM0MDBkNzE4YjQ1Yjc0MWFhNjQ2YjNjZjhiNWE2OGFjZGRmNjcwMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjMmE0Y2E1Mzk5NDM1ODkxZjA0M2EyZmYzMzgxMmNiNDU2NWNmOWM2Y2VjYmFiOTk3OTc4Y2VkZTc1ZDNiMDUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2NTkwNGZkNjkzMzY4ZGE0YWJlN2NjOGI3Y2YyYjQyODBiZmNiODc3MjI2MjVhYmQxMzM1ZDMzODI3YjdlNzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc0NDEwZjcyNWU5M2U0NjEwMzc4MTFhOTM1MzFhZGQ3YWExZDI4YzUwNDViMWViMjNmMzkwN2M2Nzk3ODdjNGUifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/orderController.js#L5-L6",
+          "version": "repo-lines-v1:sha256:3da8194c190e24dcfb7dbf918aa24936087a540101e61b15744e4cb7c6e032bc:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmMyMzdiNmJiMGI4MTgzOTk1NjFjMzFhOGZmYjdkYTUwNDMwZjczMjQyNTM4ODUzNzhhYmE0ZTNlNjEyYTYyZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDE3MzYyZjkxN2QyMWVmMGYyNTVhZTY5NmIwZmUwNGVhNTA5Y2UwNTJhNTMwYzRkOGJiOTE4MDM2NzU4MTg5YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWI5Y2RkMzMwNWVmNTAwOWQ0M2FkMDkwYjZiMzkyMzMxMTkzOGY2NTg4MGZmMjIxMWUwZTFjMGE2YzRlNGFmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjUzODEzZTA5YWViYzdmMDU1ZWMxZjhmY2JlNjE1MTZmYTg0ZjdlZjdlMDJiMzRlYTdiMDQ1YjMxZDBhZDBmYiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-03T11:06:07.603Z"
+  }
+}

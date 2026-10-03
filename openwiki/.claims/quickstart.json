@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:4105c5812942276b8e0e7870052fbaa35cd954e41fd9d46f31d43e9829a0dba8",
+  "claims": [
+    {
+      "id": "claim_1d14ce0c18f749ea9257f46824e6581d",
+      "statement": "SwadKart is a hyper-local liquor delivery platform for Kalna, West Bengal with regulatory constraints baked into code: legal ordering hours 10-22 IST, age >= 21, single-shop checkout per order, Razorpay payments, and Socket.io driver tracking; stack is React 19/Vite/Redux Toolkit on Vercel, Express 5 + Mongo (Mongoose) + Redis + Socket.io on Render, per docs/DEPLOYMENT.md and README.md.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L1-L20",
+          "version": "repo-lines-v1:sha256:f75566f049f489fad7383c9da17fd97b3f37438646b3b7538b34d1656233f2b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjNzc3MjNlODUwZDE1YWVlMTVkZmUwNjRkM2ZiNWIwZjg5NDdlZjNkNDA0ZTMwMmI1NzYyYjFmOTc1MDg3YzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiMGQxY2UwYjIwMWMwNmFjN2Q4YjdlODM5NDJjZDE4ZmVlNmZkY2YzOGI2NDc5ZDE1M2EyNGVlNmMyZmNmMWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE1ODkzNTJlNTgwYWMwYWIyM2I5ZWQzYWE5MmRkN2YzN2Y4YjA0MmUxZjJmOGY3M2FkZjUyYzJiNDFlZjY0MTgifQ"
+        },
+        {
+          "resource": "repo://docs/DEPLOYMENT.md#L5-L40",
+          "version": "repo-lines-v1:sha256:dad16ecc3df4622c86e3f598bf2e48b22dcc1276104b932369026b3920d676cd:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkNGEwYTI3NjQyMmUwYmUzZjE5MzI1YTkyZjVhZTg4MjM0MmI0ZjI5NjY1NDEyMjA2ZWZjMDM0ZDFhZjg3YWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE1ZWQxODAwZjc0NjE2OTk1Njg3Y2Q0ZWM4YWIyYjBmZDZjZGUyNzE1YmMzOGUxMDRjODdjOWY1ZDk3OThhN2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE0MjU0ZTc5MjExODA5MjZiMzY2YjlhMDkyOTJlZmExMTAzMTExMzdlY2ZhY2NkYjY1OTNiMDlmMzA2MmNhNDgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e7a582df4d3749158134318c8d274389",
+      "statement": "backend/server.js validates env at boot (JWT_SECRET and MONGO_URI always required; production additionally requires RAZORPAY_KEY_SECRET, RAZORPAY_WEBHOOK_SECRET, COOKIE_SECRET and a >=32-char JWT secret), registers the payment webhook raw body parser before express.json, and layers rate limiters: /api general, auth endpoints 10 per 10 min, contact 5 per hour, order POST 20 per 15 min; /health reports mongo/redis readiness with 503 when degraded.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L384-L459",
+          "version": "repo-lines-v1:sha256:7cfeeb9a23849f84a649b7f0d4175be561304107920fcbbdbf4b0449276f4e42:eyJzZWxlY3RlZExpbmVDb3VudCI6NzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3NWZmNzg0NjVhZjNmMTkyMGQ0MmY5ZmQzM2E4MDUxZmU4NWYxZmNiM2Q1MmMzODVmNTcyYzg5NTVjM2JkNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkNGJmMDhhNDRjZWM2ZjJiNTBjODg3ZDMyMzNjMzk1MmMwNWQzNmRkYWRjOTQzNmNiYmM2MTg2OGQyOTRhMzUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ0MDRmMzdiYjhjMjY1OTViZDZlNTFhNzRhZjY2MmE3YmZkNDU1MDQ3M2U5MDA3MmRjMGI4ODZmZDFlNzA5MGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIifQ"
+        },
+        {
+          "resource": "repo://backend/server.js#L61-L90",
+          "version": "repo-lines-v1:sha256:5b1f39dc8e1a7d8d9a9744bec671961832550a9814827f6ebfd33bddb15666a8:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhMDM4YjkyYTE3NWVmYjc3NmY1M2YyZDM2NjY5ODYyMDRjNGJjMmI5Mzk4OTY4Y2ZhNDA0ZGZjZTA5YWY4MTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhkODdhY2ExNzRhNDdhODYyYWM3M2E0YjM4ZDExNmU3NjY3YjU0YzVjYTQwOWQ1MTBlZmZiMjkwYTI3ODgxM2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhNTk2OTYxN2M5YTIwODVjNzEzMGJhYzE5MzJkZTYwNTUyM2NhMDNjZTVjYTMyYThkZDBiZGQwMjIzYThhZDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNiZTA1NTAxNmZhMzhmZmY5NmRmZDQyOTUzZTlhNDk1MDM1MGZhMmFjMDcxNTFlMGJhMWY5Zjk0OGM4YzMwMTgifQ"
+        },
+        {
+          "resource": "repo://backend/server.js#L92-L107",
+          "version": "repo-lines-v1:sha256:5c98a3ec926cfd598ed5979869584191b3de9679d0feb7e125d4338530a8fc09:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc5YTdmYmZjNDZhNGU0Mjk3NDY2MjY3YzU4ZWVmNTNmZmI5N2U3MTk0NDM1OTJlYzQ2YWM2OTBkMTA1ZGJlZGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhZmEyMzJhYWYxYzMyZTIwNDg2YTU0MmIzNWM3Zjc5N2Y4OWQ2OWQwNmExOTdjMjY3OWExYTU1YmRmMGNjODIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_252aac696a67452a9e50e8fc49877583",
+      "statement": "Run commands: backend `npm run dev` (nodemon server.js) / `npm test` (Jest via node --experimental-vm-modules) from backend/; frontend `npm run dev` (vite, port 5173) / `npm test` (vitest run) from frontend/; the frontend BASEURL is empty in dev so /api requests flow through the Vite proxy (with cookie-domain rewrite) to localhost:8000, while the socket dev default in utils/socket.js is localhost:5000 unless VITE_SOCKET_URL is set.",
+      "evidence": [
+        {
+          "resource": "repo://backend/package.json#L6-L11",
+          "version": "repo-lines-v1:sha256:493997dcabc1b143fb864502b545782cb3ea78473844a01cc2512be805324098:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjU2ZDgzMDkwYzZmYjkzNDYzYWQ0ZjJmODVmOGNhNTU3NmY3ZTg1ZTEyMWQ5NThhNTM3MThlMjFkOWY3NmU2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzhjYzBiMTdiZDlkMWQ5NzQwNzljNDJiZmIyYWFjZmI4MWU2ZWM3ZWVlZmI0NDdhMDVmZGRlYzU3YTJlYzI1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmZiZmMwOWU0MTI5YWU0NjM4YjM4NzNmNmEzNjNiMmU2MThkZDY5YmY3N2MyNGM5ODllZjIxMDc4NzllZTg3ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmU3NDlhOTViOWFjYmJkMmZhMzEwMjg0NTc0NDc2ZGYxYjM2NWM0NDQ4NzAyZGU3ZTU4M2Q2NzNhMWYwZGQ5NyJ9"
+        },
+        {
+          "resource": "repo://backend/server.js#L528-L531",
+          "version": "repo-lines-v1:sha256:051b50adfab31a8554209e2ad5d4d1a1a6afa54736dc1fe1fff5b4442367144f:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzgzMTM2ZGJlNGY2ZTM4ZWQwOGQwNDM0MjBkZWI4MDU1YWM1YWI3ZWM3YTM3MWI1MTRmMmFjNGQyNmI1YzRiNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWJlYzY0MTU1ODM5YTMwZjVmMDEyNWJkZDgxN2MzZmU0YmE1YTZhODljYzJhNjVmZWI1YTE2ZGU2MzYzNzgzNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDRhZGM3Yzk2ZWFiZmVmNDdiNWU4ODdjNzk1YjJjNzI4MWM5OTUzNjI2MWE1ZWFhNTU2ZDk4MTE3NDg5ZmM4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzRlMGU0YWE5Yzc3OTIyYTdhZTY2NmQ1MzA1OWYzMDJhMWYxMDE0ZGVhZmEwOWJhNWU2ZWFlOTY5NmE4MWYyNCJ9"
+        },
+        {
+          "resource": "repo://frontend/package.json#L6-L13",
+          "version": "repo-lines-v1:sha256:42b9c38123774af078b755e6df8ed20360e3a958f04c0ddb89b99e9e7a48ff5f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjJlMzZiMzIwN2NiODkxMTQ5ODUwZTQ4ZDBlMjZhOWQ2OGUwM2ViZTU4ZTNhOWI4ZDYzNDBlYjcyNTBmMmM3NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjQ4MmMyMzNkMWMxNWEzNGU2YTM5Y2VlYjhjMWYxZTRhMzMzZWIzNzg4Y2U5NDQzNzhiYTJlMWU5OWE3ZmZlMyJ9"
+        },
+        {
+          "resource": "repo://frontend/src/config.js#L1-L3",
+          "version": "repo-lines-v1:sha256:b247e70362986cc9e95b1a2b4e327bf77b23e67a6c51b67fea44edeb29556e72:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTZjMjVkNjY2MzQ0MWViYmZhOGRiMTJjZjA4YTYyYzM2NjJiNjAwMjg1NzNkNjljNDJjMzdhMDczNDJlZWU5YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTVmOTgxZDkzZmY3Y2RhMDI0YjZhOGJkMTBiZTYxMmEyNjZkYzBmMjRlZjQ2MTc3OWVlYmVkZWQyYzg2YzdjZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://frontend/vite.config.js#L110-L124",
+          "version": "repo-lines-v1:sha256:b72c09129e6e9153ae9432011902a6b19476c869d46767b8ed3d2c8ef7348f66:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkZmFlODhhZDAwNDYyOGUzZWQyYzNlYzkyNThlZmU0YzkxMjcwYjIzMjM4NWYyMjBhMTZhM2E2MDI5MjgzZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmMjRlZTg0YWQ2NDkxNDYyYjc2Zjc5ZmU3YmY3NjU4MTBiNjQyMmZmODQwMTMwOTUyZjVkZTUyOWUwNThmMGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY1NGI5ODMxMTI5OTZmZjcyM2YzMDFhMTBhYzhjZjk5MDMwNjE4OGU2ZDYwOWY5Mzg2MmI3MGI0NzZkNzIwZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI2ZjkzZDU4MTM2OGQ2MGM3YmFmMDU0YThhMGY2NmEzNzhkYjQ3YzJiMDkwOTkyNzRjNjczZjlkZDg2YWMxZmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_23f90fee55c041f3a7161e8292dcd633",
+      "statement": "The backend mounts ~20 route modules under /api/v1 in server.js, including users, orders, payment, products, restaurants, inventory, analytics, payouts, notifications, surge, reorder, biometric and gdpr; the chat router (chatRoutes) is currently commented out in server.js in this snapshot, so the Groq chatbot pipeline is dormant at the HTTP surface though its code and tests remain.",
+      "evidence": [
+        {
+          "resource": "repo://backend/server.js#L464-L493",
+          "version": "repo-lines-v1:sha256:2f4f6f9710750b18d78c4dbe2df934a5c6e9219275dbbda52445e8dd427d1ffa:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhNzI3NzhiYmQ0ODAxODdiM2YzY2MyYTI0ZDcyN2FlMDQxOGY1MWM3OTU1NjA0NzQ3M2I5MDUyNDRjYzE5MTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhMDNlMmQxMzc0M2QyMDdhZmI3MzFjOGVjM2I0NDlhZTJjN2IyNzMyNzU2ZjZjZjA2NDQ1MjJkZTMxMWY3ZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2Mjk4ZWUyOGE2MzExYmJiNGNkZTZiYWY4YzhiYzkwYzlmMjAwNzY2MjA5NTVkZTM1MzJlZDQ2MDU0YmNlZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJkOGJmNGYwMWFlMmRjZjE1ZmQ0NWUzMmZiN2UxODI5MTBiZTA1NGYxNDI3YzA5MmRiYTg5ODQwYjY3NzdiNjIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-03T11:06:07.603Z"
+  }
+}

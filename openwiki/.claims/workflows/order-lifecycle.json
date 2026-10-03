@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:e106e0bac8c2408af8c614f1eb08b8e209ad74fc5ff43148d2b433c941f234e0",
+  "claims": [
+    {
+      "id": "claim_55f7420df658424d8aa1ae27a578868f",
+      "statement": "Order creation (POST /api/v1/orders) runs fraud detection and compliance gates (legal ordering hours 10-22 Asia/Kolkata, age >= 21 from stored dateOfBirth, single-restaurant cart), then executes stock validation, atomic guarded stock decrement (findOneAndUpdate with countInStock >= qty and $inc -qty, auto-disabling products at 0), server-side price recomputation (variants/addons, strict coupon validation, 5% tax, tip clamp 0-500, 15% restaurant commission), and optional atomic wallet deduction — all inside a MongoDB transaction that aborts on any failure with a 400.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/orderController.js#L164-L191",
+          "version": "repo-lines-v1:sha256:e84cac39f316666bef245eadc41e3b3c3e1892d9ba24231c323cb3f97d7e3f2b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI0MWFlNzJkMjI4Zjg0ZWRiNzg4NTUxMDFkYTVjYmUxZDZlNDMxZTcyYzhjNDg5MjExNGRmYTYwNjk4MzJiZjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImExY2RlYzBlZTc5NzFjMWIyZGRjM2VmY2JlOGI2NDIzYmRiM2ExNWY0ZjQwMWUzYzhlMGUyNTY4OTBmOTQ4YTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFiNzlhNDg2NjM2MzQ1NGJhYWY3ZWQzOGVkYTU1NWFjODhjYjk0MDU5Yzc4ZDc3Mjc4MmM2NGQ3MjhkNTJmNWUifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/orderController.js#L193-L299",
+          "version": "repo-lines-v1:sha256:53ea333cd210024fd4660d876659e7dfb378e673bf65c6cbf528abed94c18c8a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjMTc1ODBlMTBkNjBiOTI2ZGNiZDc5ZjcxZGFiYTlhMDBlOTUwZWQ5YjVmYWJiM2ZkOTNkOTNkODM5Yzc1YzY5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI4NGU0MjA4Y2Q2ZmZiOGM0YTM1NDdiMmY1NGFkYTE5OTc4YzNmMzY1ZTc4Zjk1MDJlZjUxNDVjZGQyYWE4NTQzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjY2U2MjllMjA1YjdmYTEyNmE4MTk4MzZkY2U3OGY1N2NkMGFhMmQ2MDQ1YjI3ZDc5MDQ3NjY1NzQwYmNhMzU4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI3MDM0ZjhjMTQxOGY5YWQ1YjllOTIzZjU4MTg0ZGI2ZjNjYWIwYzUxMGNiYjA2YWQ3NTRhN2JlMmI5OWIzMWNjIn0"
+        },
+        {
+          "resource": "repo://backend/controllers/orderController.js#L303-L324",
+          "version": "repo-lines-v1:sha256:fd3c17bf4c964911cd410dc16f90e6afbfbac4fa41bdcac3681b45929a700842:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxNzEwZmQ4MDhhM2MyOTRkMWExNGZiNGY2ZDc2YmY5NTYzMzViOTVhMzFiNWJlYjU2Mzk5NmMzNmJmNGE5MGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcwMzRmOGMxNDE4ZjlhZDViOWU5MjNmNTgxODRkYjZmM2NhYjBjNTEwY2JiMDZhZDc1NGE3YmUyYjk5YjMxY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE4ZjU5MzgwMjVhOTlmM2Y0ZjE5NWEzODkyNmY2YmEyNTI3NjhlY2IzNTg5ZWZiZjNlZDljZWM4OTlkZTVkZjMifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/orderController.js#L33-L90",
+          "version": "repo-lines-v1:sha256:2bf35569f9b402f688c66b438ef01364cd77551aef737b18a8fda3d8ae271220:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhNzM4ZDljNmJlZmUyZWE3NDU3MTBlYTA5M2YzZjlmYzUxNmU2Y2M4Y2Y1MjFiMjAxNzkzMjE0Y2MxZjliZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4MzI4YzY3MmE3MzdhNDE3YjZmMjg0Nzg0NjlkZDRhZjRkOWZhM2ExMzNjOWFiZWIzMTMxMDhmNjAwNzVhNDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBhODlkYjViYWRiZGI0MjcyOWI4NjQ1MGU3OWFhODk5ODNlZmJkZjU4ZjUzODFkODkxNzcwMGRmMmVhZGU3NDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRiMTY2YzQwNjZkMGI0MDg3ZTVmZmJlZjBmZDRkMjE4MGQ4NzFkNjJhMzU5NjVhYzlmMzFhMGU3MWFmNmFjMDYifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/orderController.js#L499-L506",
+          "version": "repo-lines-v1:sha256:f32b4a93ab40db71ddfecce18caaf186462cefaaf0637f232abce20940926a0f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGVkYmY4Mzg3NTM2ODk2NmYzMTNhZTYzOTUzOWM0MDM3MDA0NWJhNTNlMmUyY2VlOTNiYjY3ZDVkYTE3Yjk4MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjdkMmVhYmNjYmQ2MzgwMjNkMTVjZjRkYzIwNmYxZTE2Y2MxN2E3MmYyOWRjOGY0YTViMWFmOTA5MGY5OWMyZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmQyMzVjNjQxZjhmZmU2ZWFlZjBkMWZjZDc4ZGRhN2ViMDE4MmJjMWY4MzMxZTM2Y2U4OWU4N2JkYTgxNmI3ZCJ9"
+        },
+        {
+          "resource": "repo://backend/middleware/fraudDetectionMiddleware.js#L8-L20",
+          "version": "repo-lines-v1:sha256:0f3fece6bd3b39f934936b62d788554be2b655d94eda55305311e0e13b654f0b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFiOGU1NWUxODllN2UyM2Y2MGZhODJhMjk4MWYzOTVhMDU4YmRhNDg4YjdkMmY0M2Q3YTQ5ODFmYmEwZmRlMDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE5MzEwODY3ZTE5MTQwOTMyNDA4NmNhMTY2N2Q4MzFhMGVmMmY3ODNjZmRiOTdmNjhiNGM0OTc1YzE3ZmZiNTAifQ"
+        },
+        {
+          "resource": "repo://backend/utils/policy.js#L1-L22",
+          "version": "repo-lines-v1:sha256:de0b292e367b9a16b0e4414f4bc0a4c82b18ae67eaaec9315715ec64c6cb9ed8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA3M2ZkMjQ4NmU2MjY5MDBmNTAxYjkzY2NlNmQzY2I2Y2VjNjk4MGI3NDEwOTc3MjkyMDk0MzhjZGMxNTY1OGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_40c82c88134e489d8204e10fd620d27d",
+      "statement": "Online payment orders are created with orderStatus 'Payment Pending' and a 30-minute expiresAt, while COD/Wallet orders are 'Placed'; Wallet payment marks the order isPaid immediately, and post-commit side effects (SwadCoins loyalty, customer/admin/restaurant emails, newOrderReceived socket to the restaurant owner, push notifications, productUpdated stock broadcasts) are each non-blocking try/catch blocks.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/orderController.js#L326-L352",
+          "version": "repo-lines-v1:sha256:d5cffb0310a1195f54b7e4f46b6c3cbdced0c3e1603c583066b47a322ef8cdda:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1YjU0NWRhYmU4ZTdmNTI3MWQ3N2I5MWM2MDZhZDlhYWQ3MDZiZDk5ZjU2MGU0MTY2MDQ0MWVlNjdhNTZlZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU3MzM5ZDg0N2I1Njc5OTRmYmFiNDY4MzgyZDVjMmQ3YjkzYjIzODAxZTU2NzUzMGUxMGI0M2M4MjQyZTgyNWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4YjYwNWEwMWRhODZkOGYzNWU2MDc4OGFlZWJhYjE5ODcwMjcyMmZhZTlmN2RlOTVkNWRmYzBjODRiOTQ2MGMifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/orderController.js#L376-L496",
+          "version": "repo-lines-v1:sha256:68a6ef243202dc687ce3338e2595d4bc3533841b255f25ca5e19470e678c42f3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlYTFhMTI2NmQwNGFhNjUxZDE1NTMxMzJlMzE5NzQzMzFiY2Y3ZmZkMjgzYWYyN2ViOTIwZDE2YjgyZmFkNThiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwNGI5YTBiMTZiOTkxMGJhYTVkMGE0ZGNhZmY4YTYwYzQyOTYzM2JmMmFlM2NiYWNjODIwMjkwNzU4MGQxMGNhIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmZWZmMDZmMjZhNDZlZmMzMTgzMzJiNDZkMDEwZmJjMGE1NDUwYWZiZGVlMDEwNDZmNGE1MTk5OWRjMWU0ZGU0In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_9bf691787b44479eb8c368dd64ff83ef",
+      "statement": "Razorpay verification (POST /api/v1/payment/verify) stacks five checks: HMAC-SHA256 signature of razorpay_order_id|razorpay_payment_id with RAZORPAY_KEY_SECRET, server-side fetch of the Razorpay order whose notes.orderId must match the internal order id, payment status captured/authorized, ownership and exact amount equality with the DB order's totalPrice, and idempotent no-op if already paid; createRazorpayOrder reads the amount from the DB order (SEC-1), never from the client.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/paymentController.js#L38-L75",
+          "version": "repo-lines-v1:sha256:0dc683209925e21969a1fc38180571893b69abc97aa91310d38dcc63b3a6e55d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0ZDk2YjhkZDZlZTBmMDAxZWE3MGU0YWMzYzkyZDRiYzdmNGE1ZDAzMTg2MzhiNWI5OWU0M2FjMGJhMmI5YjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5Y2RjMTQ3YjBkMDBmNzVmNWQxODM0MGI0NjBmYmI5YmUzMmI0NGY5MWZlYmNmNjBhMzQ4NDQwYzU4M2UyNDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE5MDVjZDFhMTIwNTUzZjAzZjE4NDUxOGUyZmY0YzQ2YTE4Y2JiMjE0ZTZkY2U2ZTgyOWY4YTk0MzZjNTcyNTIifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/paymentController.js#L79-L251",
+          "version": "repo-lines-v1:sha256:7782859806979cbd6ea40251a6205f60a4963ad12bf65504e4ca1a1f6a02279b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTczLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIxZTU2MDkxYzk5ZGZlNDI0NWNhYzlmMmNkOWJmYmRkOTNhMmEwZWFkY2RkYWYyMmM0MTExZWFkY2Y0YWQ0NGMyIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhYTFkMWE2MzM5MDIyOWM3OTgzNDdlODNhMDQwNTQ0MWM5NDAwMDM1Mjg0YWQxNjhjMWJmNmNkZjFkNzBhMzcwIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIxOTA1Y2QxYTEyMDU1M2YwM2YxODQ1MThlMmZmNGM0NmExOGNiYjIxNGU2ZGNlNmU4MjlmOGE5NDM2YzU3MjUyIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiNGI3OTQxNWQ5ZTA4Njc3YWIyMzViNzYwNDdlZjJmZjMzMDkwYmI2NWEzZTFhZDUxOWRhZTgyMjQ2ZTA4OWY4In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_400b2bcd884b4510bbd7583440bc919c",
+      "statement": "The Razorpay webhook (POST /api/v1/payment/webhook) verifies x-razorpay-signature against the raw body with RAZORPAY_WEBHOOK_SECRET using crypto.timingSafeEqual and settles payment.captured/authorized events via an atomic conditional update findOneAndUpdate({ _id, isPaid: false }, { isPaid: true, ... }) so duplicate webhook delivery produces no side effects.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/paymentController.js#L260-L391",
+          "version": "repo-lines-v1:sha256:50b05d95cd2cc29800b2c609e9e11e741d10ca8188c869c32f84eb02b6b13d17:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI4MDYxN2IxOTU2YWJhMmNmZWQ2M2JjYTY1NGU3ZWExZmU3MWRhNjNjZGI0ODdmMDhjODE2YTgxZjVkYjc5YzU4IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhYTFkMWE2MzM5MDIyOWM3OTgzNDdlODNhMDQwNTQ0MWM5NDAwMDM1Mjg0YWQxNjhjMWJmNmNkZjFkNzBhMzcwIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwMjI2YTViZGNjMTkzYjdlZWE4OWEzZmVhNmZlNWM2NWYxNjJmYWVlYjNkMDExM2ZkNTBhYjFkZGI0MDQ4MDFhIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_285237a832f5482c8ba7a0f1641f40f6",
+      "statement": "Order status transitions are validated by a strict VALID_TRANSITIONS map (Payment Pending -> Placed/Cancelled -> Preparing -> Ready -> Out for Delivery -> Delivered, Delivered terminal), owners are scoped to their own restaurant's orders, Delivered can only be set via the OTP delivery endpoint, and on 'Ready' the nearest available delivery_partner within 5 km ($nearSphere) is atomically claimed (isAvailable: false) with a crypto.randomInt 4-digit deliveryOTP generated and ETA recalculated.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/deliveryController.js#L45-L127",
+          "version": "repo-lines-v1:sha256:d656b179a2f247e1b17c9d10f772ce7194e0fca38e6e968600f38064fc62aa47:eyJzZWxlY3RlZExpbmVDb3VudCI6ODMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM1NjMwNGUxNzVkMDFlMzViNTdmMTYxZDA5MTQ2N2E4YjFiZTBlOTQ4OGE5MzQ5YzFkMTAzYTQxODMwMWM1NGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU2MWEyZDFmNTNmZjNmMDRhNGUxZjgwMDJiNThkMjRjMzZlYmZjYTYzNTM1NjM0NjczNGU3YzhlYmZhOTY2ODYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFlODJmM2NiZDI5N2E0ZDI3M2NhYzAwMzU1ZTAwZTJmZTNlYmI2ZDlhMTMyNWUxZmJmOGVhNjk5MjExMGIyNjkifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/orderController.js#L616-L666",
+          "version": "repo-lines-v1:sha256:9cbaf78f348de9533645a60ff46f81fa13043196a2cea7d01724c80b98deb5fe:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiZDQwODcwZjgyYzU0YWY1OTk0MGMyMDk5MWQzY2UwZjQzMjFlOGFmZTI1Y2UwMWI0NDg3NDE5NTIxMzQzMTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkwYzQ1NDE0MzhhNzIzMDVkYzU1MDQ1N2E5NmZmODhjOTRjZTI4YThhOGMwZDk5YjVmZTZmOWM3ZGUxODE3ZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZkNDg3Y2E0YTE4YTgwNDZmYmE5ZmIxODY1ODM5Y2VhZjMwMDU5NjI0NGZjZjNiY2I1MmIwNWMxZmMzYzM1Y2MifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/orderController.js#L670-L727",
+          "version": "repo-lines-v1:sha256:f06b120d7ecda0aa14597def39a14e1a6aabdeece33a6daf2cff905609822c61:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkNjVkZDhmZGYwMDMxMGJjY2I3MGFmMTNiNmFiZjgzYTM3NWU0YTM0MzFlNjg5OTlkZDE2ZGQ1NjEzMjFjZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZkNDg3Y2E0YTE4YTgwNDZmYmE5ZmIxODY1ODM5Y2VhZjMwMDU5NjI0NGZjZjNiY2I1MmIwNWMxZmMzYzM1Y2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE2ZjdiNmQyNDg5NTA2YmQwNTEwZjQzNGYxZTk3ZTczMDBiZWM5Yzk2ODM5ZjE0ZGVmMDY0NmYzZGQ4MWU3YzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_591a04a321c74bcb92fb6f3cc0e6a556",
+      "statement": "Delivery completion (PUT /:id/deliver) is OTP-gated for the assigned partner only, caps wrong-OTP attempts at 5 (429 thereafter), marks Delivered, sets COD orders to isPaid at the doorstep, and frees the partner's isAvailable; deliveryOTP is stripped from customer- and owner-facing responses and socket emits.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/deliveryController.js#L208-L292",
+          "version": "repo-lines-v1:sha256:72767c2227fdb132a35b4c5aa05bc94085c5ecfea9f39768b7ef2d0933f3459a:eyJzZWxlY3RlZExpbmVDb3VudCI6ODUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3NjYwMTExMDQwM2VkYmIxMTBlYjYzN2JiMmJiNDUwMTkzYzA4ZWZmZWE2OGVhMjZlODc1MTRkM2RkZTNjN2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI2M2Q2ZWVhMzk1MmI5OGM4NWZjNWNmZDRiYmIyMTFmODcwNzYzYzVkODY0ODQ2YzlmOGJiMzM2MGQwNjM4NTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ0NGI0NTVlMjM3YTk0OTEzOTg4YTRlYzZhOTNjOWUwMWQzMWIzOTY4Nzg2Mjc5NjBjYWMwZDU0MWMxMTllNGIifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/orderController.js#L553-L557",
+          "version": "repo-lines-v1:sha256:131901e4bbcb1db77466e2616f271e318a419eb33462827d750f76382d070842:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTNkNWE4MTgyY2M3ZjUyN2YyNWJiMTA4YWY2ZWQ0YjU1YTBjOGY0ZTg0ZTBiOGNjYWMxY2ZjMjE2N2E5YWVhNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmY1MWJlMDBjMmU1MmFkNjExMTU0MmIxMjE2M2M2OWNiNjJlMDcxNzY3YTAxN2U4YjYzYTgwYmZiZjViYjFmMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTRmZTNmNjk1MmY0NzFlYmZkNzFlNDFkNTM2MDZhMTcwZWVlN2I5YmJlNmU1ODI3Y2QwNDZkNjk5ODMzMDkwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjBkNTU4MDVjMzc3YjBkZjBhMWZmNDYzYTk4MzBlNzVmYzFhOTRlYzA2NWJhZjBmYjM1NjlkMTA4ZmM5OThmYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_887007555ea348f2a7c990ba0824b4b5",
+      "statement": "Cancellation runs in its own transaction: paid Online orders get a Razorpay refund first (refund failure aborts cancellation), then atomic wallet credit with refundStatus 'Processed', per-item stock restore, CouponUsage release, delivery-partner release, and status update — all committed atomically; cancel-pending deletes un-paid Payment Pending orders after restoring stock.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/orderController.js#L1066-L1121",
+          "version": "repo-lines-v1:sha256:0cd59091997ba2fb140410837506f98b3aa1a33c725cf54e91dd64b54659e1d4:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUyM2YxYzVmNzViMWQyM2VlN2EwODU5YmExMzE1YTE4YzkyNDVhNTgxMWYwNDdjYmQ2ZjM5YTM1NGQyYTNiOTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjljNTgwMzU4Y2VmN2YzMjM3ZDMzM2U0ZWE2N2NiZmViZWNkZThiMGRkOGJhYjE1Yjc0MWE2MzNjYzIwOTNmOGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/orderController.js#L908-L1061",
+          "version": "repo-lines-v1:sha256:ad664397236ca43c634c34b41ca7271e413acadb20dc11317963aed6804b7b9b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTU0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1NTNkZmQxNzNmZTE1Y2NlZWU1ZmE4MWUzOGVlODM3YWFhNjI2ODM2ODFmNDk4MjY4OTIwNWE4YmFlMjc3ZWI3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJmNmY1YjQwYjE1ODQ1N2QxNzg2NGYyMTc5MDc4NmRkNWEyZWNkYjY0YjY2YTY1MWY3ODhkNGUyNWNkMzMwM2QyIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJmN2UwODczMTBjNmU2MGNkOGQyODRjOWE2ZDViMDkxYmM2NzY2ZWZiNzk3ZjBhZTg2Njg2ZWZlZWM5MzliZjY1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIzMmQ1MDVkNWMzNzI3MGYzYzkzZGE3NDE4NDgwYWUwMjY0MGJhZTZiYjhiMmE0N2QxYTVjOTgyMzU4OTVhMGU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_68ecce30cfbb40498408595c45a0502e",
+      "statement": "The Order model carries the full lifecycle state: orderItems with variant/addon snapshots, server-computed pricing fields, payoutStatus enum pending/processing/paid/failed with paidOutAt, refundStatus enum, paymentResult, deliveryPartner/deliveryStatus/deliveryOTP/otpAttempts/driverLocation, and the orderStatus enum with cancelledAt, cancellationReason, and expiresAt; an index on orderStatus supports listing.",
+      "evidence": [
+        {
+          "resource": "repo://backend/models/orderModel.js#L85-L190",
+          "version": "repo-lines-v1:sha256:d1af9e0c1e997946c5e79c376e00c759efcb52c419b88c2e397186719c90a697:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjZDBmNWU0ZmQzZmEzMWUwMWVlMTk3MDUxNDQzNjM5YTNmODkyYWQ4Mzc2MGQ3MGYyNzAwM2UzNzc4OGY1ZjYyIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ZjhkNDJmYzUwZjJhNzFhODRmNzM5MzAxMDk5ZTIzYTRhY2M3NjhhMDIzYjFlYzNlY2Y2MjMyZDE0MDJhNzNiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI1NjhjYjM2NWYwZWUxN2E2NTE3NjE5YTllNGFlZDg4NWVlYTc1OWM3NDQ3ZTE0ZGNiZjA3OWQ4NWY4MTcwZTJhIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI3Mjc0MDI1NDRhNjI5YjMxNTlhZDRiOWU1YjgwN2EzNzQ1N2M4NzBlOGNkNDE1MDY1Mzk1NTBiZTgwZGViZjI3In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_8dacaaf0b88740519ff0f95e05b397e2",
+      "statement": "Restaurant payouts settle the 15% commission fixed at order creation: requestPayout atomically claims pending paid orders via updateMany guarded on payoutStatus 'pending' (409 when another claim wins) into a Payout record, and markPayoutPaid sets the payout to paid with an optional UTR and flips every included order to payoutStatus 'paid' with paidOutAt.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/payoutController.js#L166-L190",
+          "version": "repo-lines-v1:sha256:8866a439bdb22c5c29dc9f0e71249b2e2825a795345a0132bd0d7257ef49e253:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlhOGFlYzNiZTIyYjZmZDRlM2FmMDhlMjU0MDUyMGZlMDhmYWVmOGIyMDBiZDMyNTk0OTdhN2ZhNzQxZjJiYmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUyOTc4MzBkYjI0ZDIyZWM1ZGI4M2E1YjQzZDY1OWNkMDY4ODk5YmM1YTYzMGI3ZDM3NzY3MjZkZDQ4ODFiYjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/payoutController.js#L74-L140",
+          "version": "repo-lines-v1:sha256:927ee450135dbb88f96c288d6cf924a6d4fbe2b1c27bd1c8c2c31b6bdda5526a:eyJzZWxlY3RlZExpbmVDb3VudCI6NjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5NGNkN2Y4MWM5ODc4NTliNTIwOTcwNDU5MDMwNTM0ZGEyYWM5Yzg4ZjYwNzUzZWUzNzg5YjZmN2FhZGY2MDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZmNzJiNjE4ODNkYThkN2Y2Y2RkYjRhZTA2OWRhYzJkODRmM2FhYzc0NDM1MzczZjQyNTA5MGY4MmU1ODQ1OTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwMGFhOGQzZDlkZDY4NzM4ZmRhN2IwZmRjOWJmNjAwMGRkYTM1NGE3NTAxNDRlZDk1ZDk2OWNjM2UyZTg3NmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJjMzc5N2VmNGFhYmFmZjZlYjhkNDRmZmQ2ZWI3YjdiODI0N2RmZjA1N2IwOTk0YzRiZTU1NjE1NWRmNmEwMWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e06f682a441745e190bdbe7029b8300e",
+      "statement": "The frontend cart (Redux cartSlice) enforces the single-shop invariant at add time by wiping the cart when items from a different restaurant are added, keys line items by a cartUniqueId of product + variant + sorted addons, persists to localStorage, and none of its client-sent prices are trusted at order time.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/redux/cartSlice.js#L126-L157",
+          "version": "repo-lines-v1:sha256:843152dbd70bdb11226f8b9d00d094de8f9d9e85ac79906245ac96ead1ac99e1:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlNTU3ZmM2NjdjYzhhYWE4Y2IwODFjZjFlYTdkM2Y4YTVjNDY5ZWYwOWJmNmYzNDQ1OWY0MWE5YjNiMTdkNWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxMzk5OGMwMjZmNWViZDcwMTQ0ZDI4NjI2OWM5MjE3MDgyOTEwZDBlMDAwYjZkMjg1NzY5OGU1MzVlODljOTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4ODg0NGUzOWUwYTA2NWY0NDFkNDQ2MGZjZmJlYTI0YWExZDYyMGY5MDA4ZjMwYjY5YWFhYTYzZDIzY2ZlOGIifQ"
+        },
+        {
+          "resource": "repo://frontend/src/redux/cartSlice.js#L34-L106",
+          "version": "repo-lines-v1:sha256:89b8a1fb6c5a43eb854b88c3034483cfbe6c1d70ef6ec9fd8482c93f44bf78af:eyJzZWxlY3RlZExpbmVDb3VudCI6NzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNhODkzODMyMmYyOGUxNWIyYWIwYjg0ZWMwMzI2ZWNlOTI4MjY5ZThiMGUxMDM2YTU1YjZlYTkzOGExNjRkYWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjNTY0MDgzNDVkNWM5MTlmZmU3ZmRkYmIxZjNiYjExMjA2NjcwZGQzY2U3MzcxNjM4MzE4ZGQ2ODU3MWQ3MTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxNjlmMzg1MDgxMjM0MDUzMjk1OGY1N2M3NThhODY5ZTA4NDFhZDNmYzBhNWU0Y2I1MTBiNzFhMzI5ZGZjZTgifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-03T11:06:07.603Z"
+  }
+}

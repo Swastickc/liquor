@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:9bb2da5dad4c997ce2e4f986283abdeacdc34d8a0f4833e5eaac39a53f6ac74b",
+  "claims": [
+    {
+      "id": "claim_96609f18f57a45709142db3239383d51",
+      "statement": "App.jsx defines four role guards (PrivateRoute, AdminRoute, RestaurantRoute, DeliveryRoute) over lazy-loaded pages, mapping each dashboard route to its role, with a catch-all redirect to /.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L265-L334",
+          "version": "repo-lines-v1:sha256:bb0162660d9d73fa3452b2b902997858bfed3fd746f9d314d6930404ce1be95c:eyJzZWxlY3RlZExpbmVDb3VudCI6NzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhMmE3M2E1NmYzMTEzN2E3YmJjYjRlYTY1MTAyZWU0ZjZiYmUxYjhhMDdkNDAyMjIyMTlmYmMzNGMzYWU4NjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc2MmZkM2RmYzJmYWY2NGYwMjgxMmYxMWVhNTUzZTJmMzllOTk3N2RjZWYxYzg0ZmI0NTIwOWMwOTM0ODAyMjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUxNTNlZWZmYzI1MWZiZTg4ZmZiYmUxNzk3ODMzODQ0MDI1Nzk3NDQxNDE0ZDU2YjIzZmMxNzM1ZTE3NWUyNzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZkNWUwOTgzMTFlNTA4ZmI4MWNlZGJlODI4ZDAxZTNmMGJhYTA3Yjc1MGRjNGIzMzNhZTNkN2RkMDBhNzIxYTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f4b198a075ca4078aa05e72eb76a78da",
+      "statement": "userSlice strips the JWT out of localStorage userInfo into a separate jwt key for the Socket.io auth handshake, and validates sessions with a 10s-abort profile fetch that only logs out on 401/403.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/redux/userSlice.js#L36-L60",
+          "version": "repo-lines-v1:sha256:9fc9566c33497bee831cecfe88c278977d102edbd51816cf1432d70cf78d8fb8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0YjBmMTM1M2E1NTM2M2ZjMTRlOWNjNDMyNmFlMDg3NTM3ZDIwMzVjOGY1MGY3YTEyNTZjZGFmMDBiZjllYWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4ZGI3NDYwODE4MmNiN2NhNGQ5ZmJhNDlhMzk0OTlhN2YzOTA3YjRlYTAzM2IxNDkyYWQ1Y2YwYmVlZWVjZWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhMzcxMmRlNWRiN2IzY2Y0MmFhYTY1ZGFlM2NmNzdkOTc0Y2RlYTJhYmYzNWViN2ZmOTMwNGE1YzIyMDk4NDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJhZmEzYjZmOWIxZjZkNmM4N2ZlMTI2ZmU1YmQzNDkwYjRiYmVhNDJkMWI4ZWZlMWY5NmM3MjY0OWIzZTMyMjQifQ"
+        },
+        {
+          "resource": "repo://frontend/src/redux/userSlice.js#L7-L18",
+          "version": "repo-lines-v1:sha256:6c74bce0b007d81db8ab5affeca7930a577efef4102573050b011259aed367dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2NTk1ZjRlZTVmZjYzZDUwOTUwNDE5ZGMzNDQxNDUxMzg1MWRjOTczNmZkMTdhNGY3YmZhOTMwYjI2MWI2ZjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlNmQzMTEwZTkwYWIxZmVjOWZkNTNjMDM0NjY3YWViY2I4YzRhMGE2N2Y1MDA0ZTE2ODQ0Y2E2ZjgzZWRhMGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjNjM0MzE2ZTIxYjI3Njc5MmQ4MWQxM2I4OGUxYjIwNTJmOTFkYWUzZGRjMDY5ODM2ZGYxMDkxOGJjMjk3MjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4ZDFiMzk0MjVkNTYxN2E1ZThiNzFiMWU2MjNhMDFlM2M5YjhhMWU3NjdkODJkODMzNDhjNTc1MmU4Y2JiNDkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cf247bd891e54c5997eeac2bd4f20796",
+      "statement": "cartSlice persists cartItems/shippingAddress/paymentMethod to localStorage, composes deterministic cart IDs from product+variant+sorted addons, and blocks adding items from a different restaurant (single-shop invariant client-side).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/redux/cartSlice.js#L30-L83",
+          "version": "repo-lines-v1:sha256:6bf8887be350daa917eead4446f296a151b1cf83400491a44fe0af0b9fe7ce72:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkwYzY4OTU4NWQ3MDRiMzJlYzcwZWQ5MDkyMzE5MDE4ZWYyNDhiOWM5M2NlZGJkOTFmNWMxYThiZjdkOTFiNTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1Y2NhYWZmOGQ4YTAyNzg3MTIwMjY4Zjk4MmIwMjViZTY1MGFhNDI3MDQyYjdmOTQzN2M4OTEwOGIzOWIxOWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ec077d6d4e3942fa89dd573eefda8e90",
+      "statement": "The biometric lock checks platform-authenticator availability, the isBiometricEnabled localStorage flag, and login state before locking the app, dynamically imports biometricService on the lock screen, and limits unlock attempts to 3 before logout.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L88-L161",
+          "version": "repo-lines-v1:sha256:6e3d2fa6ee2a50204420193a7b660d195a9bc0b9018af66ac3a88a7f47f2e357:eyJzZWxlY3RlZExpbmVDb3VudCI6NzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2Y2JkM2U0Zjc1YTllOGVjMzU2Y2NhZDg5ODQ1MzYyMTNjZDQxYWQ4YThlNWRiMDkzNDMwMjE2MWQyNWY4YWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUxMmI4MDVmNjQwZTIzODA1NzVhYjRmZDc4Zjc1NTcyYzEzYzRjM2MxZWZmZTI2ZTA0MWVjNjZiOTJkZjgxZjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU4ZjVmNDE4MTlmMWZmNWZiN2ZiMTg5ODFiYTkyMzU5MzFlMTRkM2U2NWM5MDIyMjllYWYwNGFjMzU4MzUwMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4YTEyZGNlOWRhN2YzYjY2NWJlYmI0OWQ0MTFiYmU4YWNiYTc5ZmNjNzEzZGVhN2MwYmFmMDhiMzZkOTRhZTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_baddf0c8a91d47869a0fb2838fbb8e2a",
+      "statement": "Workbox config marks /api and onrender.com traffic NetworkOnly with credentials included and external imagery StaleWhileRevalidate (50 entries, 7 days), with kill-switch SW options for immediate update activation.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/vite.config.js#L31-L76",
+          "version": "repo-lines-v1:sha256:385b1994530e80f684dc275e251d6e2c7ea9e6fa3726c3812ca541e936f7ee26:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyYTViZGY2NTRjN2Y4NjhhOGQxNjJhNjYxNjcyOTUwMjY3ODZjMDM5ZDQ5NjY5NWI0MjcxMzhjZjk4ZTc5ZWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2OGY3YzRhZTExMmZkNmVjMmY1ZjJiNTRlNzAwYzk4ODU3MTY1OGM4Y2Q0ZjE5YzljOWQzYTZiNzFhN2ZjMTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5MTU1NDAzYjkwNjFhNTliYjAwMGQ5ZDQ5NmYxM2I5ZWY3NDFkMzY1Mzk2MjBiNTdjYmE3NDcyNTBhNTc1NGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmMDYxNGIyNTJmOWIzYTFjZmViYjBmMDNjZTc3OTYyYzFkNjU2YWIxM2U4NzFmMTA2YjJmZGM1ZDRhNWJkY2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c8a3621de0944042b1c6c676b2c2f198",
+      "statement": "On login, App.jsx opens the shared socket, requests notification permission, and subscribes orderUpdated to play a sound and raise a Notification, cleaning up handlers on unmount.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L122-L145",
+          "version": "repo-lines-v1:sha256:a2cf9784de70ee8d50fa5c22cd6454ed102e2db7132e1c06797aeca536dc5036:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYxZDBkMzZmMWJjZDg3ZjZhYWMyMmQ4NmZiNmNjZDI2OGM0N2E5YzhmYjRjODIzMGI5ZmRiMjg3OTFhOTlhOGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdjN2E2MDMxYzdkNjFkOWQ5ZDAwOWFhYTFmYWE3NmExMTZiMjc2Y2M2M2E4YjdiNjE0ODI0N2ZlMzVjZTkwZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzZTFiYzhhNmI4Y2UxMDVmNDJmYjNiOTAzMjcxM2U5ZDU1YzBmMmIwNDk0MGIyMDA3MTAwMjc4ZWQ5OGIzNjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlMGI3YTAyODY0ZDY4ZTUzODMyOWYxZmY2YTg2YzRhMWZlZTg4NWY4MjVjM2RkMjczNGM0MWFjNDBhYWExN2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_05898b26cc4a4d42b7f4cfc2c715525c",
+      "statement": "i18n.js sets up i18next with browser language detection, English and Hindi common.json resources, English fallback, and localStorage caching of the chosen language.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/i18n.js#L1-L30",
+          "version": "repo-lines-v1:sha256:b1e79224e6a169590a1746a5da1495ced5099f73b85022b4d9948e08ec94acf2:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhMjcwYjZmNzYxZWE1MDI1ZWMwNDMwNDczNGU0OTg2ODFmYTUzYzk2ZGExZTUyNjRmMWYwNjRjNTZjNGNiMjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzMzBjYzRiMjE4MmNmMTg2YWYzODg4MzNjNGVjMWRhNDE5MTcyYzFmNjZkYWMxZjUxYzkzNjg3ZDg1OTBmYzciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAzZWM1N2NkMGFjNTdkYTE2ZTUzZTY1NmY0NTJjZGI1MjRiMWU4ZDM5NWMzMzMyY2Y5OWViMDFkYmExNjc1MzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_764c5e0013dc494b888fa330093c8ef9",
+      "statement": "biometricService wraps @simplewebauthn/browser registration/authentication against /api/v1/biometric using HttpOnly-cookie credentials.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/utils/biometricService.js#L1-L40",
+          "version": "repo-lines-v1:sha256:e8ae2ebc61206e9df813e92d0bd93b2c102b650373552edfa83780877ff745d0:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU4MjAwOTY0YTk3ODYzNTUyMmIyYWIwOTBjNjUwNjVkOGVmOGU4NWM0NzMwYmIyZWIwNDYwZDM0YzY3N2RkYmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBiNzFiN2EzMzI1NjcwZjg2ZmMwNDE3ZGNlZDhkNDM5NjY3YjU5ZTU5NzRiZTZjMTViYjQyZjYwMTIyYWZkOWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_272e32b5d7074a78bba98212a6a10990",
+      "statement": "BASEURL resolves to import.meta.env.VITE_API_URL or empty string so the Vite dev proxy serves /api locally without env setup.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/config.js#L1-L3",
+          "version": "repo-lines-v1:sha256:b247e70362986cc9e95b1a2b4e327bf77b23e67a6c51b67fea44edeb29556e72:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTZjMjVkNjY2MzQ0MWViYmZhOGRiMTJjZjA4YTYyYzM2NjJiNjAwMjg1NzNkNjljNDJjMzdhMDczNDJlZWU5YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTVmOTgxZDkzZmY3Y2RhMDI0YjZhOGJkMTBiZTYxMmEyNjZkYzBmMjRlZjQ2MTc3OWVlYmVkZWQyYzg2YzdjZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-03T11:06:07.603Z"
+  }
+}

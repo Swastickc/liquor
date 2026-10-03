@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:f042a2a3bce5a3886a3eda1eea51079c05f7e4148078c0c0f032c8b271e09103",
+  "claims": [
+    {
+      "id": "claim_8c85daac0c6c48e7be2161d0bec28035",
+      "statement": "backend/utils/policy.js centralizes the legal constraints: LEGAL_MINIMUM_AGE=21 with exact calendar-age computation failing closed on missing DOB, and ordering hours 10-22 evaluated in Asia/Kolkata timezone regardless of server clock.",
+      "evidence": [
+        {
+          "resource": "repo://backend/utils/policy.js#L1-L22",
+          "version": "repo-lines-v1:sha256:de0b292e367b9a16b0e4414f4bc0a4c82b18ae67eaaec9315715ec64c6cb9ed8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA3M2ZkMjQ4NmU2MjY5MDBmNTAxYjkzY2NlNmQzY2I2Y2VjNjk4MGI3NDEwOTc3MjkyMDk0MzhjZGMxNTY1OGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_45824f739f1a48428368392b7bc53459",
+      "statement": "Registration requires dateOfBirth and rejects under-age users via isOfLegalAge before account creation, with OTPs generated via crypto rather than Math.random.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/authController.js#L14-L121",
+          "version": "repo-lines-v1:sha256:741c72baf1baeb9b7c5a276fa6034bb3a72620d28e5654e138cdb228514edd18:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiNTRiMjI1N2NhOWY0N2ZiYTc3YmExNzNlYjM0NzkzMzk5Y2JkMGRlYWI1ZTMwN2FlYzg4NmNhNDEyZTEyMGJkIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI1N2Y5YmY0MGRkNTg0NzA4MjI4YmU5ZjJkN2FkMGY4YjEzZmM3NDk1ZjE3MGUzOGVlNWJjMDYwMDNiNDgyNTMwIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjZDcyNDVjNzFlNjBmNjlkYTk5MTJjZjk4NWNmMzZmMjE4YzA3MjJlOWY5MzY2M2FjNjhjMzg0OGMzYTVlNDA0IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiMWUxNTRmMzZiZWU4ZGFjOGE0ZGQ2YjFjNmZjZDM0NWE4MjhhNDY0MjJlZDZkZDQ3YjQ2ODFkMWI2OTRmMjEyIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_6317510bf351407f82f2b16ffb25df4f",
+      "statement": "addOrderItems re-enforces both the age gate (403 if DOB missing or under 21) and legal ordering hours (403 outside 10-22 IST) server-side at order creation.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/orderController.js#L57-L72",
+          "version": "repo-lines-v1:sha256:18ec1a0c6f477f1bb7f6117fe045dcd5506fc1999274fa097fa88c8e36acb3b0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE1NzEyNGY4ZTRhZTI0OGIxYzQ3Yzg5ODZhMmRkZjNhMzE5ZjI4ZjMyM2NlMDU5N2M1OTFkMDEyMGYyMzJhMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2ZjI3ODcwZmU4NDMwOGU5MGI2YmMxMmUxMGIyMjQ5OGJkODMwYmVmYWUyMDNjYzAwYzZmNjUzZWFkMTI1YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkzYzEwOGQyNDg2ZmM1ZDVjOTcyN2M5NjUxMGZmZGEyMzM1ZGViZDU1MDJhZmIwNjJkNjIxNjlhYjc2YWY4ODAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_79777b303b43493bbe5796ecbbb2e1dd",
+      "statement": "Order creation validates single-restaurant checkout by comparing every item's restaurant against the first and rejecting with 400, and independently re-checks the restaurant's own opening/closing hours using IST offset arithmetic including wrap-around windows.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/orderController.js#L75-L118",
+          "version": "repo-lines-v1:sha256:bd0f9ba5bcb4bb9dfc5716cb6cc2cd6dcd7f7ef9531af811fc639c981efc11f3:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1MDA3NTNlOWU1ZGRjMDY2N2I0ZDBiNDNjNDEyZjY2YTczYzA4ZWU1YTY0OTg4Zjg1NGVjYTY0NTY1NmY4OWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlNzVjNzBkOTQ2MzYyNWUxMDc5ZmQ4ZmM4ZWU2MmFkMmU5MmM0MmJlYWFiZmQ4NWI3OGQ4ZTBhNDk3OWI5NGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgzYjJmNGI3NmI0Mjc2MWNlMmE5YWMzMmQxYWJlNDc1YWY5YjgwNTZkZGUwYjUzMzMyZmNkZjI3YzE5YWZkNzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU3Yzc4ZjRmNzAwMDgzYTk2YTIyMDU0ZTM5YTE1MWM5OGQ0YzI5NjI2Y2MxMmE5YjllN2VjZTE3Yjg4ZmI4NzUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ea01841b1d3c4ad7b2bb32157936919b",
+      "statement": "Delivery OTP is generated with crypto.randomInt(1000,10000), stripped from all customer-facing socket emits (delete customerView.deliveryOTP), and updateOrderToDelivered enforces max 5 OTP attempts with 429 lockout and resets attempts on success.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/deliveryController.js#L211-L245",
+          "version": "repo-lines-v1:sha256:1770fbc5cf8df3b5dc64720ae91e23c9d45cd9a75c383a08ba8bd35c24afd0e6:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAzZDg0ZmJiMjg2ZGZjOWE2ODUwY2YzMzVlYTZiNTczMWY5ZjM5Mzk3MTYwNGU4ZmRiZGU1NTEwZDRmMGJkNDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4ZGE0MDRkYTI4MzM0MWFjYWNiOWVlYjQxNzk0MjQ0ZTAzZjJlMWU4ZjhkMzc2ZTkzZGM5MDhlM2Q1MzMyYWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MTQ0NmE0NTBmMDU1YTQwNzgxMGJkY2MzNDdhNDcxMmU1MDRjNjZlNjYyNWI2ZWVlN2MxOGE1NTQ3NzAwOGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU3N2JkM2VhMDAyNjYwMTQxMWRhMWFmYWExODkzZTk1YTM2YTdmMzdiNzViZTgxNmYxMTIwYTNkMmRkZjMzM2IifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/deliveryController.js#L88-L107",
+          "version": "repo-lines-v1:sha256:47dc696339a754742c359086ab88aa52486f02d8471a61ddfd0c17f0d1d5f8cc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5YjEyNDM3M2FiMmU3ZTYxM2Q5ODQ5MTUwYjVjOGQwMmQ0MGUwNDU5NzNmNWYwNWQwMTExNGU3YTY3ZTdjZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOGZjZmJiNjQ4NjE4Yzk0ZDQ2Zjk1ZjU2M2FmYzY3Zjg4ZGVkNTUxYzViMzUzNmNjNTcyNmNhNjJlZWNjN2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzOWI3YzE5YmNhY2JjNDRmODgxYjM0M2NhYzM4NDcwYjdlOTM1NjgxZWI2MTAwYzUzNzljNTliOTQyZWM0Y2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlMzU5MmQwYmUxYTAwNmJmZDQ5ZTU5ZDc1ZTIzMzBmODQ3OTlkNTU4NjkwMjdlMTMxZTVhMWYwYmExYWZhMmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_85c4c63496994ba9b7394e59354081bf",
+      "statement": "updateOrderToDelivered is restricted to the assigned delivery partner or admin, marks delivered, flips COD orders to isPaid at delivery, and frees the partner's isAvailable flag.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/deliveryController.js#L199-L268",
+          "version": "repo-lines-v1:sha256:952f06bf9d56ab12615a947b8dc32e8057dda78702b6386c56afc0edf52b33b4:eyJzZWxlY3RlZExpbmVDb3VudCI6NzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJlYjQ3MTZlZTBlNWI3YmRhYmZkOTU0ZjQ4Y2MzYzgyYmQ1YmZmMDY4MmYxNDhjMjBkYWRlMjRmZWEyZjNhNWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkNzEzN2M0ZGFlNTdmNDMxMzUzYzZmMGZkODQzOGVlMmQzYzdmMTU0ZmMxYmM0ODIwMTUxMGNhYjZlOTRhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZlOWE4MmFhOGRiOWQ0ZDQ5MTA4NTdmOTgyYTZmM2JlOWEzMTRhMzkyNDIwZGNmNGM1YjNkYzk2ZGExYmZhN2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU2YmM5MDc5MjhkYWNjMjYwYzZhZDU3ZjYxMmFiMDA0NzkxMjU3OWQxYjllZWQ0ZmZlYWU3YTFjOGFhMGY2ZWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4c08cca495c045d18c62e4bc643dba7e",
+      "statement": "verifyPayment enforces defense in depth: HMAC signature check, server-side fetch of Razorpay order and payment, notes.orderId match to prevent replay across orders, amount equality with order.totalPrice in paise, and idempotent handling of already-paid orders.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/paymentController.js#L79-L152",
+          "version": "repo-lines-v1:sha256:52839e3f2026ef9b6d415b88e81cba83b1d1f89bcce5b62e65fb3de7b5f9a966:eyJzZWxlY3RlZExpbmVDb3VudCI6NzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlNTYwOTFjOTlkZmU0MjQ1Y2FjOWYyY2Q5YmZiZGQ5M2EyYTBlYWRjZGRhZjIyYzQxMTFlYWRjZjRhZDQ0YzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNjJmNjBkODU5MGE1NzljZjQ2ZjhkNjczNzhjNGM1NzJiOTYyY2VjY2RiOTBjN2E1ZjdiNDJiOTYwNzgyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5MDVjZDFhMTIwNTUzZjAzZjE4NDUxOGUyZmY0YzQ2YTE4Y2JiMjE0ZTZkY2U2ZTgyOWY4YTk0MzZjNTcyNTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMzZDI0MzVmZWNiMmViZDEyMTI2YWVhYzBlZmFlYmYxZmY3NjNiYWE1ZTc0ZDcxZGQwMDhmZGQ1ZDE3MGVjM2UifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b91d04b70ff84493ac4961fcd5d96aea",
+      "statement": "The Razorpay webhook verifies x-razorpay-signature over the raw body using the webhook secret with crypto.timingSafeEqual and processes only payment.captured/authorized events.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/paymentController.js#L260-L300",
+          "version": "repo-lines-v1:sha256:3d215b0849cb392bd9d1998772f5f007952a08cf1be9ef8b790317870d9c2fd0:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwNjE3YjE5NTZhYmEyY2ZlZDYzYmNhNjU0ZTdlYTFmZTcxZGE2M2NkYjQ4N2YwOGM4MTZhODFmNWRiNzljNTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAyMjZhNWJkY2MxOTNiN2VlYTg5YTNmZWE2ZmU1YzY1ZjE2MmZhZWViM2QwMTEzZmQ1MGFiMWRkYjQwNDgwMWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlhNzAxNDQxZTBhOTRjYzc4NmI4ZWI0OGJlMmUzMzlmMzdkZjc1MzM5MWJlYzgwMTYyYzI0ZTAwMzZjZTg2Y2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6323ec2626b84d9daf6140b49026a089",
+      "statement": "Wallet payments debit with an atomic findOneAndUpdate matching walletBalance >= serverTotalPrice and $inc decrement inside the same MongoDB transaction as stock decrement, preventing double-spend.",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/orderController.js#L303-L324",
+          "version": "repo-lines-v1:sha256:fd3c17bf4c964911cd410dc16f90e6afbfbac4fa41bdcac3681b45929a700842:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxNzEwZmQ4MDhhM2MyOTRkMWExNGZiNGY2ZDc2YmY5NTYzMzViOTVhMzFiNWJlYjU2Mzk5NmMzNmJmNGE5MGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcwMzRmOGMxNDE4ZjlhZDViOWU5MjNmNTgxODRkYjZmM2NhYjBjNTEwY2JiMDZhZDc1NGE3YmUyYjk5YjMxY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE4ZjU5MzgwMjVhOTlmM2Y0ZjE5NWEzODkyNmY2YmEyNTI3NjhlY2IzNTg5ZWZiZjNlZDljZWM4OTlkZTVkZjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6b2821808a3a4582b3eda35dba71e6ef",
+      "statement": "Coupon validation is fully server-side against server-computed item price, prevents reuse via a per-user CouponUsage record, and records usage only after payment verification for Online payments (BUG-08).",
+      "evidence": [
+        {
+          "resource": "repo://backend/controllers/orderController.js#L231-L263",
+          "version": "repo-lines-v1:sha256:d990831f2426822c8f6c173f7b95b8ad40e3c1bdb1197adf1a9d86f25510c956:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjODQzYTI2M2NlZmIwYzhjOGUxZDE0MDNjZDZkZGFlZDI2MDE4NWMxZGMxYzJlZDY2ZWIxYjY1N2RjYWRmM2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1M2E4YTFlMGE2OWE0NDA5OTgxYzBiMGMxMzhiMzE1Yzk4NTFmZDc5MjU4YWVjNGUzYjE1MzE3MWVjMTU4ZmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEzNjkwMDY2ZDM5YzdiY2FhYzdlNTc3NGU2YjAwNTE2YjQyNDgxMjkwNjJjZDJjNGU2Nzg5MDYwNTFlM2FlY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcwNTY1OWE5ODljYjI0NGM3YWI3OGQ5MGFmMjdjN2MwOTJmMjc5YzM0ZDhlNTUyZDJjNmJlOGI1NmNiNmJmZGIifQ"
+        },
+        {
+          "resource": "repo://backend/controllers/orderController.js#L362-L374",
+          "version": "repo-lines-v1:sha256:d6e80a3229d24e713a9e1d495b12004f5d0ffea1341772d7547fdd182f63202d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1ZDQ1ZjMyZmU0Yjg1MjM0YTA4YWRhMWE5ZGQyYmUyODEzYzlkNzNkNjFmOTVhYjIyMTlmZTk3MDMxMDM3MWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE4M2Q3NTA2M2VhNjhjNGEyNjY4MTgzMzg3ODg5ZjRjMDA4ZGJmNDNhYTBlMzA4YjAwNDk5ZjRjMDA1YjA5OTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxYzNhZDg0OTJhZmQzYzc3ODA0NjdjYWI5YzJlZjdiZThjZWIzMzNjYmJlMjU1Mjc1ZGY5MmQxMWQ0NjY5ZmUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-03T11:06:07.603Z"
+  }
+}
