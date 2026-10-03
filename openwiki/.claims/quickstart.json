@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:4105c5812942276b8e0e7870052fbaa35cd954e41fd9d46f31d43e9829a0dba8",
+  "pageVersion": "sha256:8a60364dbd0e8a3abd3e28d365ad43c016293e045282a8344377e2ab32abc678",
   "claims": [
     {
       "id": "claim_1d14ce0c18f749ea9257f46824e6581d",
@@ -18,19 +18,19 @@
     },
     {
       "id": "claim_e7a582df4d3749158134318c8d274389",
-      "statement": "backend/server.js validates env at boot (JWT_SECRET and MONGO_URI always required; production additionally requires RAZORPAY_KEY_SECRET, RAZORPAY_WEBHOOK_SECRET, COOKIE_SECRET and a >=32-char JWT secret), registers the payment webhook raw body parser before express.json, and layers rate limiters: /api general, auth endpoints 10 per 10 min, contact 5 per hour, order POST 20 per 15 min; /health reports mongo/redis readiness with 503 when degraded.",
+      "statement": "backend/server.js validates env at boot (JWT_SECRET and MONGO_URI always required; production additionally requires RAZORPAY_KEY_SECRET, RAZORPAY_WEBHOOK_SECRET, COOKIE_SECRET and a >=32-char JWT secret), registers both webhook raw body parsers before express.json, and layers rate limiters: /api general, auth endpoints 10 per 10 min, contact 5 per hour, order POST 20 per 15 min; /health reports mongo readiness with 503 when degraded.",
       "evidence": [
         {
+          "resource": "repo://backend/server.js#L106-L113",
+          "version": "repo-lines-v1:sha256:10a2f625fe3e1473a3f34dad98d337385fa52e7a661d507385ec788b8dcd6581:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDYzNWQ1NjQ4ZGJjMTBmZDI5ODAyYzk0MDExZWY1NmE4MGE0MDBhYWYzNmQ2MjQyMDI3YjUwODJhMzRhNzI4ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmUyMTdkMTI0OTg4YWMxNTYzNWM0MjE3MTkyYjk1YmRkODlmY2VlN2M1MDdhZDEzMWUzM2RjMDg4YzM4MjIzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYThlMjhhYmRmNWJmNWFiODFjYzE1NDNiNzY3ZTY5YmZlNDE5Y2UyZThhMDkxNWVlZjhhOGJmNzEzOWZlYzgxYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmU1NDAyMDQ2MDcyMjFmMjFmZDNmNTg4NTliMTcxYzRkOTQ1YWU2MmUyZTlkZjM1ZjIwNjA3YWY2YWU4ZjgyYSJ9"
+        },
+        {
           "resource": "repo://backend/server.js#L384-L459",
-          "version": "repo-lines-v1:sha256:7cfeeb9a23849f84a649b7f0d4175be561304107920fcbbdbf4b0449276f4e42:eyJzZWxlY3RlZExpbmVDb3VudCI6NzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3NWZmNzg0NjVhZjNmMTkyMGQ0MmY5ZmQzM2E4MDUxZmU4NWYxZmNiM2Q1MmMzODVmNTcyYzg5NTVjM2JkNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkNGJmMDhhNDRjZWM2ZjJiNTBjODg3ZDMyMzNjMzk1MmMwNWQzNmRkYWRjOTQzNmNiYmM2MTg2OGQyOTRhMzUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ0MDRmMzdiYjhjMjY1OTViZDZlNTFhNzRhZjY2MmE3YmZkNDU1MDQ3M2U5MDA3MmRjMGI4ODZmZDFlNzA5MGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIifQ"
+          "version": "repo-lines-v1:sha256:8dfcb84e9f02b9aa43ab90b1878cee260cb759064cdbfa63c445fcfd5e68c931:eyJzZWxlY3RlZExpbmVDb3VudCI6NzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjZDdjODI0OWQ0ZGY3YTU5MmQzYzc2YTQ2NThkZDI2N2U1YzkzMzU4OWZmNTBjNjgxOTE0NTQ0NTFiOWQxYzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0ODQwZTA0NDI0ZmUwZWY1YmE5ZWM5NWQ0NTlmODgxYTQ4OTM0YjhiNzRmOTgzN2VlM2M2MmNlNmMyMTIzYWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE3NWIyZjAyZmEzNGFlYzNhODAyOWMzYmZlOGU5NzgwODU2NjFmMGJlOTM4NTg1ZmY4ZjFlMmUwMWVkODJjYTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhiOWRiN2E1MDM3ZDI1OWI3MTEwN2VkNjJmY2FmZTRlZDdkMWM1NDRkYmFhNGRjZjc4ZjU4OTQ3NjRmMmIzMzgifQ"
         },
         {
-          "resource": "repo://backend/server.js#L61-L90",
-          "version": "repo-lines-v1:sha256:5b1f39dc8e1a7d8d9a9744bec671961832550a9814827f6ebfd33bddb15666a8:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhMDM4YjkyYTE3NWVmYjc3NmY1M2YyZDM2NjY5ODYyMDRjNGJjMmI5Mzk4OTY4Y2ZhNDA0ZGZjZTA5YWY4MTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhkODdhY2ExNzRhNDdhODYyYWM3M2E0YjM4ZDExNmU3NjY3YjU0YzVjYTQwOWQ1MTBlZmZiMjkwYTI3ODgxM2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhNTk2OTYxN2M5YTIwODVjNzEzMGJhYzE5MzJkZTYwNTUyM2NhMDNjZTVjYTMyYThkZDBiZGQwMjIzYThhZDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNiZTA1NTAxNmZhMzhmZmY5NmRmZDQyOTUzZTlhNDk1MDM1MGZhMmFjMDcxNTFlMGJhMWY5Zjk0OGM4YzMwMTgifQ"
-        },
-        {
-          "resource": "repo://backend/server.js#L92-L107",
-          "version": "repo-lines-v1:sha256:5c98a3ec926cfd598ed5979869584191b3de9679d0feb7e125d4338530a8fc09:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc5YTdmYmZjNDZhNGU0Mjk3NDY2MjY3YzU4ZWVmNTNmZmI5N2U3MTk0NDM1OTJlYzQ2YWM2OTBkMTA1ZGJlZGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhZmEyMzJhYWYxYzMyZTIwNDg2YTU0MmIzNWM3Zjc5N2Y4OWQ2OWQwNmExOTdjMjY3OWExYTU1YmRmMGNjODIifQ"
+          "resource": "repo://backend/server.js#L61-L97",
+          "version": "repo-lines-v1:sha256:82c498c1c508ced048b4e41db16284435abb01f6a25aa0b454c3147566fc5911:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg3MjRmMjQ4N2EwODc5ODc2OWU1OTUzZTE4MTIwNTU4YWU2MjAzY2JmMzUwZTg3MzBiNTZiNmJkOTMzYTk4NzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0Y2M2MDIyNGEyZjUxNmZlNzZkZDViMzgzYTRlMDU4MThlMDQ1NjI2NjA4ZDdlNzc3Yjc3OTc0NzhkMjczMTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwMGNlZTFjODVlNTNkMDM1MzNjZWUwYzBkMzdiNDdhMGM0MTg1ZjI4ZWU4MTJmOWFhODNkZDM1NmFkNmE4NDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc2ZTVmMzRhNjBhOGQ2ZmJlNzhkNGU2NjE0NzllMjg0YjYyNzRmMTNhYTQwOGU3OGNiOGI2OTU5OTUyNzg2ZmYifQ"
         }
       ]
     },
@@ -43,7 +43,7 @@
           "version": "repo-lines-v1:sha256:493997dcabc1b143fb864502b545782cb3ea78473844a01cc2512be805324098:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjU2ZDgzMDkwYzZmYjkzNDYzYWQ0ZjJmODVmOGNhNTU3NmY3ZTg1ZTEyMWQ5NThhNTM3MThlMjFkOWY3NmU2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzhjYzBiMTdiZDlkMWQ5NzQwNzljNDJiZmIyYWFjZmI4MWU2ZWM3ZWVlZmI0NDdhMDVmZGRlYzU3YTJlYzI1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmZiZmMwOWU0MTI5YWU0NjM4YjM4NzNmNmEzNjNiMmU2MThkZDY5YmY3N2MyNGM5ODllZjIxMDc4NzllZTg3ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmU3NDlhOTViOWFjYmJkMmZhMzEwMjg0NTc0NDc2ZGYxYjM2NWM0NDQ4NzAyZGU3ZTU4M2Q2NzNhMWYwZGQ5NyJ9"
         },
         {
-          "resource": "repo://backend/server.js#L528-L531",
+          "resource": "repo://backend/server.js#L541-L544",
           "version": "repo-lines-v1:sha256:051b50adfab31a8554209e2ad5d4d1a1a6afa54736dc1fe1fff5b4442367144f:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzgzMTM2ZGJlNGY2ZTM4ZWQwOGQwNDM0MjBkZWI4MDU1YWM1YWI3ZWM3YTM3MWI1MTRmMmFjNGQyNmI1YzRiNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWJlYzY0MTU1ODM5YTMwZjVmMDEyNWJkZDgxN2MzZmU0YmE1YTZhODljYzJhNjVmZWI1YTE2ZGU2MzYzNzgzNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDRhZGM3Yzk2ZWFiZmVmNDdiNWU4ODdjNzk1YjJjNzI4MWM5OTUzNjI2MWE1ZWFhNTU2ZDk4MTE3NDg5ZmM4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzRlMGU0YWE5Yzc3OTIyYTdhZTY2NmQ1MzA1OWYzMDJhMWYxMDE0ZGVhZmEwOWJhNWU2ZWFlOTY5NmE4MWYyNCJ9"
         },
         {
@@ -65,7 +65,7 @@
       "statement": "The backend mounts ~20 route modules under /api/v1 in server.js, including users, orders, payment, products, restaurants, inventory, analytics, payouts, notifications, surge, reorder, biometric and gdpr; the chat router (chatRoutes) is currently commented out in server.js in this snapshot, so the Groq chatbot pipeline is dormant at the HTTP surface though its code and tests remain.",
       "evidence": [
         {
-          "resource": "repo://backend/server.js#L464-L493",
+          "resource": "repo://backend/server.js#L477-L506",
           "version": "repo-lines-v1:sha256:2f4f6f9710750b18d78c4dbe2df934a5c6e9219275dbbda52445e8dd427d1ffa:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhNzI3NzhiYmQ0ODAxODdiM2YzY2MyYTI0ZDcyN2FlMDQxOGY1MWM3OTU1NjA0NzQ3M2I5MDUyNDRjYzE5MTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhMDNlMmQxMzc0M2QyMDdhZmI3MzFjOGVjM2I0NDlhZTJjN2IyNzMyNzU2ZjZjZjA2NDQ1MjJkZTMxMWY3ZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2Mjk4ZWUyOGE2MzExYmJiNGNkZTZiYWY4YzhiYzkwYzlmMjAwNzY2MjA5NTVkZTM1MzJlZDQ2MDU0YmNlZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJkOGJmNGYwMWFlMmRjZjE1ZmQ0NWUzMmZiN2UxODI5MTBiZTA1NGYxNDI3YzA5MmRiYTg5ODQwYjY3NzdiNjIifQ"
         }
       ]
@@ -73,6 +73,6 @@
   ],
   "verification": {
     "by": "openwiki/0.6.1",
-    "at": "2026-10-03T11:06:07.603Z"
+    "at": "2026-10-03T12:24:36.041Z"
   }
 }

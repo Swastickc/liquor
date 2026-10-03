@@ -5,7 +5,7 @@ description: How backend/server.js processes every request — environment valid
 tags: [backend, security, middleware, authentication, express, server-js]
 verified:
   - by: openwiki/0.6.1
-    at: 2026-10-03T11:06:07.603Z
+    at: 2026-10-03T12:24:36.041Z
 sources:
   - id: openwiki-source-26e791eee19d210c3de5dd59
     resource: repo://backend/middleware/authMiddleware.js
@@ -19,7 +19,7 @@ sources:
     resource: repo://backend/middleware/roleMiddleware.js
   - id: openwiki-source-ab975d6f2b734f6119ff4cb1
     resource: repo://backend/server.js
-generated: { by: "opencode", at: "2026-10-03T11:06:07.603Z" }
+generated: { by: "opencode", at: "2026-10-03T12:24:36.041Z" }
 ---
 
 # API Gateway, Security Middleware & Auth
@@ -43,13 +43,13 @@ After validation, `connectDB()` is called and the HTTP server wraps Express so S
 
 An inbound request traverses, in registration order:
 
-1. **Raw-body carve-out for webhooks**: `POST /api/v1/payment/webhook` gets `express.raw({ type: "application/json", limit: "100kb" })` before `express.json()` so Razorpay HMAC verification sees the exact bytes Razorpay signed.
+1. **Raw-body carve-out for webhooks**: `POST /api/grocery/webhook` and `POST /api/v1/payment/webhook` each get `express.raw({ type: "application/json", limit: "100kb" })` before `express.json()` so Razorpay HMAC verification sees the exact bytes Razorpay signed.
 2. **Body limits**: `express.json({ limit: "1mb" })` and `express.urlencoded({ extended: true, limit: "1mb" })` cap payload size (DoS defense).
 3. **`helmet()`** security headers and **`compression()`**.
 4. **`cookieParser(process.env.COOKIE_SECRET)`** — secret-signed cookie parsing, needed for the `jwt` auth cookie and for the Socket.io handshake fallback.
 5. **`safeMongoSanitize`** (defined inline in `server.js`): recursively strips any key starting with `$` or containing `.` from `req.body`, `req.query`, and `req.params`, killing NoSQL injection operators. It deliberately skips `Buffer` bodies so webhook raw bytes survive.
 6. **`csrfProtection`** (custom, in `server.js`): skipped for GET/HEAD/OPTIONS and for an explicit `csrfExemptPaths` list (webhook, register/login/logout, OTP, password reset, contact, Google auth, `POST /api/v1/orders` creation, `/ping`). Cookie-authenticated mutating requests must carry the `X-Requested-With` header (browsers cannot set this header cross-origin); requests carrying an `Authorization: Bearer` header are exempt because CSRF targets cookie auth, not header auth.
-7. **CORS**: exact-origin whitelist — `http(s)://localhost:5173`, `https://swadkart.vercel.app`, `process.env.FRONTEND_URL`, `https://swadkart-5wtf.onrender.com`. Same-origin/no-Origin requests pass; anything else raises `CORS Protocol Violation`. credentials are enabled.
+7. **CORS**: exact-origin whitelist — `http(s)://localhost:5173`, `https://swadkart.vercel.app`, `process.env.FRONTEND_URL`, `https://kalna-daily.vercel.app`, `https://swadkart-5wtf.onrender.com`. Same-origin/no-Origin requests pass; anything else raises `CORS Protocol Violation`. credentials are enabled. The same whitelist guards the Socket.io handshake CORS.
 8. **Rate limiters** (`express-rate-limit`):
    - Global API: 200 requests / 15 min per IP on `/api`.
    - Auth limiter: 10 requests / 10 min on login, register, verify-email, password forgot/reset.

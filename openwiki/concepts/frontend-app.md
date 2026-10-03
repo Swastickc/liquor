@@ -2,9 +2,6 @@
 type: "Reference"
 title: "Frontend PWA: State, Routing & Client Features"
 openwiki_generated: true
-verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-03T11:06:07.603Z
 sources:
   - id: openwiki-source-49b284af4abdb5084d5b9d09
     resource: repo://frontend/src/App.jsx
@@ -21,6 +18,9 @@ sources:
   - id: openwiki-source-c1bd8bd4834d4dc70a8b85cc
     resource: repo://frontend/vite.config.js
 generated: { by: "opencode", at: "2026-10-03T11:06:07.603Z" }
+verified:
+  - by: openwiki/0.6.1
+    at: 2026-10-03T12:24:36.041Z
 ---
 
 

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:9bb2da5dad4c997ce2e4f986283abdeacdc34d8a0f4833e5eaac39a53f6ac74b",
+  "pageVersion": "sha256:c7cfa4db53100033d75a3bd62501774002c7350f58c6a8fbbd0e8de6a0d5a794",
   "claims": [
     {
       "id": "claim_96609f18f57a45709142db3239383d51",
@@ -38,11 +38,15 @@
     },
     {
       "id": "claim_ec077d6d4e3942fa89dd573eefda8e90",
-      "statement": "The biometric lock checks platform-authenticator availability, the isBiometricEnabled localStorage flag, and login state before locking the app, dynamically imports biometricService on the lock screen, and limits unlock attempts to 3 before logout.",
+      "statement": "The biometric lock checks platform-authenticator availability, the isBiometricEnabled localStorage flag, and login state before locking the app, dynamically imports biometricService on the lock screen, and limits unlock attempts to MAX_ATTEMPTS before an emergency logout that clears session state.",
       "evidence": [
         {
-          "resource": "repo://frontend/src/App.jsx#L88-L161",
-          "version": "repo-lines-v1:sha256:6e3d2fa6ee2a50204420193a7b660d195a9bc0b9018af66ac3a88a7f47f2e357:eyJzZWxlY3RlZExpbmVDb3VudCI6NzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2Y2JkM2U0Zjc1YTllOGVjMzU2Y2NhZDg5ODQ1MzYyMTNjZDQxYWQ4YThlNWRiMDkzNDMwMjE2MWQyNWY4YWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUxMmI4MDVmNjQwZTIzODA1NzVhYjRmZDc4Zjc1NTcyYzEzYzRjM2MxZWZmZTI2ZTA0MWVjNjZiOTJkZjgxZjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU4ZjVmNDE4MTlmMWZmNWZiN2ZiMTg5ODFiYTkyMzU5MzFlMTRkM2U2NWM5MDIyMjllYWYwNGFjMzU4MzUwMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4YTEyZGNlOWRhN2YzYjY2NWJlYmI0OWQ0MTFiYmU4YWNiYTc5ZmNjNzEzZGVhN2MwYmFmMDhiMzZkOTRhZTYifQ"
+          "resource": "repo://frontend/src/App.jsx#L151-L171",
+          "version": "repo-lines-v1:sha256:2c863cd057b3da58189ac5fda32a3523a864528575beb6fc1771a631ffb3028a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiZmM3YjdiOTRlNjE1MzFhMjNjOTQ0MmFjNTY1YTBlYTUwMWU1ZDY5NTYxMzRiMzc2YzRhMDU3OTU4ZTUzZjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1NzJmNWQ1M2I4ZDczMTBhNDM3NjRhYTgzN2M0YjM3MGIzZTAxZGQxNDkxY2M3ZDc3YjdmZGJmYmVkMmU5NjUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkOTY2NWJmZTRiMzQxOWE4ZWQ1NTZhMjBjODNmYWM2ZTNkMDBlNDUyOGQ3NDI4NGE2MWU0OTMzOGY1MGNhNWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdlYzg0MGUzY2Y0YTZlMDJhMGY2MzljOTBjNDc5ZGI5NjQ1YjM4ZWVlZDJmZjZhNjUxY2I3MDJmMmJkMzBlNjQifQ"
+        },
+        {
+          "resource": "repo://frontend/src/App.jsx#L88-L104",
+          "version": "repo-lines-v1:sha256:eca4a6657c40d01d0181b592c16d64f50f9e1a6418e8bd9668b1c4cc0ce08f5b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2Y2JkM2U0Zjc1YTllOGVjMzU2Y2NhZDg5ODQ1MzYyMTNjZDQxYWQ4YThlNWRiMDkzNDMwMjE2MWQyNWY4YWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk0MWU3NmYzYTgzMGI0ZDExOWU1MjIyNTMzMDg2NWQzMDFlYTA5M2FiYTJmNjVhMGQyYjA2MjE2NWE3ZTlhN2YiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU4ZjVmNDE4MTlmMWZmNWZiN2ZiMTg5ODFiYTkyMzU5MzFlMTRkM2U2NWM5MDIyMjllYWYwNGFjMzU4MzUwMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdlYzg0MGUzY2Y0YTZlMDJhMGY2MzljOTBjNDc5ZGI5NjQ1YjM4ZWVlZDJmZjZhNjUxY2I3MDJmMmJkMzBlNjQifQ"
         }
       ]
     },
@@ -61,8 +65,8 @@
       "statement": "On login, App.jsx opens the shared socket, requests notification permission, and subscribes orderUpdated to play a sound and raise a Notification, cleaning up handlers on unmount.",
       "evidence": [
         {
-          "resource": "repo://frontend/src/App.jsx#L122-L145",
-          "version": "repo-lines-v1:sha256:a2cf9784de70ee8d50fa5c22cd6454ed102e2db7132e1c06797aeca536dc5036:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYxZDBkMzZmMWJjZDg3ZjZhYWMyMmQ4NmZiNmNjZDI2OGM0N2E5YzhmYjRjODIzMGI5ZmRiMjg3OTFhOTlhOGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdjN2E2MDMxYzdkNjFkOWQ5ZDAwOWFhYTFmYWE3NmExMTZiMjc2Y2M2M2E4YjdiNjE0ODI0N2ZlMzVjZTkwZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzZTFiYzhhNmI4Y2UxMDVmNDJmYjNiOTAzMjcxM2U5ZDU1YzBmMmIwNDk0MGIyMDA3MTAwMjc4ZWQ5OGIzNjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlMGI3YTAyODY0ZDY4ZTUzODMyOWYxZmY2YTg2YzRhMWZlZTg4NWY4MjVjM2RkMjczNGM0MWFjNDBhYWExN2QifQ"
+          "resource": "repo://frontend/src/App.jsx#L118-L145",
+          "version": "repo-lines-v1:sha256:f9ea6c5a528ee158d9cb64b50df6558ee620e0cd51e71177d06e94c4092affa4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5MDI2ZDQ5NDQ3YzYzNTdmYTdiMjc5ZGNhNDM5ZDNlMDA5YjY4NTZkOWUxNThjNzA0YjViNTBkZTNjNzk5YzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdjN2E2MDMxYzdkNjFkOWQ5ZDAwOWFhYTFmYWE3NmExMTZiMjc2Y2M2M2E4YjdiNjE0ODI0N2ZlMzVjZTkwZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlkYmVjNWRiNjZjZWRiZWJlZmRkZmI2YmExYjg4YzcwOWVhN2I1MTRjYTNmOTFkYWQ5MWUyMTg5YmU2N2Q4NTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlMGI3YTAyODY0ZDY4ZTUzODMyOWYxZmY2YTg2YzRhMWZlZTg4NWY4MjVjM2RkMjczNGM0MWFjNDBhYWExN2QifQ"
         }
       ]
     },
@@ -99,6 +103,6 @@
   ],
   "verification": {
     "by": "openwiki/0.6.1",
-    "at": "2026-10-03T11:06:07.603Z"
+    "at": "2026-10-03T12:24:36.041Z"
   }
 }

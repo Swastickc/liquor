@@ -2,9 +2,6 @@
 type: "Reference"
 title: "Quickstart: SwadKart"
 openwiki_generated: true
-verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-03T11:06:07.603Z
 sources:
   - id: openwiki-source-9a7277933ab0110af5cb7cbe
     resource: repo://backend/package.json
@@ -21,6 +18,9 @@ sources:
   - id: openwiki-source-23775c3de52f3ab95a13cb8b
     resource: repo://README.md
 generated: { by: "opencode", at: "2026-10-03T11:06:07.603Z" }
+verified:
+  - by: openwiki/0.6.1
+    at: 2026-10-03T12:24:36.041Z
 ---
 
 
