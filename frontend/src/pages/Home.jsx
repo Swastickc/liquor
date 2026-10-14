@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, lazy, Suspense } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
 import {
   Search, MapPin, Clock, Star, ArrowRight, Loader2,
   Sparkles, Shield, ChevronRight, ChevronDown, Bike,
@@ -122,7 +121,6 @@ function ShopCard({ shop }) {
 
 /* ─── Main ──────────────────────────────────────────── */
 const Home = () => {
-  const { t } = useTranslation("common");
   const { userInfo } = useSelector((state) => state.user);
   const [searchParams] = useSearchParams();
   const [restaurants, setRestaurants] = useState([]);
@@ -273,9 +271,9 @@ const Home = () => {
             { icon: Bike, text: "30–45 min" },
             { icon: Shield, text: "21+ Verified" },
             { icon: Truck, text: "Free delivery" },
-          ].map(({ icon: Icon, text }) => (
+          ].map(({ icon: _Icon, text }) => (
             <div key={text} className="flex items-center gap-2 text-xs font-semibold text-gray-600">
-              <Icon size={14} className="text-orange-500" />
+              <_Icon size={14} className="text-orange-500" />
               {text}
             </div>
           ))}

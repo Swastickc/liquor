@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth, googleProvider } from "../utils/firebaseConfig";
+import { auth, googleProvider, isFirebaseReady } from "../utils/firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";

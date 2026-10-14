@@ -38,7 +38,6 @@ const RestaurantOwnerDashboard = () => {
  const [showModal, setShowModal] = useState(false);
  const [isEditing, setIsEditing] = useState(false);
  const [editId, setEditId] = useState(null);
- const [activeCalcTab, setActiveCalcTab] = useState("cost");
 
  // Partner Selection State
  const [selectedPartner, setSelectedPartner] = useState({});

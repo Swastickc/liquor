@@ -15,7 +15,6 @@ import { toast } from "react-hot-toast";
 // Config & Components
 import { BASEURL } from "../config";
 import PhoneVerificationModal from "../components/order/PhoneVerificationModal";
-import axios from "axios";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -27,11 +26,8 @@ const Cart = () => {
   const { cartItems } = cart;
 
   // 2. Local State
-  const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [appliedCoupon, setAppliedCoupon] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [availableCoupons, setAvailableCoupons] = useState([]);
   const [showPhoneModal, setShowPhoneModal] = useState(false);
 
   // --- 3. Calculations ---
@@ -51,30 +47,9 @@ const Cart = () => {
   // Ensure total never goes below 0
   const totalPrice = Math.max(0, totalBeforeDiscount - discount).toFixed(2);
 
-  // --- 4. Fetch Coupons & Load Saved Coupon ---
+  // --- 4. Load Saved Coupon ---
   useEffect(() => {
     const abort = new AbortController();
-
-    const fetchCoupons = async () => {
-      try {
-        const res = await fetch(`${BASEURL}/api/v1/coupons/available`, {
-          credentials: "include",
-          signal: abort.signal,
-        });
-        if (!res.ok) {
-          console.error("Error fetching coupons: non-200 response");
-          return;
-        }
-        const data = await res.json();
-        setAvailableCoupons(Array.isArray(data) ? data : []);
-      } catch (error) {
-        if (error.name !== "AbortError") {
-          console.error("Error fetching coupons:", error);
-        }
-      }
-    };
-
-    fetchCoupons();
 
     // Check Local Storage for previously applied coupons
     const savedCoupon = localStorage.getItem("appliedCoupon");
@@ -96,7 +71,6 @@ const Cart = () => {
           return;
         }
         setAppliedCoupon(savedCoupon);
-        setCouponCode(savedCoupon);
         setDiscount(Number(savedDiscount));
       }).catch(() => {
         localStorage.removeItem("appliedCoupon");
@@ -128,65 +102,6 @@ const Cart = () => {
       return;
     }
     navigate("/shipping");
-  };
-
-  const applyCouponHandler = async (codeOverride) => {
-    const codeToApply = codeOverride || couponCode;
-
-    if (!codeToApply) return toast.error("Please enter a coupon code");
-    if (!userInfo) return toast.error("Please login to apply coupons");
-
-    setLoading(true);
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      };
-
-      const { data, status } = await axios.post(
-        `${BASEURL}/api/v1/coupons/validate`,
-        { code: codeToApply, orderAmount: itemsPrice },
-        config,
-      );
-
-      if (status !== 200) {
-        toast.error(data?.message || "Invalid or Expired Coupon");
-        removeCouponHandler();
-        setLoading(false);
-        return;
-      }
-
-      setAppliedCoupon(codeToApply);
-      setDiscount(data.discountAmount || 0);
-      localStorage.setItem("appliedCoupon", codeToApply);
-      localStorage.setItem("couponDiscount", String(data.discountAmount || 0));
-      toast.success(data.message || "Coupon Applied Successfully!");
-    } catch (error) {
-      if (error.response?.status === 401) {
-        toast.error("Session expired! Please log out and log in again.");
-      } else {
-        toast.error(
-          error.response?.data?.message || "Invalid or Expired Coupon",
-        );
-      }
-
-      if (error.response?.status !== 401) {
-        removeCouponHandler();
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const removeCouponHandler = () => {
-    setDiscount(0);
-    setAppliedCoupon("");
-    setCouponCode("");
-    localStorage.removeItem("couponDiscount");
-    localStorage.removeItem("appliedCoupon");
-    toast.success("Coupon Removed");
   };
 
   // --- 6. Render ---

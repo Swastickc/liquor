@@ -41,11 +41,10 @@ const CATEGORIES = [
 ];
 
 const Navbar = () => {
-  const { t, i18n } = useTranslation("common");
+  const { i18n } = useTranslation("common");
   const [isOpen, setIsOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [showCategories, setShowCategories] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
